@@ -11,9 +11,9 @@ CWRServerConfig: {
 	}
 
 	ScreenVibration: {
-		Label: Effet de vibration de l'écran pour les attaques spéciales des armes
-		Tooltip: Si activé, cela provoquera des vibrations de l'écran lors de certaines attaques, augmentant ainsi la sensation de coup
-	}
+        Label: Effet de vibration de l'écran pour les attaques spéciales.
+        Tooltip: Si activé, cela provoquera des vibrations de l'écran lors de certaines attaques, ce qui peut intensifier les impacts.
+    }
 
 	MurasamaSpaceFragmentationBool: {
 		Label: Effet de fragmentation de l'écran pour la fin de la technique de Murasama

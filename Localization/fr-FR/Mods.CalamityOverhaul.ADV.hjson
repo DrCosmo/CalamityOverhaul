@@ -1,172 +1,172 @@
 FirstMet: {
-	// Rolename1: ???
-	// Rolename2: Halibut
-	// Line0: Sir... your fishing technique... leaves something to be desired.
-	// Line1: You may call me Dr. Halibut.
-	// Line2: Or, just Halibut is fine.
-	// Line3: Thanks to your hook, I was pulled out of that silent, dead water.
-	// Line4: If it weren't for you, I'd probably have been stuck in a system crash... until I truly expired.
-	// Line5: This fish should have been your catch. Now, it's a gift to mark our meeting.
-	// Line6: ......
-	// Line7: You're wondering why I'm here, aren't you.
-	// Line8: I was a professor at the Sulphurous Sea University, Department of Abyssal Research.
-	// Line9: A few years ago, we organized an 'Abyssal Ecological Sampling Project.'
-	// Line10: I was the only one who made it back.
-	// Line11: At the bottom of the abyss, we encountered... an existence that cannot be understood.
-	// Line12: It couldn't have been a living thing, nor something that could be 'killed.' It was more like... terror, in its conceptual form.
-	// Line13: As I fled, I found an eye beneath a coral tree.
-	// Line14: On pure survival instinct, I swallowed it.
-	// Line15: Using the power of that eye, I opened a domain... and tore a fissure in the abyss to escape.
-	// Line16: After that, my memory blurs... I fell into a deep slumber, until you fished me up.
-	// Line17: You look like a Terrarian.
-	// Line18: If you'll have me, take me with you.
-	// Line19: I will help you conquer this land.
-	// Line20: In exchange... help me solve this... 'revival' problem with the eyes inside me.
-	// Line21: If there are no objections, let's begin by... studying this fish.
+	Rolename1: ???
+	Rolename2: Halibut
+	Line0: Monsieur... votre technique de pêche... laisse à désirer.
+	Line1: Vous pouvez m'appeler Docteur Halibut.
+	Line2: Ou, Halibut si vous voulez.
+	Line3: Grâce à votre crochet, j'ai été extirpée de ces eaux silencieuses.
+	Line4: Sans vous, j’aurais probablement été coincée dans un crash système... jusqu'a ma disparition.
+	Line5: Ce poisson aurait dû être votre prise. Je vous l'offre pour marquer notre rencontre.
+	Line6: ......
+	Line7: Vous vous demandez comment je me suis retrouvée ici, n'est-ce pas ?
+	Line8: J'étais professeur a l'Université de la Mer Sulfureuse, au Département de la Recherche Abyssale.
+	Line9: Il y a quelques années, nous avons organisé un "Projet d'échantillonnage écologique abyssal".
+	Line10: Je suis la seule rescapée.
+	Line11: Au fond de l'abysse, nous avons découvert... une existance qui est incompréhensible.
+	Line12: Ce ne pouvait pas être un organisme vivant, ni quelque chose qui pouvait être "tué". Cela resemblait plus a... la terreur, dans sa forme conceptuelle.
+	Line13: En fuyant, j'ai trouvée un œil sous un récif corallien.
+	Line14: Sous pur instinct de survie, je l'ai avalé.
+	Line15: En utilisant la puissance de cet œil, j'ai ouvert un domaine... et créé une brèche dans l'abysse pour m'échapper.
+	Line16: Aprés ça, aucun souvenir... Je suis tombée dans un sommeil profond, jusqu’à ce que vous me repêchiez.
+	Line17: Vous avez l’air d’un Terrarien
+	Line18: Si vous me le permettez, emmenez-moi avec vous.
+	Line19: Je vous aidrais a conquérir ces terres.
+	Line20: En échange..., aidez-moi à résoudre mon... problème de "résurrection" avec ces yeux en moi.
+	Line21: Si vous n’y voyez pas d’objection, commençons par... étudier ce poisson.
 }
 
 EyeOfCthulhuGift: {
-	// R1: Halibut
-	// L0: Your movements were dragged into slow-motion... I just thought you were striking a pose.
-	// L1: We've entered the 'Watched Stage.' Which means... more trouble.
-	// L2: I found this in its... maw. Take it. A Cthulhu Fish. Just like its namesake... it doesn't really follow logic.
-	// L3: Hold onto it, but be careful. It'll make you think you've opened your third eye. In reality, it's just a stimulant in your bloodstream.
-	// L4: I'm curious if you'll start winking at the moon now.
+	R1: Halibut
+	L0: Tes mouvement était lent... J'ai vraiment crue que tu prener la pose.
+	L1: Nous sommes entrés dans la "Phase d'observation". Ce qui signifie... plus d'ennuis.
+	L2: J'ai trouver ceci dans sa... machoir. Prend-le. C'est un poisson Cthulhu. Comme son nom l'indique... il n'y a pas de logique.
+	L3: Garde le précieucement, mais soit prudent. Il va te faire penser que tu as ouvert ton troisième œil. En réalité, c'est juste un stimulant dans ton systéme sanguin.
+	L4: Je me demande si tu va commencer a faire des clins d’œil à la lune.
 }
 
 KingSlimeGift: {
-	// R1: Halibut
-	// L0: That blue blob... a 'slime,' you call it? Looked more like... solidified emotion.
-	// L1: Perhaps a clumsy attempt by matter to gain self-awareness and evolve.
-	// L2: Here you go, a Slimefish. Don't squeeze it. Its feelings might explode.
-	// L3: Have you ever tried to make soup with one of these?
-	// L4: I mean... yes, we can make soup at the bottom of the sea. The sea floor even has... well, seas within the sea.
+	R1: Halibut
+	L0: Cette gelée bleu... tu appelles cela un "slime" ? Ça resemblait plus a une... émotion solidifiée.
+	L1: Sans doute un essai maladroit par la matière d'évoluer et de déveloper une conscience.
+	L2: Tiens, un poisson slime. Ne le presse pas. Il pourrait exploser.
+	L3: Tu as déjà essayer de faire une soupe avec l'un d'entre eux ?
+	L4: Je veux dire... oui, on peut faire de la soupe dans les fond marin. Le plancher océanique abrite même… des mers au sein de la mer.
 }
 
 QueenBeeGift: {
-	// R1: Halibut
-	// R2: ???
-	// L0: I almost got a faceful of honey back there.
-	// L1: Still, I managed to pull a fish out of a honey puddle on the ground.
-	// L2: Here, fresh and... still-warm Honeyfish.
-	// L3: I think it would be perfect for a sweet and sour dish.
+	R1: Halibut
+	R2: ???
+	L0: J'ai presque était recouvert de miel là bas.
+	L1: Mais, j'ai réusit a récupérer un poisson dans une flaque de miel au sol.
+	L2: Voilà, un poisson miel frais and... encore chaud.
+	L3: Je pense qu'il serrait parfait pour un repas doux et sucrée.
 }
 
 SkeletronGift: {
-	// R1: Halibut
-	// L0: Now that was a significant amount of calcium.
-	// L1: Its cranial structure reminded me of a runaway psychic construct.
-	// L2: Let my gun barrel cool down. I found a fish around here in the meantime.
-	// L3: Look, a 'Skeletron Fish.' They say the phosphorus inside makes night-fishers contemplate their existence.
-	// L4: Let's move. More... 'abstract' bones await.
+	R1: Halibut
+	L0: Alors ça c'est une bonne dose de calcium.
+	L1: Sa structure cranière me rapelle une construction psychique.
+	L2: Laisse le cannon de mon arme refroidir. En attendant j'ai trouver un poisson.
+	L3: Regarde, un "Poisson Skeletron". On dit que leur phosphore fait contempler leur exsistance au pécheurs de nuit.
+	L4: Avançons. Des os plus... "abstrait" nous attandent.
 }
 
 AquaticScourgeGift: {
-	// R1: Halibut
-	// L0: It reminds me of the less-friendly neighbors from my hometown. This one was quite amicable, though. Used to be the head of security at Sulphurous Sea University. Always said hello.
-	// L1: The Sulphurous Sea is an interesting place. Every creature there asks the same question: 'Why am I still alive?'
-	// L2: A Prismfish. Its scales refract colors you've never seen. Mainly because they shouldn't exist.
-	// L3: Staring at it will reboot your visual system. Like a forced update, but more painful.
-	// L4: Best to use it in dim light. Otherwise, you'll feel... high.
+	R1: Halibut
+	L0: Il me rapelle les voisoins peu fréquentables de mon village. Mais celui là était assez amical. Il était le chef de la sécurité a l'Université de la Mer Sulfureuse. Il disait toujours bonjour.
+	L1: La mer sulfureuse est un endroit intérésant. Chanque créature ce pose la même question: "Pourquoi suis-je toujour en vie ?"
+	L2: Un poisson prisme. Ces écailles réfractent des couleurs que tu n’as jamais vues. Principalement parcequ'elle ne devraient pas exister.
+	L3: Le regarder redémarrera ton système visuelle. Comme une mise à jour forcée, mais plus douloureuse.
+	L4: Il faut mieux l'utiliser sous une lumière tamisée. Sinon tu vas... planer.
 }
 
 BrimstoneElementalGift: {
-	// R1: Halibut
-	// L0: Her just standing there was like a burning speech. Good thing we managed to shut her up.
-	// L1: Some elementals aren't created. They're just... oddities... that seep out of the world's cracks.
-	// L2: An Obsidianfish. A product of instantly cooled lava. Its scales are harder than the grudges festering in hell.
-	// L3: Careful, it might spontaneously combust in your hand. Emotionally speaking.
-	// L4: After all, anger is contagious.
+	R1: Halibut
+	L0: Rien que sa précence était comme un discours enflammé. Heureusement qu’on a réussi à la faire taire.
+	L1: Certains élémentaires ne sont pas créés. Ce sont juste... des anomalies... qui s'imissent a travers les failles du monde.
+	L2: Un poisson d'obsidienne. Né de lave refroidit instantanément. Ces écailles sont plus dures que les rancunes qui imprégne l'enfer.
+	L3: Attention, il pourrait s’embraser spontanément dans ta main. Émotionellement parlant.
+	L4: Après tout, la colère est contagieuse.
 }
 
 CalamitasCloneGift: {
-	// R1: Halibut
-	// L0: A cheap shadow. Reminds me of the genetic monstrosities I used to cook up in my trench back in university. In any case, the one who made this has terrible taste.
-	// L1: I have a bad feeling. The real terror is still waiting... deeper. It's even getting closer.
-	// L2: Back to business. A Brimstone Fish, picked from her embers. You can still hear it muttering nonsense if you hold it close.
-	// L3: If you start to understand what it's saying... well, congratulations. You've taken the first step into madness.
-	// L4: But don't worry. Madness is just another form of clarity, seen from a different angle.
+	R1: Halibut
+	L0: Une imitation bon marché. Cela me rapelle les monstruosités génétiques que je concoqueté a l'Université. Dans tout les cas, la personne qui a créé ça a un goût déplorable.
+	L1: J'ai un mauvais pressentiment. La véritable terreur attend encore... dans les pronfondeurs. Et elle se rapproche.
+	L2: Retournons a nos moutons. Un poisson de soufre, récupéré dans ses braises. Tu peux encore l'entendre marmonner des absurdités si tu tend l'oreil.
+	L3: Si tu commence a comprendre ce qu'il dit... eh bien, félicitations. Tu est entreint de sombrer dans la folie.
+	L4: Mais ne t'inquiète pas. La folie est juste une autre forme de clarté, vu sous un angle différent.
 }
 
 CrabulonGift: {
-	// R1: Halibut
-	// L0: That mushroom-like... being? Is it wisdom or just pure instinct hidden under its cap?
-	// L1: Did you know mycelial networks can transmit information? Maybe it was calling for help.
-	// L2: This is a Fungifish. I barely caught it among the spores it was releasing.
-	// L3: Don't worry, the spores won't turn a human into a fungus... probably.
-	// L4: But if you suddenly get the urge to put down roots in a dark, damp place, do let me know.
+	R1: Halibut
+	L0: Cette chose... semblable à un champignon ? C'est de l'intelligence ou du pur instinct sous ce chapeau ?
+	L1: Tu savais que les réseaux mycéliens peuvent transmettre de l'information ? Peut-être qu'il demandait de l'aide.
+	L2: Ceci est un poisson fongique. Je l'ai attraper de justesse parmi les spore qu'il diffusait.
+	L3: Ne t'inquiète pas, les spores ne transforment pas les êtres humains en champignons... en théorie.
+	L4: Mais si tu as soudainement le besoin de t'enraciner dans un endroit sombre et humide, fait-moi signe.
 }
 
 CryogenGift: {
-	// R1: Halibut
-	// L0: A frozen soul...
-	// L1: In the Abyssal Archives, this kind of low temperature is usually used to 'preserve' the lunatics.
-	// L2: A Cryo-minnow, thawed from the ice shards. It's still holding the pose it was frozen in.
-	// L3: They say eating it cools your blood, makes your thoughts exceptionally clear.
-	// L4: Eat too many, and you might just become an ice sculpture.
+	R1: Halibut
+	L0: Une âme gelée...
+	L1: Dans les Archives Abyssales, ce type de basse température est généralement utilisé pour "préserver" les lunatiques.
+	L2: Un cryo-vairon, extrait de fragments de glace. Il conserve encore la pose dans laquelle il a été figé.
+	L3: On dit que le manger, refroidit le sang, ce qui rend les pensées clair.
+	L4: Manges en trop, et tu pourrais bien finir en sculpture de glace.
 }
 
 DevourerOfGodsGift: {
-	// R1: Halibut
-	// L0: The Devourer of Gods... a cosmic serpent that dines on deities. Its appetite is as infinite as its ambition.
-	// L1: You know what they say: when you gaze into the abyss, the abyss gazes back. But this thing doesn't just gaze. It wants you for a snack.
-	// L2: A Neon Tetra. It floated out of a void rift. The light it emits isn't from this dimension.
-	// L3: Looking at it makes your brain try to comprehend colors it shouldn't. It's a... unique experience.
-	// L4: If you start seeing new colors, congratulations. If you start *smelling* colors, you need a rest.
+	R1: Halibut
+	L0: Le Dévoreur de Dieux... un serpent cosmique qui se nourrit de divinités. Son appétit est aussi infini que son ambition.
+	L1: Tu sais ce qu’on dit : quand tu contemples l’abîme, l’abîme te contemple en retour. Mais cette chose ne se contente pas de regarder. Elle veut te manger.
+	L2: Un tétra néon. Il a flotté en dehors d’une faille du néant. La lumière qu'il émet ne provient pas de cette dimension.
+	L3: Le regarder pousse ton cerveau à tenter de comprendre des couleurs qu’il ne devrait pas percevoir. C'est une expérience... unique.
+	L4: Si tu commences à voir de nouvelles couleurs, félicitations. Si tu commences à *sentir* les couleurs, tu devrais faire une pause.
 }
 
 GolemGift: {
-	// R1: Halibut
-	// L0: A pile of moving rocks. Legacy of an ancient civilization... or perhaps, proof of their failure.
-	// L1: It might be guarding something. Or just repeating a program that lost its meaning long ago.
-	// L2: A Rockfish, dug from the temple's foundation. Its density makes me question my own existence.
-	// L3: I tried to boil it once. My pot surrendered first.
-	// L4: ...Some things exist just to make us realize that not all problems need to be solved.
+	R1: Halibut
+	L0: Un amas de roches animé. Vestige d'une ancienne civilisation... ou peut-être, la preuve de son échec.
+	L1: Il gardait peut-être quelque chose. Ou bien il executait jute un programme dont le sens s’est perdu depuis longtemps.
+	L2: Un poisson-pierre, extrait des fondations du temple. Sa densité me pousse à remettre en question ma propre existence.
+	L3: J'ai essayée de le faire bouillir un fois. Ma marmite a rendue l'âme en premier.
+	L4: ...Certaines choses existent simplement pour nous rappeler que tous les problèmes n’ont pas besoin de réponse.
 }
 
 HiveMindGift: {
-	// R1: Halibut
-	// L0: A collective consciousness made of corruption... what a disgusting concept.
-	// L1: Its thought process must be... unique. Countless rotten fragments pieced together into a single, twisted whole.
-	// L2: Here, a Rotfish. Pulled it from that pile of carrion. Don't ask how.
-	// L3: It smells like seafood that's been left in the sun for three days.
-	// L4: But they say it lets you... resonate with the corruption. That just sounds wrong.
+	R1: Halibut
+	L0: Une conscience collective faite de corruption... quelle concept répuniant.
+	L1: Son mode de pensée doit être… unique. D’innombrables fragments putréfiés assemblés en un tout unique et difforme.
+	L2: Tiens, un poisson putréfié. Arraché de ce tas de carcasses. Ne me demmande pas comment.
+	L3: Il a l'odeur de fruit de mer que l'on aurrais laisser au solei pendant des jours.
+	L4: Mais on dit qu’il te permet de… résonner avec la corruption. Rien que l’idée me déplaît.
 }
 
 LeviathanGift: {
-	// R1: Halibut
-	// L0: The ocean's tyrant... and her little sidekick who's always following her. Some friendships transcend species. And logic.
-	// L1: I think what lives in the deepest trenches isn't fear, it's loneliness. They're just looking for company.
-	// L2: A Tropic-cuda, pulled from a deep-sea vortex. It looks ordinary, which is precisely what's suspicious about it.
-	// L3: The more mundane the exterior, the more extraordinary the past.
-	// L4: Just like us.
+	R1: Halibut
+	L0: Le tyran des océans… et sa petite acolyte qui le suit partout. Certaines relations transcendent les espèces. Et la logique.
+	L1: Je pense que ce qui vit dans les fosses les plus profondes, ce n’est pas la peur… mais la solitude. Elles cherchent simplement de la compagnie.
+	L2: Un tropic-cuda, extrait d’un vortex des profondeurs. Il paraît ordinaire, ce qui est précisément ce qui le rend suspect.
+	L3: Plus l’apparence est banale, plus le passé est extraordinaire.
+	L4: Juste comme nous.
 }
 
 MoonLordGift: {
-	// R1: Halibut
-	// L0: The Lord of the Moon, ha! Or, *formerly*. Now just a floating pile of eyeballs and gore.
-	// L1: We didn't just save the world; we closed a door that was never meant to be opened.
-	// L2: I caught a Cloudfish. It floated down from a crack in the sky. Feels weightless in my hand.
-	// L3: They say it lets you see the future... but you've already rewritten that future.
-	// L4: We just proved that even gods can bleed.
+	R1: Halibut
+	L0: Le Seigneur de la Lune, ha ! Ou plutôt… *anciennement*. Maintenant, juste un amas flottant d’yeux et de chair.
+	L1: Nous n’avons pas seulement sauvé le monde; nous avons refermé une porte qui n’aurait jamais dû être ouverte.
+	L2: J’ai attrapé un poisson-nuage. Il est descendu d’une fissure dans le ciel. Il semble presque sans poids dans ma main.
+	L3: On dit qu’il permet de voir l’avenir… mais tu as déjà réécrit cet avenir.
+	L4: Nous venons de prouver que même les dieux peuvent saigner.
 }
 
 PerforatorGift: {
-	// R1: Halibut
-	// L0: A pile of drilling flesh-worms... this creature's existence is a challenge to biology.
-	// L1: Their blood has a strange viscosity, like some kind of living metal.
-	// L2: Found this in the wreckage. A Gore-fish. It's still wriggling.
-	// L3: Don't be scared by its looks, even if it looks like it crawled out of a nightmare.
-	// L4: At least it won't crawl into your ear while you sleep... probably.
+	R1: Halibut
+	L0: Un amas de vers de chair foreurs… l’existence même de cette créature défie la biologie.
+	L1: Leur sang a une viscosité étrange, comme une sorte de métal vivant.
+	L2: J’ai trouvé ça dans les débris. Un poisson de chair. Il se tortille encore.
+	L3: Ne sois pas effrayé par son apparence, même s’il semble tout droit sorti d’un cauchemar.
+	L4: Au moins, il ne rampera pas dans ton oreille pendant ton sommeil… probablement.
 }
 
 PlaguebringerGift: {
-	// R1: Halibut
-	// L0: The Plaguebringer... a mechanical bee carrying a bioweapon. Who designed this? A real bastard, daring to enslave bees.
-	// L1: A virus doesn't care about right or wrong. It just wants to survive. Like us, only more direct.
-	// L2: A Jewel-fish. Infected and miraculously recovered. Its immune system is more experienced than you are.
-	// L3: They say eating it boosts resistance. Sounds like another way of saying 'what doesn't kill you makes you stronger.'
-	// L4: But since *we* just walked out of a plague-hive, this little risk should be nothing.
+	R1: Halibut
+	L0: The Plaguebringer... une abeille mécanique transportant une arme biologique. Qui a conçu ça? Un vrai enfoiré, osant asservir les abeilles.
+	L1: Un virus se moque du bien ou du mal. Il cherche simplement à survivre. Comme nous tous, mais de façon plus directe.
+	L2: Un poisson-bijou. Infecté puis miraculeusement rétabli. Son système immunitaire est plus expérimenté que le tien.
+	L3: On dit que le manger renforce la résistance. Une autre façon de dire "ce qui ne te tue pas te rend plus fort".
+	L4: Mais puisque nous venons de survivre à une ruche pestiférée, ce petit risque devrait être négligeable.
 }
 
 PlanteraGift: {
