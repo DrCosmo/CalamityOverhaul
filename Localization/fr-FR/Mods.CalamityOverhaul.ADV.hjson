@@ -162,7 +162,7 @@ PerforatorGift: {
 
 PlaguebringerGift: {
 	R1: Halibut
-	L0: The Plaguebringer... une abeille mécanique transportant une arme biologique. Qui a conçu ça? Un vrai enfoiré, osant asservir les abeilles.
+	L0: La Porteuse de Peste... une abeille mécanique transportant une arme biologique. Qui a conçu ça? Un vrai enfoiré, osant asservir les abeilles.
 	L1: Un virus se moque du bien ou du mal. Il cherche simplement à survivre. Comme nous tous, mais de façon plus directe.
 	L2: Un poisson-bijou. Infecté puis miraculeusement rétabli. Son système immunitaire est plus expérimenté que le tien.
 	L3: On dit que le manger renforce la résistance. Une autre façon de dire "ce qui ne te tue pas te rend plus fort".
@@ -170,63 +170,63 @@ PlaguebringerGift: {
 }
 
 PlanteraGift: {
-	// R1: Halibut
-	// L0: A flower... if 'flower' is the word for that man-eating vine conglomerate.
-	// L1: The jungle's rage, grown in plant form. Nature's revenge is never rational.
-	// L2: A Twin-Cod. It has two heads. The jungle is like a land-ocean; things here don't need a reason to grow extra parts.
-	// L3: They say two heads mean twice the wisdom, but they just look like they're arguing over which way to swim.
-	// L4: Like 'diet' and 'appetite.' Always fighting. My appetite always wins, though.
+	R1: Halibut
+	L0: Une fleur… si « fleur » est vraiment le mot pour décrire cet amas de lianes anthropophages.
+	L1: La rage de la jungle, incarnée sous forme végétale. La vengeance de la nature n’est jamais rationnelle.
+	L2: Une morue jumelle. Elle a deux têtes. La jungle est comme un océan terrestre ; ici, les choses n’ont pas besoin de raison pour se faire pousser des membres en plus.
+	L3: On dit que deux têtes signifient deux fois plus de sagesse, mais elles donnent surtout l’impression de se disputer pour savoir dans quelle direction nager.
+	L4: Comme « régime » et « appétit ». Toujours en conflit. Mais mon appétit finit toujours par gagner.
 }
 
 ProvidenceGift: {
-	// R1: Halibut
-	// L0: The Profaned Goddess... a contradiction of faith and flame. Quite pitiful.
-	// L1: We didn't just extinguish a holy flame, but the embers of an entire era.
-	// L2: A Demon-Hell Fish, reborn from her ashes. Its temperature is permanently fixed at 'just hot enough not to burn you.'
-	// L3: That precise control makes me suspect... maybe she just wanted to be understood.
-	// L4: But the line between understanding and war is only one attack away.
+	R1: Halibut
+	L0: La Déesse Profanée… une contradiction entre foi et flammes. C’en est presque pitoyable.
+	L1: Nous n’avons pas seulement éteint une flamme sacrée, mais les dernières braises d’une époque entière.
+	L2: Un poisson-démon, renaissant de ses cendres. Sa température semble constamment maintenue à « juste assez chaude pour ne pas te brûler ».
+	L3: Un contrôle aussi précis me fait me demander… peut-être qu’elle voulait simplement être comprise.
+	L4: Mais la frontière entre compréhension et guerre ne tient qu’à une seule attaque.
 }
 
 SlimeGodGift: {
-	// R1: Halibut
-	// L0: Three slimes... or, a fractured divinity? This dualistic existence is... interesting.
-	// L1: Corruption and Crimson. The eternal conflict of this world. And we just proved that conflict can be 'resolved.'
-	// L2: A Variegated Lardfish. Scooped from the goo. Don't ask about the name.
-	// L3: Its color changes with the observer's mood. Or perhaps, it's mimicking your inner chaos.
-	// L4: Stare too long, and you might start to wonder which side you're really on.
+	R1: Halibut
+	L0: Trois slimes... ou une divinité fracturée ? Cette existence scindée est... fascinante.
+	L1: Corruption et Carmin. Le conflit éternel de ce monde. Et nous venons de prouver que ce conflit peut être "résolu".
+	L2: Un poisson-lard panaché. Récupéré dans cette gelée. Ne me demande pas d’où vient ce nom.
+	L3: Ses couleurs changent selon l’humeur de l’observateur. Ou peut-être... qu’il imite ton conflit intérieur.
+	L4: Regarde-le trop longtemps, et tu pourrais commencer à te demander de quel côté tu te trouves réellement.
 }
 
 SupremeCalamitasGift: {
-	// R1: Halibut
-	// L0: Brimstone Witch... an avenger. The most powerful magic-wielder of the last century.
-	// L1: What we just did... did we end a legend, or create a new one?
-	// L2: A Princessfish, born from her embers. It has a conflicting grace, like a flower blooming in ruins.
-	// L3: They say it shows you the person you most want to be... but that version is often the least like yourself.
-	// L4: You're nearing the peak of Terrarian power. From here on... it's a long way down.
+	R1: Halibut
+	L0: La Sorcière de Soufre... une vengeresse. La plus puissante mage du siècle dernier.
+	L1: Ce que nous venons de faire... avons-nous enterré une légende, ou venons-nous d’en créer une nouvelle ?
+	L2: Un poisson-princesse, né de ses cendres. Il possède une grâce contradictoire, comme une fleur éclatant parmi les ruines.
+	L3: On raconte qu’il te montre la personne que tu rêves d’être... mais cette version est souvent très différente de ce que tu es réellement.
+	L4: Tu approches du sommet de la puissance terrarienne. À partir d’ici... la chute est longue.
 }
 
 WallOfFleshGift: {
-	// R1: Halibut
-	// L0: A wall of flesh and bone... this world's creator must have had some peculiar ideas.
-	// L1: You just broke some kind of balance. Feel that? The world's pulse is quickening.
-	// L2: Found this Hungering Fish in the remains. It looks eternally starved.
-	// L3: Just like that wall. Always chasing, always consuming.
-	// L4: Welcome to 'Hard Mode'... though I didn't think it was 'easy' before.
+	R1: Halibut
+	L0: Un mur de chair et d’os... le créateur de ce monde devait avoir des idées bien particulières.
+	L1: Tu viens de briser une forme d’équilibre. Tu le sens ? Le pouls du monde s’accélère.
+	L2: J’ai trouvé ce poisson affamé dans les restes. Il semble éternellement affamé.
+	L3: Exactement comme ce mur. Toujours à poursuivre. Toujours à dévorer.
+	L4: Bienvenue dans le "Mode Difficile"... même si je trouve que c'était pas si "facile" avant.
 }
 
 YharonGift: {
-	// R1: Halibut
-	// L0: The Jungle Dragon... no, the World-Burning Dragon. It burns not with flesh, but with obsession.
-	// L1: A loyalty so pure it would burn itself to ash for its master... reminds me of the fish schools that guard the coral reefs back home.
-	// L2: A Scarlet Tigerfish. Just caught it. I'm quite fond of its stripes.
-	// L3: Holding it, you feel a scorching resolve. That is the temperature of a warrior.
-	// L4: You defeated that dragon, but I have to wonder... in the moment it fell, did it finally find... release?
+	R1: Halibut
+	L0: Le Dragon de la Jungle... non, le Dragon Brûleur de Mondes. Il ne consume pas par la chair, mais par l’obsession.
+	L1: Une loyauté si absolue qu’il se réduirait lui-même en cendres pour son maître... ça me rappelle les bancs de poissons qui protègent les récifs coralliens de chez moi.
+	L2: Un poisson-tigre écarlate. Je viens juste de l’attraper. J’aime bien ses rayures.
+	L3: En le tenant, tu ressens une détermination brûlante. Voilà la température d’un guerrier.
+	L4: Tu as vaincu ce dragon, mais je me demande... au moment de sa chute, a-t-il finalement trouvé... la paix ?
 }
 
 ADVRewardPopup: {
-	// ClickToReceive: Click to Receive
-	// ClickToContinue: Click to Continue
-	// ClickOrWaitToContinue: Click/Wait to Continue
+	ClickToReceive: Cliquer pour recevoir
+	ClickToContinue: Cliquer pour continuer
+	ClickOrWaitToContinue: Cliquer/Attendre pour continuer
 }
 
 FirstMetSupCal: {
