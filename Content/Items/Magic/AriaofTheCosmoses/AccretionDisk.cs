@@ -1,4 +1,4 @@
-using CalamityOverhaul.Common;
+ï»¿using CalamityOverhaul.Common;
 using CalamityOverhaul.Content.PRTTypes;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,13 +11,13 @@ using Terraria.ModLoader;
 namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
 {
     /// <summary>
-    /// Îü»ıÅÌ
+    /// å¸ç§¯ç›˜
     /// </summary>
     internal class AccretionDisk : ModProjectile, IPrimitiveDrawable
     {
         public override string Texture => CWRConstant.Placeholder;
 
-        //Îü»ıÅÌ²ÎÊı
+        //å¸ç§¯ç›˜å‚æ•°
         public ref float RotationSpeed => ref Projectile.ai[0];
         public ref float InnerRadius => ref Projectile.ai[1];
         public ref float OuterRadius => ref Projectile.ai[2];
@@ -26,10 +26,10 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
         private float brightness = 1f;
         private float distortionStrength = 0.15f;
 
-        //ÑÕÉ«ÅäÖÃ
-        private Color innerColor = new Color(255, 200, 100); //ÄÚÈ¦
-        private Color midColor = new Color(255, 120, 50);    //ÖĞÈ¦
-        private Color outerColor = new Color(100, 50, 150);  //ÍâÈ¦
+        //é¢œè‰²é…ç½®
+        private Color innerColor = new Color(255, 200, 100); //å†…åœˆ
+        private Color midColor = new Color(255, 120, 50);    //ä¸­åœˆ
+        private Color outerColor = new Color(100, 50, 150);  //å¤–åœˆ
 
         private bool isAttacking = false;
 
@@ -40,7 +40,7 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
         public override void SetDefaults() {
             Projectile.width = 400;
             Projectile.height = 400;
-            Projectile.friendly = false; //³õÊ¼²»Ôì³ÉÉËº¦
+            Projectile.friendly = false; //åˆå§‹ä¸é€ æˆä¼¤å®³
             Projectile.hostile = false;
             Projectile.penetrate = -1;
             Projectile.timeLeft = 600;
@@ -53,23 +53,23 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
         }
 
         public override void AI() {
-            //¼ì²âÊÇ·ñ½øÈë¹¥»÷Ä£Ê½
+            //æ£€æµ‹æ˜¯å¦è¿›å…¥æ”»å‡»æ¨¡å¼
             if (Projectile.velocity.Length() > 0.1f && !isAttacking) {
                 isAttacking = true;
                 Projectile.friendly = true;
             }
 
-            //µ­ÈëĞ§¹û
+            //æ·¡å…¥æ•ˆæœ
             if (Projectile.alpha > 0 && !isAttacking) {
                 Projectile.alpha -= 5;
             }
             else if (isAttacking && Projectile.alpha > 50) {
-                Projectile.alpha = 50; //¹¥»÷Ê±±£³Ö¿É¼û
+                Projectile.alpha = 50; //æ”»å‡»æ—¶ä¿æŒå¯è§
             }
 
             time += 0.016f;
 
-            //Ä¬ÈÏ²ÎÊıÉèÖÃ
+            //é»˜è®¤å‚æ•°è®¾ç½®
             if (RotationSpeed == 0) {
                 RotationSpeed = 1f;
             }
@@ -80,40 +80,40 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                 OuterRadius = 0.85f;
             }
 
-            //Âö¶¯Ğ§¹û
+            //è„‰åŠ¨æ•ˆæœ
             float pulse = (float)Math.Sin(time * 2f) * 0.1f + 0.9f;
             brightness = pulse;
 
-            //Ğı×ª
+            //æ—‹è½¬
             Projectile.rotation += 0.005f + (isAttacking ? RotationSpeed * 0.02f : 0);
 
-            //¹¥»÷Ä£Ê½ÏÂµÄĞĞÎª
+            //æ”»å‡»æ¨¡å¼ä¸‹çš„è¡Œä¸º
             if (isAttacking) {
-                //×·×Ù¸½½üµĞÈË
+                //è¿½è¸ªé™„è¿‘æ•Œäºº
                 HomeInOnNearestEnemy();
 
-                //¼õËÙĞ§¹û
+                //å‡é€Ÿæ•ˆæœ
                 Projectile.velocity *= 0.98f;
 
-                //Éú³É¹ì¼£Á£×Ó
+                //ç”Ÿæˆè½¨è¿¹ç²’å­
                 if (Main.rand.NextBool(2)) {
                     SpawnTrailParticles();
                 }
             }
             else {
-                //ĞîÁ¦Ä£Ê½Éú³É»·ÈÆÁ£×Ó
+                //è“„åŠ›æ¨¡å¼ç”Ÿæˆç¯ç»•ç²’å­
                 if (Projectile.timeLeft % 3 == 0 && !VaultUtils.isServer) {
                     SpawnDiskParticles();
                 }
             }
 
-            //µ­³öĞ§¹û
+            //æ·¡å‡ºæ•ˆæœ
             if (Projectile.timeLeft < 60) {
                 Projectile.alpha += 4;
                 brightness *= Projectile.timeLeft / 60f;
             }
 
-            //·¢¹â
+            //å‘å…‰
             Lighting.AddLight(Projectile.Center,
                 innerColor.ToVector3() * brightness * 0.8f * (1f - Projectile.alpha / 255f));
         }
@@ -144,79 +144,64 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
         }
 
         private void SpawnDiskParticles() {
-            //ÔÚÎü»ıÅÌ±ßÔµÉú³É¸ß¼¶Á£×Ó
+            //ç©ºé—´è£‚éš™ç²’å­ï¼šä»å¤–å›´å‘é»‘æ´ä¸­å¿ƒæ”¶ç¼©
             float angle = Main.rand.NextFloat(MathHelper.TwoPi);
-            float distance = Main.rand.NextFloat(InnerRadius, OuterRadius) * Projectile.width * 0.5f * Projectile.scale;
+            float distance = Main.rand.NextFloat(0.6f, 1.1f) * Projectile.width * 0.5f * Projectile.scale;
 
-            Vector2 offset = new Vector2(
-                (float)Math.Cos(angle) * distance,
-                (float)Math.Sin(angle) * distance
-            );
-
+            Vector2 offset = angle.ToRotationVector2() * distance;
             Vector2 particlePos = Projectile.Center + offset;
-            Vector2 particleVel = Vector2.Normalize(offset.RotatedBy(MathHelper.PiOver2)) * Main.rand.NextFloat(1f, 3f);
+            //æœå‘ä¸­å¿ƒçš„é€Ÿåº¦ï¼ˆè¢«å¸å…¥æ„Ÿï¼‰
+            Vector2 inwardVel = (Projectile.Center - particlePos).SafeNormalize(Vector2.Zero) * Main.rand.NextFloat(2f, 5f);
+            //åŠ ä¸Šåˆ‡çº¿åˆ†é‡ï¼ˆæ—‹è½¬å¸å…¥ï¼‰
+            inwardVel += offset.RotatedBy(MathHelper.PiOver2).SafeNormalize(Vector2.Zero) * Main.rand.NextFloat(1f, 3f);
 
-            //¼ÆËã¾àÀëÖĞĞÄµÄ±ÈÀıÀ´¾ö¶¨ÑÕÉ«
-            float distanceRatio = (distance - InnerRadius * Projectile.width * 0.5f * Projectile.scale) /
-                                 ((OuterRadius - InnerRadius) * Projectile.width * 0.5f * Projectile.scale);
-            Color particleColor = Color.Lerp(innerColor, outerColor, distanceRatio);
+            float distRatio = distance / (Projectile.width * 0.5f * Projectile.scale);
+            Color particleColor = Color.Lerp(innerColor, new Color(140, 100, 200), distRatio);
 
-            //´´½¨¸ß¼¶Á£×Ó
-            BasePRT particle = new PRT_AccretionDiskImpact(
+            PRTLoader.AddParticle(new PRT_SpaceFracture(
                 particlePos,
-                particleVel,
+                inwardVel,
                 particleColor,
-                Main.rand.NextFloat(0.3f, 0.6f),
-                Main.rand.Next(20, 35),
-                Main.rand.NextFloat(-0.1f, 0.1f),
-                false,
-                Main.rand.NextFloat(0.12f, 0.18f)
-            );
-            PRTLoader.AddParticle(particle);
+                Main.rand.NextFloat(0.3f, 0.7f),
+                Main.rand.Next(18, 30),
+                Main.rand.NextFloat(-0.5f, 0.5f)
+            ));
 
-            //·ÅÉä×´³å»÷Á£×Ó
-            for (int i = 0; i < 24; i++) {
-                float angle2 = MathHelper.TwoPi * i / 24f;
-                Vector2 velocity = angle2.ToRotationVector2() * Main.rand.NextFloat(6f, 13f);
-
-                PRT_GammaImpact burst = new PRT_GammaImpact(
+            //èºæ—‹å¸å…¥å…‰ç‚¹ï¼ˆæ¯3æ¬¡ç”Ÿæˆä¸€ä¸ªï¼‰
+            if (Projectile.timeLeft % 9 == 0) {
+                PRTLoader.AddParticle(new PRT_GravityVortex(
                     Projectile.Center,
-                    velocity,
-                    Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()),
-                    Main.rand.NextFloat(0.5f, 0.75f),
-                    Main.rand.Next(30, 45),
-                    Main.rand.NextFloat(-0.4f, 0.4f),
-                    false,
-                    0.3f
-                );
-                PRTLoader.AddParticle(burst);
+                    Main.rand.NextFloat(MathHelper.TwoPi),
+                    Main.rand.NextFloat(50f, 120f) * Projectile.scale,
+                    Color.Lerp(innerColor, outerColor, Main.rand.NextFloat()),
+                    Main.rand.NextFloat(0.4f, 0.8f),
+                    Main.rand.Next(40, 65)
+                ));
             }
         }
 
         private void SpawnTrailParticles() {
-            int particleCount = 3;
-            for (int i = 0; i < particleCount; i++) {
+            //ç§»åŠ¨æ—¶ç•™ä¸‹ç©ºé—´è£‚ç—•
+            for (int i = 0; i < 2; i++) {
                 float angle = Main.rand.NextFloat(MathHelper.TwoPi);
-                float distance = Main.rand.NextFloat(0, Projectile.width * 0.5f * Projectile.scale);
+                float distance = Main.rand.NextFloat(10f, Projectile.width * 0.3f * Projectile.scale);
                 Vector2 offset = angle.ToRotationVector2() * distance;
 
                 Vector2 particlePos = Projectile.Center + offset;
-                Vector2 particleVel = -Projectile.velocity * Main.rand.NextFloat(0.3f, 0.6f);
+                //è£‚ç—•æ²¿è¿åŠ¨åæ–¹å‘æ•£å‡º
+                Vector2 particleVel = -Projectile.velocity * Main.rand.NextFloat(0.2f, 0.4f)
+                    + Main.rand.NextVector2Circular(1f, 1f);
 
-                Color particleColor = Color.Lerp(innerColor, outerColor, Main.rand.NextFloat()) * 0.9f;
+                Color particleColor = Color.Lerp(new Color(100, 70, 180), innerColor, Main.rand.NextFloat()) * 0.8f;
 
-                //´´½¨¸ß¼¶ÍÏÎ²Á£×Ó
-                BasePRT particle = new PRT_AccretionDiskImpact(
+                PRTLoader.AddParticle(new PRT_SpaceFracture(
                     particlePos,
                     particleVel,
                     particleColor,
-                    Main.rand.NextFloat(0.4f, 0.8f),
-                    Main.rand.Next(15, 25),
-                    Main.rand.NextFloat(-0.2f, 0.2f),
-                    false,
-                    Main.rand.NextFloat(0.15f, 0.25f)
-                );
-                PRTLoader.AddParticle(particle);
+                    Main.rand.NextFloat(0.3f, 0.6f),
+                    Main.rand.Next(12, 20),
+                    Main.rand.NextFloat(-0.3f, 0.3f)
+                ));
             }
         }
 
@@ -225,98 +210,89 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                 return false;
             }
 
-            //Ô²ĞÎÅö×²¼ì²â
+            //åœ†å½¢ç¢°æ’æ£€æµ‹
             float collisionRadius = Projectile.width * 0.5f * Projectile.scale * OuterRadius;
             return VaultUtils.CircleIntersectsRectangle(Projectile.Center, collisionRadius, targetHitbox);
         }
 
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
-            //»÷ÖĞÒôĞ§
+            //å‡»ä¸­éŸ³æ•ˆ
             SoundEngine.PlaySound(SoundID.Item14 with {
                 Volume = 0.5f,
                 Pitch = 0.3f
             }, Projectile.Center);
 
-            //»÷ÖĞÌØĞ§
+            //å‡»ä¸­ç‰¹æ•ˆï¼šç©ºé—´æ’•è£‚çˆ†å‘
             if (!VaultUtils.isServer && Projectile.velocity.Length() < 2) {
-                for (int i = 0; i < 15 * Projectile.scale; i++) {
-                    Vector2 velocity = Main.rand.NextVector2Circular(8f, 8f);
-                    Color particleColor = Color.Lerp(innerColor, outerColor, Main.rand.NextFloat());
+                //ç©ºé—´è£‚éš™ä»å‡»ä¸­ç‚¹æ”¾å°„
+                for (int i = 0; i < (int)(10 * Projectile.scale); i++) {
+                    Vector2 velocity = Main.rand.NextVector2Circular(6f, 6f);
+                    Color particleColor = Color.Lerp(innerColor, new Color(120, 80, 200), Main.rand.NextFloat());
 
-                    BasePRT particle = new PRT_AccretionDiskImpact(
-                        target.Center,
+                    PRTLoader.AddParticle(new PRT_SpaceFracture(
+                        target.Center + Main.rand.NextVector2Circular(15f, 15f),
                         velocity,
                         particleColor,
-                        Main.rand.NextFloat(0.5f, 1.0f),
-                        Main.rand.Next(20, 35),
-                        Main.rand.NextFloat(-0.3f, 0.3f),
-                        false,
-                        Main.rand.NextFloat(0.2f, 0.3f)
-                    );
-                    PRTLoader.AddParticle(particle);
+                        Main.rand.NextFloat(0.4f, 0.9f),
+                        Main.rand.Next(15, 28),
+                        Main.rand.NextFloat(-0.6f, 0.6f)
+                    ));
                 }
 
-                //·ÅÉä×´³å»÷Á£×Ó
-                for (int i = 0; i < 24 * Projectile.scale; i++) {
-                    float angle = MathHelper.TwoPi * i / 24f;
-                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(6f, 13f);
+                //å†…çˆ†æ”¶ç¼©ç«èŠ±
+                for (int i = 0; i < (int)(8 * Projectile.scale); i++) {
+                    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(70f, 70f);
+                    Vector2 velocity = (Projectile.Center - spawnPos).SafeNormalize(Vector2.Zero) * Main.rand.NextFloat(8f, 15f);
 
-                    PRT_GammaImpact burst = new PRT_GammaImpact(
-                        Projectile.Center,
-                        velocity,
-                        Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()),
-                        Main.rand.NextFloat(0.5f, 0.75f) * Projectile.scale,
-                        Main.rand.Next(30, 45),
-                        Main.rand.NextFloat(-0.4f, 0.4f),
-                        false,
-                        0.3f
-                    );
-                    PRTLoader.AddParticle(burst);
-                }
-
-                //ÄÚ±¬ÊÕËõÁ£×Ó
-                for (int i = 0; i < 15 * Projectile.scale; i++) {
-                    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(90f, 90f);
-                    Vector2 velocity = (Projectile.Center - spawnPos).SafeNormalize(Vector2.Zero) * Main.rand.NextFloat(10f, 18f);
-
-                    BasePRT implosion = new PRT_Spark(
+                    PRTLoader.AddParticle(new PRT_Spark(
                         spawnPos,
                         velocity,
                         false,
-                        Main.rand.Next(20, 30),
-                        Main.rand.NextFloat(1f, 1.8f),
-                        Color.White
-                    );
-                    PRTLoader.AddParticle(implosion);
+                        Main.rand.Next(15, 25),
+                        Main.rand.NextFloat(0.8f, 1.4f),
+                        Color.Lerp(Color.White, innerColor, Main.rand.NextFloat(0.3f, 0.7f))
+                    ));
                 }
             }
         }
 
         public override void OnKill(int timeLeft) {
-            //ËÀÍö±¬Õ¨Ğ§¹û
+            //æ­»äº¡çˆ†ç‚¸æ•ˆæœ
             if (!VaultUtils.isServer) {
                 SoundEngine.PlaySound(SoundID.Item62 with {
                     Volume = 0.7f,
                     Pitch = -0.2f
                 }, Projectile.Center);
 
-                int particleCount = (int)(30 * Projectile.scale);
-                for (int i = 0; i < particleCount; i++) {
-                    float angle = MathHelper.TwoPi * i / particleCount;
-                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(3f, 12f);
-                    Color particleColor = Color.Lerp(innerColor, outerColor, Main.rand.NextFloat());
+                //ç©ºé—´è£‚éš™çˆ†å‘
+                int fractureCount = (int)(20 * Projectile.scale);
+                for (int i = 0; i < fractureCount; i++) {
+                    float angle = MathHelper.TwoPi * i / fractureCount;
+                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(4f, 14f);
+                    Color particleColor = Color.Lerp(innerColor, new Color(100, 60, 180), Main.rand.NextFloat());
 
-                    BasePRT particle = new PRT_AccretionDiskImpact(
-                        Projectile.Center,
+                    PRTLoader.AddParticle(new PRT_SpaceFracture(
+                        Projectile.Center + Main.rand.NextVector2Circular(8f, 8f),
                         velocity,
                         particleColor,
-                        Main.rand.NextFloat(0.6f, 1.2f),
-                        Main.rand.Next(25, 45),
-                        Main.rand.NextFloat(-0.4f, 0.4f),
-                        false,
-                        Main.rand.NextFloat(0.15f, 0.25f)
-                    );
-                    PRTLoader.AddParticle(particle);
+                        Main.rand.NextFloat(0.5f, 1.1f),
+                        Main.rand.Next(20, 40),
+                        Main.rand.NextFloat(-0.5f, 0.5f)
+                    ));
+                }
+
+                //æ®‹ä½™å¼•åŠ›æ¼©æ¶¡
+                for (int i = 0; i < (int)(10 * Projectile.scale); i++) {
+                    float startAngle = Main.rand.NextFloat(MathHelper.TwoPi);
+                    float startRadius = Main.rand.NextFloat(30f, 60f);
+                    PRTLoader.AddParticle(new PRT_GravityVortex(
+                        Projectile.Center,
+                        startAngle,
+                        startRadius,
+                        Color.Lerp(Color.White, innerColor, Main.rand.NextFloat(0.2f, 0.6f)),
+                        Main.rand.NextFloat(0.5f, 0.9f),
+                        Main.rand.Next(25, 45)
+                    ));
                 }
             }
         }
@@ -330,152 +306,86 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
         }
 
         [VaultLoaden(CWRConstant.Masking)]
-        private static Texture2D TransverseTwill;
+        private static Texture2D TransverseTwill = null!;
 
         private void DrawAccretionDisk() {
             SpriteBatch spriteBatch = Main.spriteBatch;
+            float alpha = 1f - Projectile.alpha / 255f;
+            if (alpha <= 0f) return;
 
+            Vector2 drawPos = Projectile.Center - Main.screenPosition;
+            float actualSize = Projectile.width * Projectile.scale;
+            Vector2 texHalf = TransverseTwill.Size() * 0.5f;
+            float bhScale = actualSize / TransverseTwill.Width;
+            Vector2 drawScale = new Vector2(bhScale, bhScale); //1:1åœ†å½¢
+
+            Matrix finalMatrix = Matrix.Identity
+                * Main.GameViewMatrix.TransformationMatrix
+                * Matrix.CreateOrthographicOffCenter(0, Main.screenWidth, Main.screenHeight, 0, -1, 1);
+
+            Effect bhShader = EffectLoader.BlackHole.Value;
+
+            //è®¾ç½®ç€è‰²å™¨å‚æ•°
+            bhShader.Parameters["transformMatrix"]?.SetValue(finalMatrix);
+            bhShader.Parameters["uTime"]?.SetValue(time);
+            bhShader.Parameters["rotationSpeed"]?.SetValue(RotationSpeed);
+            bhShader.Parameters["eventHorizonRadius"]?.SetValue(0.1f);
+            bhShader.Parameters["diskInnerRadius"]?.SetValue(0.14f);
+            bhShader.Parameters["diskOuterRadius"]?.SetValue(0.42f);
+            bhShader.Parameters["brightness"]?.SetValue(brightness * 1.0f);
+            bhShader.Parameters["dopplerStrength"]?.SetValue(0.45f);
+            bhShader.Parameters["distortionStrength"]?.SetValue(0.6f);
+            bhShader.Parameters["noiseTexture"]?.SetValue(TransverseTwill);
+            bhShader.Parameters["centerPos"]?.SetValue(drawPos);
+            bhShader.Parameters["innerColor"]?.SetValue(innerColor.ToVector4());
+            bhShader.Parameters["midColor"]?.SetValue(midColor.ToVector4());
+            bhShader.Parameters["outerColor"]?.SetValue(outerColor.ToVector4());
+
+            Main.graphics.GraphicsDevice.Textures[1] = TransverseTwill;
+            Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.LinearWrap;
+
+            //Phase1: äº‹ä»¶è§†ç•Œï¼ˆAlphaBlendæ¨¡å¼åå™¬èƒŒæ™¯å…‰ï¼‰
             {
-                //×¼±¸äÖÈ¾×´Ì¬
-                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap,
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend, SamplerState.LinearWrap,
                     DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-                Effect shader = EffectLoader.AccretionDisk.Value;
+                bhShader.CurrentTechnique = bhShader.Techniques["EventHorizon"];
+                bhShader.CurrentTechnique.Passes[0].Apply();
 
-                //¼ÆËãÊµ¼ÊäÖÈ¾³ß´ç
-                float actualWidth = Projectile.width * Projectile.scale;
-                float actualHeight = Projectile.height * Projectile.scale;
+                spriteBatch.Draw(TransverseTwill, drawPos, null,
+                    Color.White * alpha,
+                    0f,
+                    texHalf, drawScale * 1.3f, SpriteEffects.None, 0);
 
-                //ÊÀ½ç¿Õ¼äµ½ÆÁÄ»¿Õ¼äµÄ±ä»»¾ØÕó
-                //ÕâÀï²»ĞèÒª¸´ÔÓµÄ¾ØÕó±ä»»£¬shaderÖĞ»á´¦ÀíÎÆÀí×ø±ê
-                Matrix world = Matrix.Identity;
-                Matrix view = Main.GameViewMatrix.TransformationMatrix;
-                Matrix projection = Matrix.CreateOrthographicOffCenter(
-                    0, Main.screenWidth,
-                    Main.screenHeight, 0,
-                    -1, 1);
-
-                //×éºÏ¾ØÕó
-                Matrix finalMatrix = world * view * projection;
-
-                shader.Parameters["transformMatrix"]?.SetValue(finalMatrix);
-                shader.Parameters["uTime"]?.SetValue(time);
-                shader.Parameters["rotationSpeed"]?.SetValue(RotationSpeed);
-                shader.Parameters["innerRadius"]?.SetValue(InnerRadius);
-                shader.Parameters["outerRadius"]?.SetValue(OuterRadius);
-                shader.Parameters["brightness"]?.SetValue(brightness);
-                shader.Parameters["distortionStrength"]?.SetValue(distortionStrength);
-                shader.Parameters["noiseTexture"]?.SetValue(VaultAsset.placeholder2.Value);
-
-                //ÉèÖÃÖĞĞÄÎ»ÖÃ
-                Vector2 screenCenter = Projectile.Center - Main.screenPosition;
-                shader.Parameters["centerPos"]?.SetValue(screenCenter);
-
-                //ÉèÖÃÑÕÉ«
-                shader.Parameters["innerColor"]?.SetValue(innerColor.ToVector4());
-                shader.Parameters["midColor"]?.SetValue(midColor.ToVector4());
-                shader.Parameters["outerColor"]?.SetValue(outerColor.ToVector4());
-
-                //ÉèÖÃÔëÉùÎÆÀí
-                Main.graphics.GraphicsDevice.Textures[1] = TransverseTwill;
-                Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.LinearWrap;
-
-                shader.CurrentTechnique.Passes["AccretionDiskPass"].Apply();
-
-                //¼ÆËã»æÖÆÇøÓò£¨ÆÁÄ»¿Õ¼ä£©
-                Vector2 drawPosition = Projectile.Center - Main.screenPosition;
-                Vector2 drawOrigin = new Vector2(actualWidth, actualHeight) * 0.5f;
-                Rectangle sourceRect = new Rectangle(0, 0, (int)actualWidth, (int)actualHeight);
-
-                for (int i = 0; i < 6; i++) {
-                    //»æÖÆÒ»¸ö¼òµ¥µÄËÄ±ßĞÎ£¬shader»á´¦ÀíËùÓĞµÄÊÓ¾õĞ§¹û
-                    //Ê¹ÓÃTransverseTwill×÷Îª»ù´¡ÎÆÀí£¬µ«Êµ¼ÊĞ§¹ûÓÉshaderÉú³É
-                    spriteBatch.Draw(
-                        TransverseTwill,
-                        drawPosition,
-                        null, //Ê¹ÓÃÍêÕûÎÆÀí
-                        Color.White * (1f - Projectile.alpha / 255f),
-                        Projectile.rotation + i * 0.1f,
-                        TransverseTwill.Size() * 0.5f, //Ê¹ÓÃÎÆÀíÖĞĞÄ×÷ÎªÔ­µã
-                        new Vector2(actualWidth / TransverseTwill.Width, actualHeight / TransverseTwill.Height) * (0.6f + 1 * 1.2f), //Ëõ·Åµ½Ä¿±ê´óĞ¡
-                        SpriteEffects.None,
-                        0
-                    );
-                }
-
-                //»Ö¸´Ä¬ÈÏäÖÈ¾×´Ì¬
                 spriteBatch.End();
             }
 
+            //Phase2: å¸ç§¯ç›˜+å…‰å­ç¯ï¼ˆAdditiveæ¨¡å¼å åŠ å…‰æ•ˆï¼‰
             {
-                //×¼±¸äÖÈ¾×´Ì¬
                 spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap,
                     DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
-                Effect shader = EffectLoader.AccretionDisk.Value;
+                bhShader.CurrentTechnique = bhShader.Techniques["Accretion"];
+                bhShader.CurrentTechnique.Passes[0].Apply();
 
-                //¼ÆËãÊµ¼ÊäÖÈ¾³ß´ç
-                float actualWidth = Projectile.width * Projectile.scale;
-                float actualHeight = Projectile.height * Projectile.scale;
+                //å¤–å›´æŸ”å…‰
+                spriteBatch.Draw(TransverseTwill, drawPos, null,
+                    Color.White * alpha * 0.25f,
+                    Projectile.rotation * 0.08f,
+                    texHalf, drawScale * 1.6f, SpriteEffects.None, 0);
 
-                //ÊÀ½ç¿Õ¼äµ½ÆÁÄ»¿Õ¼äµÄ±ä»»¾ØÕó
-                //ÕâÀï²»ĞèÒª¸´ÔÓµÄ¾ØÕó±ä»»£¬shaderÖĞ»á´¦ÀíÎÆÀí×ø±ê
-                Matrix world = Matrix.Identity;
-                Matrix view = Main.GameViewMatrix.TransformationMatrix;
-                Matrix projection = Matrix.CreateOrthographicOffCenter(
-                    0, Main.screenWidth,
-                    Main.screenHeight, 0,
-                    -1, 1);
+                //ä¸»ä½“å¸ç§¯ç›˜
+                spriteBatch.Draw(TransverseTwill, drawPos, null,
+                    Color.White * alpha * 0.7f,
+                    Projectile.rotation * 0.05f,
+                    texHalf, drawScale * 1.15f, SpriteEffects.None, 0);
 
-                //×éºÏ¾ØÕó
-                Matrix finalMatrix = world * view * projection;
+                //ç¬¬äºŒå±‚ï¼ˆè½»å¾®åç§»å¢åŠ è´¨æ„Ÿï¼‰
+                spriteBatch.Draw(TransverseTwill, drawPos, null,
+                    Color.White * alpha * 0.5f,
+                    Projectile.rotation * 0.03f + 0.2f,
+                    texHalf, drawScale * 1.05f, SpriteEffects.None, 0);
 
-                shader.Parameters["transformMatrix"]?.SetValue(finalMatrix);
-                shader.Parameters["uTime"]?.SetValue(time);
-                shader.Parameters["rotationSpeed"]?.SetValue(RotationSpeed);
-                shader.Parameters["innerRadius"]?.SetValue(InnerRadius);
-                shader.Parameters["outerRadius"]?.SetValue(OuterRadius);
-                shader.Parameters["brightness"]?.SetValue(brightness);
-                shader.Parameters["distortionStrength"]?.SetValue(distortionStrength);
-                shader.Parameters["noiseTexture"]?.SetValue(TransverseTwill);
-
-                //ÉèÖÃÖĞĞÄÎ»ÖÃ
-                Vector2 screenCenter = Projectile.Center - Main.screenPosition;
-                shader.Parameters["centerPos"]?.SetValue(screenCenter);
-
-                //ÉèÖÃÑÕÉ«
-                shader.Parameters["innerColor"]?.SetValue(innerColor.ToVector4());
-                shader.Parameters["midColor"]?.SetValue(midColor.ToVector4());
-                shader.Parameters["outerColor"]?.SetValue(outerColor.ToVector4());
-
-                //ÉèÖÃÔëÉùÎÆÀí
-                Main.graphics.GraphicsDevice.Textures[1] = TransverseTwill;
-                Main.graphics.GraphicsDevice.SamplerStates[1] = SamplerState.LinearWrap;
-
-                shader.CurrentTechnique.Passes["AccretionDiskPass"].Apply();
-
-                //¼ÆËã»æÖÆÇøÓò£¨ÆÁÄ»¿Õ¼ä£©
-                Vector2 drawPosition = Projectile.Center - Main.screenPosition;
-                Vector2 drawOrigin = new Vector2(actualWidth, actualHeight) * 0.5f;
-                Rectangle sourceRect = new Rectangle(0, 0, (int)actualWidth, (int)actualHeight);
-
-                for (int i = 0; i < 6; i++) {
-                    //»æÖÆÒ»¸ö¼òµ¥µÄËÄ±ßĞÎ£¬shader»á´¦ÀíËùÓĞµÄÊÓ¾õĞ§¹û
-                    //Ê¹ÓÃTransverseTwill×÷Îª»ù´¡ÎÆÀí£¬µ«Êµ¼ÊĞ§¹ûÓÉshaderÉú³É
-                    spriteBatch.Draw(
-                        TransverseTwill,
-                        drawPosition,
-                        null, //Ê¹ÓÃÍêÕûÎÆÀí
-                        Color.White * (1f - Projectile.alpha / 255f),
-                        Projectile.rotation + i * 0.1f,
-                        TransverseTwill.Size() * 0.5f, //Ê¹ÓÃÎÆÀíÖĞĞÄ×÷ÎªÔ­µã
-                        new Vector2(actualWidth / TransverseTwill.Width, actualHeight / TransverseTwill.Height) * (0.8f + 1 * 0.2f), //Ëõ·Åµ½Ä¿±ê´óĞ¡
-                        SpriteEffects.None,
-                        0
-                    );
-                }
-
-                //»Ö¸´Ä¬ÈÏäÖÈ¾×´Ì¬
                 spriteBatch.End();
             }
         }

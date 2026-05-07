@@ -1,7 +1,7 @@
 ﻿using CalamityOverhaul.Content.ADV.ADVChoices;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
+using CalamityOverhaul.Content.ADV.EntrustManager;
 using System;
 using System.Linq;
 using Terraria;
@@ -56,6 +56,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen.Quest.FishoilQuest
         void IWorldInfo.OnWorldLoad() {
             Spwand = false;
             scenarioStarted = false;
+            spawnDelayTimer = 0;
         }
 
         public override void SetStaticDefaults() {
@@ -85,38 +86,93 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen.Quest.FishoilQuest
         }
 
         private void OnAccept() {
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.FishoilQuestAccepted = true;
-                FishoilQuestUI.Instance.OpenPersistent();
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<HalibutADVData>().FishoilQuestAccepted = true;
             }
+            //注册到委托管理系统
+            RegisterQuestEntry();
             scenarioStarted = false;
             Complete();
+        }
+
+        /// <summary>
+        /// 将鱼油任务注册到委托管理器，如已存在则跳过。
+        /// notify 为 false 时以 Tracked 状态静默注册，适用于存档重载的恢复路径，
+        /// 避免每次进存档都触发"新委托"弹窗
+        /// </summary>
+        internal static void RegisterQuestEntry(bool completed = false, bool notify = true) {
+            var manager = QuestManagerUI.Instance;
+            if (manager == null) return;
+            if (manager.GetEntry(FishoilQuestEntry.QuestKey) != null) return;
+            var entry = FishoilQuestEntry.Create();
+            if (completed) {
+                entry.Status = QuestEntryStatus.Completed;
+                entry.Progress = 1f;
+            }
+            else if (!notify) {
+                //恢复路径：直接置为 Tracked，RegisterQuest 不会触发任何通知
+                entry.Status = QuestEntryStatus.Tracked;
+                entry.IsNew = false;
+            }
+            manager.RegisterQuest(entry);
+        }
+
+        /// <summary>
+        /// 同步委托管理器中鱼油条目的注册与状态，
+        /// 未接受 → 移除条目；已接受 → 确保注册；已完成 → 标记完成；
+        /// 注：已挂起（FishoilQuestSuspended）不再切换 UI 状态为 Suspended，
+        /// 因为挂起的条目会被侧边栏隐藏，改为通过条目内的提交按钮重新询问
+        /// </summary>
+        private static void SyncQuestEntry(ADVSave save) {
+            var manager = QuestManagerUI.Instance;
+            if (manager == null) return;
+
+            //未接受任务 → 确保条目不存在
+            if (!save.Get<HalibutADVData>().FishoilQuestAccepted) {
+                manager.UnregisterQuest(FishoilQuestEntry.QuestKey);
+                return;
+            }
+
+            //已接受 → 确保条目存在，notify: false 表示恢复路径，不弹"新委托"通知
+            bool completed = save.Get<HalibutADVData>().FishoilQuestCompleted;
+            RegisterQuestEntry(completed, notify: false);
+            var entry = manager.GetEntry(FishoilQuestEntry.QuestKey);
+            if (entry == null) return;
+
+            //已完成 → 直接赋值恢复状态，避免 SetEntryStatus 触发"委托完成"通知
+            if (completed && entry.Status != QuestEntryStatus.Completed) {
+                entry.Status = QuestEntryStatus.Completed;
+                entry.Progress = 1f;
+                manager.MarkFilterDirty();
+            }
         }
 
         private void OnDecline() {
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.FishoilQuestDeclined = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<HalibutADVData>().FishoilQuestDeclined = true;
             }
             scenarioStarted = false;
             Complete();
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
+        public override void Update(ADVSave save, Player player) {
+            //同步委托管理器条目状态（参照 SupCalQuestLine.SyncQuest 模式）
+            SyncQuestEntry(save);
+
             if (!NPC.downedQueenBee) {
                 Spwand = false;
                 return;
             }
-            if (!save.FirstMet) {
+            if (!save.Get<HalibutADVData>().FirstMet) {
                 return;
             }
-            if (save.FishoilQuestAccepted || save.FishoilQuestDeclined) {
+            if (save.Get<HalibutADVData>().FishoilQuestAccepted || save.Get<HalibutADVData>().FishoilQuestDeclined) {
                 return;
             }
             if (scenarioStarted) {
                 return;
             }
 
-            Player player = halibutPlayer.Player;
             int totalFishCount = 0;
             //统计所有候选鱼的总数量
             for (int i = 0; i < player.inventory.Length; i++) {

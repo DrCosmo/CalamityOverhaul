@@ -1,4 +1,4 @@
-using CalamityOverhaul.Content.ADV.UIEffect;
+ï»¿using CalamityOverhaul.Content.ADV.UIEffect;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using Terraria;
 namespace CalamityOverhaul.Content.ADV.ADVRewardPopups.Styles
 {
     /// <summary>
-    /// Áò»Ç»ğ·ç¸ñ½±Àøµ¯´°
+    /// ç¡«ç£ºç«é£æ ¼å¥–åŠ±å¼¹çª—
     /// </summary>
     internal class BrimstoneRewardStyle : IRewardPopupStyle
     {
@@ -15,6 +15,9 @@ namespace CalamityOverhaul.Content.ADV.ADVRewardPopups.Styles
         private float emberGlowTimer = 0f;
         private float heatWavePhase = 0f;
         private float infernoPulse = 0f;
+        //ç€è‰²å™¨ä¸“ç”¨å•è°ƒé€’å¢æ—¶é—´
+        private float shaderTime = 0f;
+        private const int ShaderEdgePad = 14;
         private readonly List<EmberPRT> embers = new();
         private int emberSpawnTimer = 0;
         private readonly List<AshPRT> ashes = new();
@@ -28,16 +31,36 @@ namespace CalamityOverhaul.Content.ADV.ADVRewardPopups.Styles
             emberGlowTimer += 0.038f;
             heatWavePhase += 0.025f;
             infernoPulse += 0.012f;
+            shaderTime += 0.016f;
             if (flameTimer > MathHelper.TwoPi) flameTimer -= MathHelper.TwoPi;
             if (emberGlowTimer > MathHelper.TwoPi) emberGlowTimer -= MathHelper.TwoPi;
             if (heatWavePhase > MathHelper.TwoPi) heatWavePhase -= MathHelper.TwoPi;
             if (infernoPulse > MathHelper.TwoPi) infernoPulse -= MathHelper.TwoPi;
+            if (shaderTime > 10000f) shaderTime -= 10000f;
         }
 
         public void DrawPanel(SpriteBatch spriteBatch, Rectangle rect, float alpha, float hoverGlow) {
+            if (BrimstoneShaderPanel.Available) {
+                //hoverGlowè½¬ä¸ºè½»å¾®çƒ­è°ƒå˜äº®,é¿å…è¿‡æ›
+                float bright = MathHelper.Clamp(0.95f + hoverGlow * 0.30f, 0.0f, 1.4f);
+                Color tint = new Color(
+                    (byte)Math.Min(255, (int)(255 * bright)),
+                    (byte)Math.Min(255, (int)(238 * bright)),
+                    (byte)Math.Min(255, (int)(220 * bright)),
+                    (byte)255);
+                float pulse01 = (float)Math.Sin(infernoPulse * 1.8f) * 0.5f + 0.5f;
+                BrimstoneShaderPanel.Draw(spriteBatch, rect, alpha * 0.97f, pulse01, shaderTime, ShaderEdgePad, tint);
+                return;
+            }
+
+            DrawFallbackPanel(spriteBatch, rect, alpha, hoverGlow);
+        }
+
+        //é™çº§é¢æ¿:æ— shaderç¯å¢ƒä½¿ç”¨åŸCPUå †å ç»˜åˆ¶
+        private void DrawFallbackPanel(SpriteBatch spriteBatch, Rectangle rect, float alpha, float hoverGlow) {
             Texture2D px = VaultAsset.placeholder2.Value;
 
-            //½¥±ä±³¾° - Áò»Ç»ğÉîºìÉ«
+            //æ¸å˜èƒŒæ™¯ - ç¡«ç£ºç«æ·±çº¢è‰²
             int segments = 35;
             for (int i = 0; i < segments; i++) {
                 float t = i / (float)segments;
@@ -60,15 +83,15 @@ namespace CalamityOverhaul.Content.ADV.ADVRewardPopups.Styles
                 spriteBatch.Draw(px, r, new Rectangle(0, 0, 1, 1), finalColor);
             }
 
-            //»ğÑæÂö³åµş¼Ó²ã
+            //ç«ç„°è„‰å†²å åŠ å±‚
             float pulseBrightness = (float)Math.Sin(infernoPulse * 1.8f) * 0.5f + 0.5f;
             Color pulseOverlay = new Color(120, 25, 15) * (alpha * 0.25f * pulseBrightness);
             spriteBatch.Draw(px, rect, new Rectangle(0, 0, 1, 1), pulseOverlay);
 
-            //ÈÈÀËÅ¤ÇúĞ§¹û²ã
+            //çƒ­æµªæ‰­æ›²æ•ˆæœå±‚
             DrawHeatWave(spriteBatch, rect, alpha * 0.85f);
 
-            //ÄÚ·¢¹â
+            //å†…å‘å…‰
             float glowPulse = (float)Math.Sin(emberGlowTimer * 1.5f) * 0.5f + 0.5f;
             Rectangle inner = rect;
             inner.Inflate(-7, -7);
@@ -116,6 +139,7 @@ namespace CalamityOverhaul.Content.ADV.ADVRewardPopups.Styles
             emberGlowTimer = 0f;
             heatWavePhase = 0f;
             infernoPulse = 0f;
+            shaderTime = 0f;
             embers.Clear();
             ashes.Clear();
             flameWisps.Clear();
@@ -125,7 +149,7 @@ namespace CalamityOverhaul.Content.ADV.ADVRewardPopups.Styles
         }
 
         public void GetParticles(out List<object> particles) {
-            particles = [.. ashes, .. flameWisps, .. embers];//Ïë³öÕâ¸öÓï·¨ÌÇµÄÈËÕæÄãÂé±ÔÊÇ¸öÌì²Å
+            particles = [.. ashes, .. flameWisps, .. embers];//æƒ³å‡ºè¿™ä¸ªè¯­æ³•ç³–çš„äººçœŸä½ éº»ç—¹æ˜¯ä¸ªå¤©æ‰
         }
 
         public void UpdateParticles(Vector2 basePos, float panelFade) {

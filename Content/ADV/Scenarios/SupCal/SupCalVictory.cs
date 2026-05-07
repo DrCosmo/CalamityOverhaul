@@ -97,12 +97,12 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal
                 }, offset: Vector2.Zero, styleProvider: () => ADVRewardPopup.RewardStyle.Brimstone);
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (save.SupCalDefeat) {
+        public override void Update(ADVSave save, Player player) {
+            if (save.Get<SupCalADVData>().SupCalDefeat) {
                 return;
             }
 
-            if (!save.SupCalChoseToFight) {
+            if (!save.Get<SupCalADVData>().SupCalChoseToFight) {
                 return;//玩家没有选择战斗
             }
 
@@ -119,7 +119,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal
             }
 
             if (ScenarioManager.Start<SupCalVictory>()) {
-                save.SupCalDefeat = true;
+                save.Get<SupCalADVData>().SupCalDefeat = true;
                 SupCalVictoryNPC.Spawned = false;
             }
         }
@@ -140,8 +140,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal
         public override void OnNPCDeath(NPC npc) {
             if (FirstMetSupCal.ThisIsToFight && npc.type == CWRID.NPC_SupremeCalamitas) {
                 Player player = Main.LocalPlayer;
-                if (player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                    if (halibutPlayer.ADVSave.SupCalChoseToFight) {
+                if (player.TryGetADVSave(out var save)) {
+                    if (save.Get<SupCalADVData>().SupCalChoseToFight) {
                         Spawned = true;
                         RandomTimer = 60 * Main.rand.Next(2, 4);
                     }

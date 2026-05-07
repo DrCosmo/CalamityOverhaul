@@ -4,78 +4,72 @@ namespace CalamityOverhaul.Common
 {
     internal class CWRKeySystem : ICWRLoader
     {
-        public static ModKeybind HeavenfallLongbowSkillKey { get; private set; }
-        public static ModKeybind InfinitePickSkillKey { get; private set; }
-        public static ModKeybind Murasama_TriggerKey { get; private set; }
-        public static ModKeybind Murasama_DownKey { get; private set; }
-        public static ModKeybind KreLoad_Key { get; private set; }
-        public static ModKeybind ADS_Key { get; private set; }
         public static ModKeybind QuestLog_Key { get; private set; }
-        public static ModKeybind Halibut_Domain { get; private set; }
+        public static ModKeybind QuestManager_Key { get; private set; }
+        public static ModKeybind Legend_UIControl { get; private set; }
+        public static ModKeybind Legend_Domain { get; private set; }
+        public static ModKeybind Legend_Restart { get; private set; }
+        public static ModKeybind Legend_Teleport { get; private set; }
+        public static ModKeybind HackTime_Toggle { get; private set; }
+        public static ModKeybind CyberBanish_Key { get; private set; }
+        public static ModKeybind CyberFreeze_Key { get; private set; }
+        public static ModKeybind CyberwareSkill_Key { get; private set; }
+        public static ModKeybind VoidTimeShift_Key { get; private set; }
         public static ModKeybind Halibut_Clone { get; private set; }
-        public static ModKeybind Halibut_Restart { get; private set; }
         public static ModKeybind Halibut_Superposition { get; private set; }
-        public static ModKeybind Halibut_Teleport { get; private set; }
-        public static ModKeybind Halibut_UIControl { get; private set; }
         public static ModKeybind Halibut_Skill_L { get; private set; }
         public static ModKeybind Halibut_Skill_R { get; private set; }
-        public static ModKeybind Pandemonium_Q { get; private set; }
-        public static ModKeybind Pandemonium_R { get; private set; }
-        public static ModKeybind AriaofTheCosmos_Q { get; private set; }
-        public static ModKeybind AriaofTheCosmos_R { get; private set; }
-        public static ModKeybind JusticeUnveiled { get; private set; }
-        public static ModKeybind EmblemOfDread_Dash { get; private set; }
-        public static ModKeybind EyeOfSingularity_QuantumLeap { get; private set; }
+        public static ModKeybind Murasama_TriggerKey { get; private set; }
+        public static ModKeybind Murasama_DownKey { get; private set; }
+        public static ModKeybind WeponSkill_Q { get; private set; }
+        public static ModKeybind WeponSkill_R { get; private set; }
+        public static ModKeybind Accessory_Skills { get; private set; }
 
         void ICWRLoader.LoadData() {
             Mod mod = CWRMod.Instance;
-            KreLoad_Key = KeybindLoader.RegisterKeybind(mod, "KreLoad_Key", "R");
-            ADS_Key = KeybindLoader.RegisterKeybind(mod, "ADS_Key", "Z");
-            QuestLog_Key = KeybindLoader.RegisterKeybind(mod, "QuestLog_Key", "L");
-            HeavenfallLongbowSkillKey = KeybindLoader.RegisterKeybind(mod, "HeavenfallLongbowSkillKey", "Q");
-            InfinitePickSkillKey = KeybindLoader.RegisterKeybind(mod, "InfinitePickSkillKey", "C");
-            Murasama_TriggerKey = KeybindLoader.RegisterKeybind(mod, "Murasama_TriggerKey", "F");
-            Murasama_DownKey = KeybindLoader.RegisterKeybind(mod, "Murasama_DownKey", "X");
-            Halibut_Domain = KeybindLoader.RegisterKeybind(mod, "Halibut_Domain", "Q");
-            Halibut_Clone = KeybindLoader.RegisterKeybind(mod, "Halibut_Clone", "J");
-            Halibut_Restart = KeybindLoader.RegisterKeybind(mod, "Halibut_Restart", "H");
-            Halibut_Superposition = KeybindLoader.RegisterKeybind(mod, "Halibut_Superposition", "F");
-            Halibut_Teleport = KeybindLoader.RegisterKeybind(mod, "Halibut_Teleport", "G");
-            Halibut_UIControl = KeybindLoader.RegisterKeybind(mod, "Halibut_UIControl", "M");
-            Halibut_Skill_L = KeybindLoader.RegisterKeybind(mod, "Halibut_Skill_L", "Q");
-            Halibut_Skill_R = KeybindLoader.RegisterKeybind(mod, "Halibut_Skill_R", "E");
-            Pandemonium_Q = KeybindLoader.RegisterKeybind(mod, "Pandemonium_Q", "Q");
-            Pandemonium_R = KeybindLoader.RegisterKeybind(mod, "Pandemonium_R", "R");
-            AriaofTheCosmos_Q = KeybindLoader.RegisterKeybind(mod, "AriaofTheCosmos_Q", "Q");
-            AriaofTheCosmos_R = KeybindLoader.RegisterKeybind(mod, "AriaofTheCosmos_R", "R");
-            JusticeUnveiled = KeybindLoader.RegisterKeybind(mod, "JusticeUnveiled", "W");
-            EmblemOfDread_Dash = KeybindLoader.RegisterKeybind(mod, "EmblemOfDread_Dash", "V");
-            EyeOfSingularity_QuantumLeap = KeybindLoader.RegisterKeybind(mod, "EyeOfSingularity_QuantumLeap", "B");
+            QuestLog_Key = KeybindLoader.RegisterKeybind(mod, nameof(QuestLog_Key), "L");
+            QuestManager_Key = KeybindLoader.RegisterKeybind(mod, nameof(QuestManager_Key), "K");
+            Legend_UIControl = KeybindLoader.RegisterKeybind(mod, nameof(Legend_UIControl), "M");
+            Legend_Domain = KeybindLoader.RegisterKeybind(mod, nameof(Legend_Domain), "Q");
+            Legend_Teleport = KeybindLoader.RegisterKeybind(mod, nameof(Legend_Teleport), "G");
+            Legend_Restart = KeybindLoader.RegisterKeybind(mod, nameof(Legend_Restart), "H");
+            HackTime_Toggle = KeybindLoader.RegisterKeybind(mod, nameof(HackTime_Toggle), "N");
+            CyberBanish_Key = KeybindLoader.RegisterKeybind(mod, nameof(CyberBanish_Key), "Y");
+            CyberFreeze_Key = KeybindLoader.RegisterKeybind(mod, nameof(CyberFreeze_Key), "U");
+            CyberwareSkill_Key = KeybindLoader.RegisterKeybind(mod, nameof(CyberwareSkill_Key), "V");
+            VoidTimeShift_Key = KeybindLoader.RegisterKeybind(mod, nameof(VoidTimeShift_Key), "K");
+            Halibut_Clone = KeybindLoader.RegisterKeybind(mod, nameof(Halibut_Clone), "J");
+            Halibut_Superposition = KeybindLoader.RegisterKeybind(mod, nameof(Halibut_Superposition), "F");
+            Halibut_Skill_L = KeybindLoader.RegisterKeybind(mod, nameof(Halibut_Skill_L), "Q");
+            Halibut_Skill_R = KeybindLoader.RegisterKeybind(mod, nameof(Halibut_Skill_R), "E");
+            Murasama_TriggerKey = KeybindLoader.RegisterKeybind(mod, nameof(Murasama_TriggerKey), "F");
+            Murasama_DownKey = KeybindLoader.RegisterKeybind(mod, nameof(Murasama_DownKey), "X");
+            WeponSkill_Q = KeybindLoader.RegisterKeybind(mod, nameof(WeponSkill_Q), "Q");
+            WeponSkill_R = KeybindLoader.RegisterKeybind(mod, nameof(WeponSkill_R), "R");
+            Accessory_Skills = KeybindLoader.RegisterKeybind(mod, nameof(Accessory_Skills), "V");
         }
 
         void ICWRLoader.UnLoadData() {
-            KreLoad_Key = null;
-            ADS_Key = null;
             QuestLog_Key = null;
-            HeavenfallLongbowSkillKey = null;
-            InfinitePickSkillKey = null;
+            QuestManager_Key = null;
             Murasama_TriggerKey = null;
             Murasama_DownKey = null;
-            Halibut_Domain = null;
+            Legend_Domain = null;
             Halibut_Clone = null;
-            Halibut_Restart = null;
+            Legend_Restart = null;
             Halibut_Superposition = null;
-            Halibut_Teleport = null;
-            Halibut_UIControl = null;
+            Legend_Teleport = null;
+            Legend_UIControl = null;
             Halibut_Skill_L = null;
             Halibut_Skill_R = null;
-            Pandemonium_Q = null;
-            Pandemonium_R = null;
-            AriaofTheCosmos_Q = null;
-            AriaofTheCosmos_R = null;
-            JusticeUnveiled = null;
-            EmblemOfDread_Dash = null;
-            EyeOfSingularity_QuantumLeap = null;
+            WeponSkill_Q = null;
+            WeponSkill_R = null;
+            Accessory_Skills = null;
+            HackTime_Toggle = null;
+            CyberBanish_Key = null;
+            CyberFreeze_Key = null;
+            CyberwareSkill_Key = null;
+            VoidTimeShift_Key = null;
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using CalamityOverhaul.Content.ADV.ADVQuestTracker;
 using CalamityOverhaul.Content.Items.Ranged;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using InnoVault.UIHandles;
 using Terraria;
 using Terraria.ModLoader;
@@ -23,31 +22,31 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.PallbearerQuest
         }
 
         protected override bool ShouldShowQuest() {
-            if (!Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!Main.LocalPlayer.TryGetADVSave(out var save)) {
                 return false;
             }
 
             //如果玩家已经接受了任务（通过存档标记），就不再显示UI
-            if (halibutPlayer.ADVSave.SupCalQuestAccepted) {
+            if (save.Get<SupCalADVData>().SupCalQuestAccepted) {
                 return false;
             }
 
             Item heldItem = Main.LocalPlayer.GetItem();
             return heldItem.type == ModContent.ItemType<Pallbearer>()
-                && halibutPlayer.ADVSave.SupCalMoonLordReward
-                && !halibutPlayer.ADVSave.SupCalQuestReward
-                && !halibutPlayer.ADVSave.SupCalQuestDeclined;
+                && save.Get<SupCalADVData>().SupCalMoonLordReward
+                && !save.Get<SupCalADVData>().SupCalQuestReward
+                && !save.Get<SupCalADVData>().SupCalQuestDeclined;
         }
 
         protected override void OnQuestAccepted() {
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.SupCalQuestAccepted = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<SupCalADVData>().SupCalQuestAccepted = true;
             }
         }
 
         protected override void OnQuestDeclined() {
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.SupCalQuestDeclined = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<SupCalADVData>().SupCalQuestDeclined = true;
             }
         }
     }

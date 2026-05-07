@@ -1,4 +1,5 @@
 ﻿using CalamityOverhaul.Content.ADV.Scenarios;
+using CalamityOverhaul.Content.ADV.Scenarios.Helen;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,10 @@ namespace CalamityOverhaul.Content.ADV.Common
     internal class GiftScenarioNPC : DeathTrackingNPC, IWorldInfo
     {
         void IWorldInfo.OnWorldLoad() {
-            foreach (var giftScenario in GiftScenarioBase.BossIDToInds.Values) {
-                GiftScenarioBase.SpawnedDic[giftScenario] = false;
+            foreach (var scenarios in GiftScenarioBase.BossIDToInds.Values) {
+                foreach (var scenario in scenarios) {
+                    GiftScenarioBase.SpawnedDic[scenario] = false;
+                }
             }
         }
 
@@ -20,9 +23,12 @@ namespace CalamityOverhaul.Content.ADV.Common
 
         public override void OnNPCDeath(NPC npc) {
             if (!CWRRef.GetBossRushActive()//Boss Rush时不触发礼物场景
-                && GiftScenarioBase.BossIDToInds.TryGetValue(npc.type, out var giftScenarioBase)
-                && giftScenarioBase.CanSpawned()) {
-                GiftScenarioBase.SpawnedDic[giftScenarioBase] = true;
+                && GiftScenarioBase.BossIDToInds.TryGetValue(npc.type, out var scenarios)) {
+                foreach (var scenario in scenarios) {
+                    if (scenario.CanSpawned()) {
+                        GiftScenarioBase.SpawnedDic[scenario] = true;
+                    }
+                }
             }
         }
     }
@@ -34,9 +40,9 @@ namespace CalamityOverhaul.Content.ADV.Common
         /// </summary>
         public readonly static Dictionary<GiftScenarioBase, bool> SpawnedDic = [];
         /// <summary>
-        /// BossID到礼物场景实例的映射
+        /// BossID到礼物场景实例列表的映射，支持多个场景共享同一Boss触发
         /// </summary>
-        public readonly static Dictionary<int, GiftScenarioBase> BossIDToInds = [];
+        public readonly static Dictionary<int, List<GiftScenarioBase>> BossIDToInds = [];
         /// <summary>
         /// 随机延迟计时器(单位:tick)
         /// </summary>
@@ -49,6 +55,14 @@ namespace CalamityOverhaul.Content.ADV.Common
         protected abstract bool IsGiftCompleted(ADVSave save);
         protected abstract void MarkGiftCompleted(ADVSave save);
         protected abstract bool StartScenarioInternal();
+
+        /// <summary>
+        /// 检查触发礼物场景所需的玩家持有条件，子类可重写以支持不同的角色体系
+        /// </summary>
+        protected virtual bool CheckHolderCondition(ADVSave save, Player player) {
+            var halibutPlayer = player.GetOverride<HalibutPlayer>();
+            return halibutPlayer.HeldHalibut && save.Get<HalibutADVData>().FirstMet;
+        }
         public override void VaultSetup() {
             LoadThis();
             base.VaultSetup();
@@ -56,7 +70,11 @@ namespace CalamityOverhaul.Content.ADV.Common
         public void LoadThis() {
             SpawnedDic[this] = false;
             if (TargetBossID > NPCID.None) {
-                BossIDToInds[TargetBossID] = this;
+                if (!BossIDToInds.TryGetValue(TargetBossID, out var list)) {
+                    list = [];
+                    BossIDToInds[TargetBossID] = list;
+                }
+                list.Add(this);
             }
         }
         public static void Clear() {
@@ -69,9 +87,9 @@ namespace CalamityOverhaul.Content.ADV.Common
         /// 附加生成条件
         /// </summary>
         /// <param name="save"></param>
-        /// <param name="halibutPlayer"></param>
+        /// <param name="player"></param>
         /// <returns></returns>
-        protected virtual bool AdditionalConditions(ADVSave save, HalibutPlayer halibutPlayer) {
+        protected virtual bool AdditionalConditions(ADVSave save, Player player) {
             return true;
         }
 
@@ -83,12 +101,9 @@ namespace CalamityOverhaul.Content.ADV.Common
             return true;
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (!halibutPlayer.HeldHalibut) {
+        public override void Update(ADVSave save, Player player) {
+            if (!CheckHolderCondition(save, player)) {
                 return;
-            }
-            if (!save.FirstMet) {
-                return;//必须先触发过初次见面
             }
             if (IsGiftCompleted(save)) {
                 return;
@@ -96,7 +111,7 @@ namespace CalamityOverhaul.Content.ADV.Common
             if (!BossDowned()) {
                 return;
             }
-            if (!AdditionalConditions(save, halibutPlayer)) {
+            if (!AdditionalConditions(save, player)) {
                 return;
             }
             if (!SpawnedDic[this]) {

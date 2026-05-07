@@ -1,11 +1,11 @@
-using InnoVault.UIHandles;
+ï»¿using InnoVault.UIHandles;
 using Terraria;
 using Terraria.ID;
 
 namespace CalamityOverhaul.Content.UIs.SupertableUIs.UIContent
 {
     /// <summary>
-    /// ÍÏ×§¿ØÖÆÆ÷£¬¸ºÔğUIµÄÍÏ×§ÒÆ¶¯
+    /// æ‹–æ‹½æ§åˆ¶å™¨ï¼Œè´Ÿè´£UIçš„æ‹–æ‹½ç§»åŠ¨
     /// </summary>
     internal class DragController
     {
@@ -14,7 +14,7 @@ namespace CalamityOverhaul.Content.UIs.SupertableUIs.UIContent
 
         private Vector2 _dragOffset;
         private bool _isDragging;
-        private Rectangle _dragArea;
+        private Rectangle _dragArea = default;
 
         public bool IsDragging => _isDragging;
         public Rectangle DragArea => _dragArea;
@@ -28,30 +28,30 @@ namespace CalamityOverhaul.Content.UIs.SupertableUIs.UIContent
                 _globalDontDragTime--;
             }
 
-            //¼ì²éÊó±êÊÇ·ñÔÚÍÏ×§ÇøÓòÄÚ
+            //æ£€æŸ¥é¼ æ ‡æ˜¯å¦åœ¨æ‹–æ‹½åŒºåŸŸå†…
             bool hoverDragHandle =
-                                   _mainUI.hoverInMainPage; //È·±£ÔÚÖ÷UI·¶Î§ÄÚ
+                                   _mainUI.hoverInMainPage; //ç¡®ä¿åœ¨ä¸»UIèŒƒå›´å†…
 
-            //Èç¹ûÊó±êÄÃ×ÅÎïÆ·ÇÒÔÚ²ÄÁÏ¸ñ×ÓÇøÓò£¬½ûÖ¹ÍÏ×§
+            //å¦‚æœé¼ æ ‡æ‹¿ç€ç‰©å“ä¸”åœ¨ææ–™æ ¼å­åŒºåŸŸï¼Œç¦æ­¢æ‹–æ‹½
             if (Main.mouseItem.type > ItemID.None && _mainUI.HoverInPutItemCellPage) {
                 _globalDontDragTime = 2;
                 _isDragging = false;
                 return;
             }
 
-            //¿ªÊ¼ÍÏ×§
+            //å¼€å§‹æ‹–æ‹½
             if (hoverDragHandle && _mainUI.keyLeftPressState == KeyPressState.Pressed && !_isDragging) {
                 _isDragging = true;
                 _dragOffset = _mainUI.MousePosition - _mainUI.DrawPosition;
             }
 
-            //ÍÏ×§¹ı³Ì
+            //æ‹–æ‹½è¿‡ç¨‹
             if (_isDragging) {
                 if (_mainUI.keyLeftPressState == KeyPressState.Released) {
                     _isDragging = false;
                 }
                 else {
-                    //Ö±½Ó¸ù¾İÊó±êÎ»ÖÃºÍÆ«ÒÆ¼ÆËãĞÂÎ»ÖÃ
+                    //ç›´æ¥æ ¹æ®é¼ æ ‡ä½ç½®å’Œåç§»è®¡ç®—æ–°ä½ç½®
                     Vector2 targetPos = _mainUI.MousePosition - _dragOffset;
                     _mainUI.DrawPosition = ClampToScreen(targetPos);
                 }

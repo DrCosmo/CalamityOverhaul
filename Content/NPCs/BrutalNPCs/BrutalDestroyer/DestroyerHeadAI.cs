@@ -1,10 +1,11 @@
-﻿using CalamityOverhaul.Content.Items.Melee;
+using CalamityOverhaul.Content.Items.Melee;
+using CalamityOverhaul.Content.Items.Modifys.ModifyBag;
 using CalamityOverhaul.Content.Items.Summon;
 using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer.Core;
 using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer.Rendering;
 using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer.States;
 using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime;
-using CalamityOverhaul.Content.RemakeItems.ModifyBag;
+using CalamityOverhaul.Content.NPCs.BrutalNPCs.Common;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using Terraria;
@@ -46,23 +47,16 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer
         }
 
         public override void SetProperty() {
-            if (CWRWorld.MachineRebellion) {
-                npc.life = npc.lifeMax *= 32;
-                npc.defDefense = npc.defense = 40;
-                npc.defDamage = npc.damage *= 3;
-                npc.scale = 1.2f;
-            }
             InitializeStateContext();
         }
 
         public override bool? CanCWROverride() {
-            return CWRWorld.MachineRebellion ? true : null;
+            return null;
         }
 
         private void InitializeStateContext() {
             stateContext = new DestroyerStateContext {
                 Npc = npc,
-                IsMachineRebellion = CWRWorld.MachineRebellion,
                 IsDeathMode = CWRRef.GetDeathMode() || CWRRef.GetBossRushActive()
             };
             stateMachine = new DestroyerStateMachine(stateContext);
@@ -180,12 +174,6 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer
                     0, ai0: oldIndex, ai1: index, ai2: 0, ai3: headNpc.whoAmI);
                 Main.npc[index].realLife = headNpc.whoAmI;
                 Main.npc[index].netUpdate = true;
-
-                if (CWRWorld.MachineRebellion) {
-                    Main.npc[index].lifeMax = headNpc.lifeMax;
-                    Main.npc[index].life = headNpc.life;
-                    Main.npc[index].defense = 50;
-                }
             }
         }
 
@@ -254,6 +242,36 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer
 
         private void UpdateVisuals() {
             Lighting.AddLight(npc.Center, 0.8f, 0.2f, 0.2f);
+
+            //驱动机械热感着色器：根据当前状态机确定模式与强度，整条蠕虫共用 head.whoAmI 索引
+            MechBossVisualMode visMode = MechBossVisualMode.Idle;
+            float visIntensity = 0.65f;//常态保持较明显的红橙描边以解决"夜晚看不清"问题
+            float visProgress = 0f;
+
+            //冲刺中——白热高速效果
+            if (stateMachine?.CurrentState is DestroyerDashingState) {
+                visMode = MechBossVisualMode.Dashing;
+                visIntensity = 1f;
+                visProgress = 1f;
+            }
+            //蓄力（冲刺/包围）——红黄警告
+            else if (stateContext.IsCharging && (stateContext.ChargeType == 1 || stateContext.ChargeType == 3)) {
+                visMode = MechBossVisualMode.Warning;
+                visIntensity = 0.85f;
+                visProgress = stateContext.ChargeProgress;
+            }
+            //其他蓄力（激光弹幕、探针阵列）——同样使用警告滤镜，进度更柔
+            else if (stateContext.IsCharging) {
+                visMode = MechBossVisualMode.Warning;
+                visIntensity = 0.75f;
+                visProgress = stateContext.ChargeProgress * 0.7f;
+            }
+            //狂暴期常态描边稍强一点
+            else if (stateContext.IsEnraged) {
+                visIntensity = 0.8f;
+            }
+
+            MechBossVisualState.Push(npc.whoAmI, visMode, visIntensity, visProgress);
         }
 
         #endregion
@@ -277,11 +295,21 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer
                 DestroyerRenderHelper.DrawDashTrail(spriteBatch, npc, texture, frameRec, origin, screenPos);
             }
 
-            //绘制本体
+            //外圈8方向描边光环——确保夜晚远距离也能看清Boss轮廓
+            MechBossThermalRenderer.DrawOutlineHaloByController(spriteBatch, texture, mainPos, frameRec,
+                npc.rotation + MathHelper.Pi, origin, npc.scale, SpriteEffects.None, npc.whoAmI);
+
+            //本体绘制套上机械热感着色器（传入当前帧UV范围，避免4帧贴图邻域采样跨帧）
+            bool shaderApplied = MechBossThermalRenderer.BeginThermalShaderByController(spriteBatch, texture, frameRec, npc.whoAmI, seed: 0f);
+
             spriteBatch.Draw(texture, mainPos, frameRec, drawColor,
                 npc.rotation + MathHelper.Pi, origin, npc.scale, SpriteEffects.None, 0f);
 
-            //绘制发光层
+            if (shaderApplied) {
+                MechBossThermalRenderer.EndThermalShader(spriteBatch);
+            }
+
+            //发光层独立绘制——保留原有自发光效果不被滤镜覆盖
             spriteBatch.Draw(Head_Glow.Value, mainPos, glowRec, Color.White,
                 npc.rotation + MathHelper.Pi, origin, npc.scale, SpriteEffects.None, 0f);
 

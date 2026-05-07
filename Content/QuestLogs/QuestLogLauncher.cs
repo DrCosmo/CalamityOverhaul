@@ -1,4 +1,4 @@
-using CalamityOverhaul.Common;
+ï»¿using CalamityOverhaul.Common;
 using CalamityOverhaul.Content.QuestLogs.Core;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -9,19 +9,19 @@ using Terraria.GameContent;
 namespace CalamityOverhaul.Content.QuestLogs
 {
     /// <summary>
-    /// ÈÎÎñÊéÆô¶¯Í¼±ê
+    /// ä»»åŠ¡ä¹¦å¯åŠ¨å›¾æ ‡
     /// </summary>
     public class QuestLogLauncher
     {
-        //Í¼±êÎ»ÖÃºÍ´óĞ¡
+        //å›¾æ ‡ä½ç½®å’Œå¤§å°
         public Rectangle IconRect;
-        //ÊÇ·ñĞüÍ£
+        //æ˜¯å¦æ‚¬åœ
         public bool IsHovered;
-        //Í¼±ê¶¯»­¼ÆÊ±Æ÷
+        //å›¾æ ‡åŠ¨ç”»è®¡æ—¶å™¨
         private float animTimer;
-        //Âö³å¶¯»­¼ÆÊ±Æ÷
+        //è„‰å†²åŠ¨ç”»è®¡æ—¶å™¨
         private float pulseTimer;
-        //·¢¹âÇ¿¶È
+        //å‘å…‰å¼ºåº¦
         private float glowIntensity;
 
         public QuestLogLauncher() {
@@ -31,19 +31,19 @@ namespace CalamityOverhaul.Content.QuestLogs
         }
 
         /// <summary>
-        /// ¸üĞÂÍ¼±ê×´Ì¬
+        /// æ›´æ–°å›¾æ ‡çŠ¶æ€
         /// </summary>
-        /// <param name="position">Í¼±êÎ»ÖÃ</param>
-        /// <param name="isOpen">ÈÎÎñÊéÊÇ·ñ´ò¿ª</param>
+        /// <param name="position">å›¾æ ‡ä½ç½®</param>
+        /// <param name="isOpen">ä»»åŠ¡ä¹¦æ˜¯å¦æ‰“å¼€</param>
         public void Update(Vector2 position, bool isOpen) {
-            //¸üĞÂÍ¼±ê¾ØĞÎ
+            //æ›´æ–°å›¾æ ‡çŸ©å½¢
             int iconSize = 48;
             IconRect = new Rectangle((int)position.X, (int)position.Y, iconSize, iconSize);
 
-            //¼ì²âÊó±êĞüÍ£
+            //æ£€æµ‹é¼ æ ‡æ‚¬åœ
             IsHovered = IconRect.Contains(Main.MouseScreen.ToPoint());
 
-            //¸üĞÂ¶¯»­¼ÆÊ±Æ÷
+            //æ›´æ–°åŠ¨ç”»è®¡æ—¶å™¨
             animTimer += 0.05f;
             if (animTimer > MathHelper.TwoPi) {
                 animTimer -= MathHelper.TwoPi;
@@ -54,16 +54,16 @@ namespace CalamityOverhaul.Content.QuestLogs
                 pulseTimer -= MathHelper.TwoPi;
             }
 
-            //¸üĞÂ·¢¹âÇ¿¶È
+            //æ›´æ–°å‘å…‰å¼ºåº¦
             float targetGlow = (isOpen && IsHovered) ? 1f : 0f;
             glowIntensity = MathHelper.Lerp(glowIntensity, targetGlow, 0.15f);
         }
 
         /// <summary>
-        /// »æÖÆÍ¼±ê
+        /// ç»˜åˆ¶å›¾æ ‡
         /// </summary>
-        /// <param name="spriteBatch">»æÖÆÅú´Î</param>
-        /// <param name="isOpen">ÈÎÎñÊéÊÇ·ñ´ò¿ª</param>
+        /// <param name="spriteBatch">ç»˜åˆ¶æ‰¹æ¬¡</param>
+        /// <param name="isOpen">ä»»åŠ¡ä¹¦æ˜¯å¦æ‰“å¼€</param>
         public void Draw(SpriteBatch spriteBatch, bool isOpen) {
             if (QuestLog.QuestLogStart == null || QuestLog.QuestLogStart.Value == null) {
                 return;
@@ -71,10 +71,10 @@ namespace CalamityOverhaul.Content.QuestLogs
 
             Texture2D iconTexture = QuestLog.QuestLogStart.Value;
 
-            //¼ÆËãÖ¡Ë÷Òı
-            //µÚ0Ö¡:¹Ø±Õ×´Ì¬
-            //µÚ1Ö¡:´ò¿ª×´Ì¬
-            //µÚ2Ö¡:´ò¿ª+ĞüÍ£·¢¹â×´Ì¬
+            //è®¡ç®—å¸§ç´¢å¼•
+            //ç¬¬0å¸§:å…³é—­çŠ¶æ€
+            //ç¬¬1å¸§:æ‰“å¼€çŠ¶æ€
+            //ç¬¬2å¸§:æ‰“å¼€+æ‚¬åœå‘å…‰çŠ¶æ€
             int frameIndex;
             if (!isOpen) {
                 frameIndex = 0;
@@ -86,11 +86,11 @@ namespace CalamityOverhaul.Content.QuestLogs
                 frameIndex = 1;
             }
 
-            //¼ÆËãµ¥Ö¡¸ß¶È
+            //è®¡ç®—å•å¸§é«˜åº¦
             int frameHeight = iconTexture.Height / 3;
             Rectangle sourceRect = new Rectangle(0, frameHeight * frameIndex, iconTexture.Width, frameHeight);
 
-            //»æÖÆÒõÓ°
+            //ç»˜åˆ¶é˜´å½±
             Vector2 shadowOffset = new Vector2(3, 3);
             Color shadowColor = Color.Black * 0.6f;
             spriteBatch.Draw(iconTexture, new Vector2(IconRect.X, IconRect.Y) + shadowOffset,
@@ -98,17 +98,17 @@ namespace CalamityOverhaul.Content.QuestLogs
                 new Vector2((float)IconRect.Width / iconTexture.Width, (float)IconRect.Height / frameHeight),
                 SpriteEffects.None, 0f);
 
-            //»æÖÆÖ÷Í¼±ê
+            //ç»˜åˆ¶ä¸»å›¾æ ‡
             float scale = 1f;
             Color drawColor = Color.White;
 
-            //ĞüÍ£Ê±µÄÎ¢ÈõºôÎüĞ§¹û
+            //æ‚¬åœæ—¶çš„å¾®å¼±å‘¼å¸æ•ˆæœ
             if (IsHovered) {
                 float breathe = (float)Math.Sin(animTimer * 2f) * 0.05f + 1f;
                 scale *= breathe;
             }
 
-            //¼ÆËã»æÖÆÎ»ÖÃ(¾ÓÖĞËõ·Å)
+            //è®¡ç®—ç»˜åˆ¶ä½ç½®(å±…ä¸­ç¼©æ”¾)
             Vector2 drawPos = new Vector2(
                 IconRect.X + IconRect.Width / 2f,
                 IconRect.Y + IconRect.Height / 2f
@@ -118,7 +118,7 @@ namespace CalamityOverhaul.Content.QuestLogs
                 new Vector2(iconTexture.Width / 2f, frameHeight / 2f),
                 scale, SpriteEffects.None, 0f);
 
-            //»æÖÆ¶îÍâµÄ·¢¹âĞ§¹û(µ±´ò¿ªÇÒĞüÍ£Ê±)
+            //ç»˜åˆ¶é¢å¤–çš„å‘å…‰æ•ˆæœ(å½“æ‰“å¼€ä¸”æ‚¬åœæ—¶)
             if (glowIntensity > 0.01f) {
                 DrawGlowEffect(spriteBatch, iconTexture, sourceRect, drawPos, scale);
             }
@@ -127,14 +127,11 @@ namespace CalamityOverhaul.Content.QuestLogs
         }
 
         private void DrawNotificationBadge(SpriteBatch spriteBatch) {
+            //æŒ‰ä»»åŠ¡èŠ‚ç‚¹è®¡æ•°ï¼Œä¸€ä¸ªèŠ‚ç‚¹æœ‰æœªé¢†å–å¥–åŠ±åˆ™ç®—ä¸€ä¸ª
             int unclaimedCount = 0;
             foreach (var quest in QuestNode.AllQuests) {
-                if (quest.IsCompleted && quest.Rewards != null) {
-                    foreach (var reward in quest.Rewards) {
-                        if (!reward.Claimed) {
-                            unclaimedCount++;
-                        }
-                    }
+                if (quest.HasUnclaimedRewards) {
+                    unclaimedCount++;
                 }
             }
 
@@ -142,35 +139,108 @@ namespace CalamityOverhaul.Content.QuestLogs
                 string text = unclaimedCount > 99 ? "99+" : unclaimedCount.ToString();
                 Vector2 textSize = FontAssets.MouseText.Value.MeasureString(text) * 0.75f;
                 float maxDim = Math.Max(textSize.X, textSize.Y);
-                float bgSize = Math.Max(6, maxDim);
+                float bgSize = Math.Max(20, maxDim + 8);
 
-                //ºìµãÎ»ÖÃÔÚÍ¼±êÓÒÉÏ½Ç
+                //çº¢ç‚¹ä½ç½®åœ¨å›¾æ ‡å³ä¸Šè§’
                 Vector2 badgeCenter = new Vector2(IconRect.Right - 4, IconRect.Top + 4);
-                Rectangle badgeRect = new Rectangle((int)(badgeCenter.X - bgSize / 2), (int)(badgeCenter.Y - bgSize / 2), (int)bgSize, (int)bgSize);
+                Rectangle badgeRect = new Rectangle(
+                    (int)(badgeCenter.X - bgSize / 2),
+                    (int)(badgeCenter.Y - bgSize / 2),
+                    (int)bgSize, (int)bgSize);
 
-                Texture2D value = CWRAsset.SoftGlow.Value;
-                for (int i = 0; i < 6; i++) {
-                    spriteBatch.Draw(value, badgeCenter, null, Color.Red with { A = 0 }, 0, value.Size() / 2, 0.6f * (1 + i * 0.02f), SpriteEffects.None, 0);
-                }
+                //ä½¿ç”¨ç€è‰²å™¨ç»˜åˆ¶é«˜è´¨æ„Ÿçº¢ç‚¹
+                DrawShaderBadge(spriteBatch, badgeCenter, bgSize);
 
-                //»æÖÆÊı×Ö
-                Vector2 textPos = new Vector2(badgeRect.X + badgeRect.Width / 2 - textSize.X / 2, badgeRect.Y + badgeRect.Height / 2 - textSize.Y / 2);
+                //ç»˜åˆ¶æ•°å­—
+                Vector2 textPos = new Vector2(
+                    badgeRect.X + badgeRect.Width / 2 - textSize.X / 2,
+                    badgeRect.Y + badgeRect.Height / 2 - textSize.Y / 2);
                 Utils.DrawBorderString(spriteBatch, text, textPos, Color.White, 0.75f);
             }
         }
 
+        private void DrawShaderBadge(SpriteBatch spriteBatch, Vector2 center, float size) {
+            Texture2D px = VaultAsset.placeholder2.Value;
+            Effect effect = EffectLoader.NotifBadge?.Value;
+
+            if (effect != null) {
+                float drawSize = size * 2f;
+                Rectangle drawRect = new Rectangle(
+                    (int)(center.X - drawSize / 2),
+                    (int)(center.Y - drawSize / 2),
+                    (int)drawSize, (int)drawSize);
+
+                effect.Parameters["uTime"]?.SetValue(pulseTimer);
+                effect.Parameters["uResolution"]?.SetValue(new Vector2(drawRect.Width, drawRect.Height));
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                    SamplerState.AnisotropicClamp, DepthStencilState.None,
+                    RasterizerState.CullNone, effect, Main.UIScaleMatrix);
+
+                spriteBatch.Draw(px, drawRect, Color.White);
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                    SamplerState.AnisotropicClamp, DepthStencilState.None,
+                    RasterizerState.CullNone, null, Main.UIScaleMatrix);
+            }
+            else {
+                //ç€è‰²å™¨ä¸å¯ç”¨æ—¶çš„é™çº§ç»˜åˆ¶
+                DrawFallbackBadge(spriteBatch, center, size);
+            }
+        }
+
+        private void DrawFallbackBadge(SpriteBatch spriteBatch, Vector2 center, float size) {
+            Texture2D px = VaultAsset.placeholder2.Value;
+            float pulse = MathF.Sin(pulseTimer * 2f) * 0.5f + 0.5f;
+
+            //å¤–å±‚è¾‰å…‰
+            float glowSize = size * 1.6f;
+            Rectangle glowRect = new Rectangle(
+                (int)(center.X - glowSize / 2),
+                (int)(center.Y - glowSize / 2),
+                (int)glowSize, (int)glowSize);
+            spriteBatch.Draw(px, glowRect, new Color(200, 30, 20) * (0.2f + pulse * 0.1f));
+
+            //ä¸»ä½“çº¢ç‚¹
+            Rectangle mainRect = new Rectangle(
+                (int)(center.X - size / 2),
+                (int)(center.Y - size / 2),
+                (int)size, (int)size);
+            //æ¸å˜åˆ†æ®µæ¨¡æ‹Ÿç«‹ä½“æ„Ÿ
+            int segs = 6;
+            for (int i = 0; i < segs; i++) {
+                float t = i / (float)segs;
+                float t2 = (i + 1f) / segs;
+                int y1 = mainRect.Y + (int)(t * mainRect.Height);
+                int y2 = mainRect.Y + (int)(t2 * mainRect.Height);
+                float lightFactor = 1f - t * 0.5f;
+                Color c = new Color(
+                    (int)(220 * lightFactor),
+                    (int)(40 * lightFactor),
+                    (int)(30 * lightFactor));
+                spriteBatch.Draw(px, new Rectangle(mainRect.X, y1, mainRect.Width, Math.Max(1, y2 - y1)), c);
+            }
+
+            //é¡¶éƒ¨é«˜å…‰
+            spriteBatch.Draw(px,
+                new Rectangle(mainRect.X + 3, mainRect.Y + 1, mainRect.Width - 6, 2),
+                new Color(255, 180, 160) * 0.5f);
+        }
+
         private void DrawGlowEffect(SpriteBatch spriteBatch, Texture2D texture, Rectangle sourceRect, Vector2 position, float baseScale) {
-            //»æÖÆ¶à²ãÍâ·¢¹â
+            //ç»˜åˆ¶å¤šå±‚å¤–å‘å…‰
             int glowLayers = 3;
             for (int i = 0; i < glowLayers; i++) {
                 float layerScale = baseScale * (1.2f + i * 0.15f);
                 float layerAlpha = glowIntensity * (0.4f - i * 0.1f);
 
-                //Ê¹ÓÃÂö³åĞ§¹û
+                //ä½¿ç”¨è„‰å†²æ•ˆæœ
                 float pulse = (float)Math.Sin(pulseTimer + i * 0.5f) * 0.5f + 0.5f;
                 layerAlpha *= pulse;
 
-                //³ÈÉ«·¢¹â
+                //æ©™è‰²å‘å…‰
                 Color glowColor = new Color(255, 180, 100) * layerAlpha;
 
                 spriteBatch.Draw(texture, position, sourceRect, glowColor, 0f,
@@ -180,7 +250,7 @@ namespace CalamityOverhaul.Content.QuestLogs
         }
 
         /// <summary>
-        /// ²¥·Åµã»÷ÒôĞ§
+        /// æ’­æ”¾ç‚¹å‡»éŸ³æ•ˆ
         /// </summary>
         public void PlayClickSound(bool isOpening) {
             SoundEngine.PlaySound(isOpening ? CWRSound.ButtonZero with { Pitch = 0.1f, Volume = 0.6f } : CWRSound.ButtonZero with { Pitch = -0.1f, Volume = 0.6f });

@@ -1,7 +1,9 @@
-﻿using CalamityOverhaul.Content.PRTTypes;
+﻿using CalamityMod.NPCs;
+using CalamityOverhaul.Content.PRTTypes;
 using InnoVault.GameContent.BaseEntity;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
+using MonoMod;
 using System;
 using Terraria;
 using Terraria.Audio;
@@ -34,6 +36,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.MurasamaProj
         public bool Slash1 => Projectile.frame == 10;
         public bool Slash2 => Projectile.frame == 0;
         public bool Slash3 => Projectile.frame == 6;
+
         #endregion
 
         #region 初始化
@@ -271,6 +274,14 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.MurasamaProj
 
             //无视防御
             modifiers.DefenseEffectiveness *= 0f;
+            TryApplyDRPenetration(target, ref modifiers);
+        }
+
+        private void TryApplyDRPenetration(NPC target, ref NPC.HitModifiers modifiers) {
+            float dr = CWRRef.GetNPCDR(target);
+            if (dr > 0f && dr <= 0.9f) {
+                modifiers.FinalDamage *= (1f - dr * 0.5f) / (1f - dr);
+            }
         }
 
         internal static void ApplyBaseDamageModifiers(NPC target, ref NPC.HitModifiers modifiers) {
@@ -297,7 +308,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.MurasamaProj
             }
 
             //对血肉蠕虫仅造成66%伤害
-            if (CWRLoad.targetNpcTypes4.Contains(target.type) || CWRLoad.targetNpcTypes5.Contains(target.type) || CWRLoad.targetNpcTypes17.Contains(target.type)) {
+            if (CWRLoad.PerforatorLargeSegments.Contains(target.type) || CWRLoad.PerforatorMediumSegments.Contains(target.type) || CWRLoad.PerforatorSmallSegments.Contains(target.type)) {
                 modifiers.FinalDamage *= 0.66f;
             }
 
@@ -349,7 +360,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.MurasamaProj
             }
 
             //对黄沙恶虫仅造成66%伤害
-            if (CWRLoad.targetNpcTypes9.Contains(target.type)) {
+            if (CWRLoad.DesertScourgeSegments.Contains(target.type)) {
                 modifiers.FinalDamage *= 0.66f;
             }
 
@@ -409,7 +420,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.MurasamaProj
                 modifiers.FinalDamage *= 1.33f;
             }
         }
-        #endregion
+#endregion
 
         #region 打击效果
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {

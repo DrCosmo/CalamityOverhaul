@@ -3,12 +3,11 @@ using CalamityOverhaul.Content.DamageModify;
 using CalamityOverhaul.Content.Items.Materials;
 using CalamityOverhaul.Content.Projectiles.Weapons.Ranged.HeavenfallLongbowProj;
 using CalamityOverhaul.Content.PRTTypes;
-using CalamityOverhaul.Content.RemakeItems;
 using CalamityOverhaul.Content.UIs.SupertableUIs;
+using InnoVault.GameSystem;
 using InnoVault.PRT;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Terraria;
 using Terraria.Audio;
 using Terraria.DataStructures;
@@ -17,7 +16,7 @@ using Terraria.ModLoader;
 
 namespace CalamityOverhaul.Content.Items.Ranged
 {
-    internal class ModifyHeavenfallLongbow : CWRItemOverride
+    internal class ModifyHeavenfallLongbow : ItemOverride
     {
         public override int TargetID => ModContent.ItemType<HeavenfallLongbow>();
         public override bool DrawingInfo => false;
@@ -87,7 +86,7 @@ namespace CalamityOverhaul.Content.Items.Ranged
 
             SpanInfiniteRune(player);
 
-            if (!CWRKeySystem.HeavenfallLongbowSkillKey.JustPressed) {
+            if (!CWRKeySystem.WeponSkill_Q.JustPressed) {
                 return;
             }
 
@@ -132,7 +131,7 @@ namespace CalamityOverhaul.Content.Items.Ranged
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips) {
-            tooltips.InsertHotkeyBinding(CWRKeySystem.HeavenfallLongbowSkillKey, noneTip: CWRLocText.Instance.Notbound.Value);
+            tooltips.InsertHotkeyBinding(CWRKeySystem.WeponSkill_Q, noneTip: CWRLocText.Instance.Notbound.Value + $"[{CWRKeySystem.WeponSkill_Q.DisplayName}]");
             CWRUtils.SetItemLegendContentTops(ref tooltips, Name);
         }
 
@@ -190,39 +189,30 @@ namespace CalamityOverhaul.Content.Items.Ranged
 
         public static void Obliterate(Vector2 origPos) {
             const int maxLengthSquared = 90000;
-
-            List<List<int>> allTargetNpcTypes = [
-                 CWRLoad.targetNpcTypes,
-                 CWRLoad.targetNpcTypes2,
-                 CWRLoad.targetNpcTypes3,
-                 CWRLoad.targetNpcTypes4,
-                 CWRLoad.targetNpcTypes5,
-                 CWRLoad.targetNpcTypes6,
-                 CWRLoad.targetNpcTypes7,
-                 CWRLoad.targetNpcTypes8,
-                 CWRLoad.targetNpcTypes9,
-                 CWRLoad.targetNpcTypes10,
-                 CWRLoad.targetNpcTypes11,
-                 CWRLoad.targetNpcTypes12,
-                 CWRLoad.targetNpcTypes13,
-                 CWRLoad.targetNpcTypes14,
-                 CWRLoad.targetNpcTypes15
-            ];
+            //已处理过的群组锚点集合，避免对同一个Boss重复触发
+            HashSet<int> handledAnchors = [];
+            //群组成员复用缓冲
+            List<NPC> groupBuffer = [];
 
             foreach (NPC npc in Main.ActiveNPCs) {
                 if (npc.Center.To(origPos).LengthSquared() > maxLengthSquared) {
                     continue;
                 }
-
-                foreach (List<int> targetNpcTypes in allTargetNpcTypes) {
-                    if (targetNpcTypes.Contains(npc.type)) {
-                        foreach (NPC npcToKill in Main.npc.Where(n => targetNpcTypes.Contains(n.type))) {
-                            KillAction(npcToKill);
-                        }
-                        break;
-                    }
+                int anchor = NpcGroupHelper.GetAnchorIndex(npc);
+                if (anchor >= 0 && !handledAnchors.Add(anchor)) {
+                    //同群组的别的体节已经被处理过，跳过
+                    continue;
                 }
-                KillAction(npc);
+                //收集整个群组（蠕虫所有体节、月总所有实体等）一并击杀
+                //无论它们是否都在范围内，避免出现"半个Boss被击杀"的情况
+                NpcGroupHelper.CollectGroup(npc, groupBuffer);
+                if (groupBuffer.Count == 0) {
+                    KillAction(npc);
+                    continue;
+                }
+                for (int i = 0; i < groupBuffer.Count; i++) {
+                    KillAction(groupBuffer[i]);
+                }
             }
         }
     }

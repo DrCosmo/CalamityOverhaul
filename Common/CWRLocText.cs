@@ -25,7 +25,6 @@ namespace CalamityOverhaul.Common
         public LocalizedText KreloadTimeAddText { get; private set; }
         public LocalizedText KreloadTimeLessenText { get; private set; }
         public LocalizedText DeathModeItem { get; private set; }
-        public LocalizedText DropInMachineRebellion { get; private set; }
         public LocalizedText DontUseMagicConch { get; private set; }
         public LocalizedText OnlyZenith { get; private set; }
         public LocalizedText Event_TungstenRiot_Name { get; private set; }
@@ -40,21 +39,6 @@ namespace CalamityOverhaul.Common
         public LocalizedText Drop_GlodDragonDrop_RuleText { get; private set; }
         public LocalizedText Murasama_Text_Lang_0 { get; private set; }
         public LocalizedText Murasama_Text_Lang_End { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_0 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_1 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_2 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_3 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_4 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_5 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_6 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_7 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_8 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_9 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_10 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_11 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_12 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_13 { get; private set; }
-        public LocalizedText Murasama_TextDictionary_Content_14 { get; private set; }
         public LocalizedText Murasama_No_legend_Content_1 { get; private set; }
         public LocalizedText Murasama_No_legend_Content_2 { get; private set; }
         public LocalizedText Murasama_No_legend_Content_3 { get; private set; }
@@ -63,21 +47,6 @@ namespace CalamityOverhaul.Common
         public LocalizedText SHPC_No_legend_Content_2 { get; private set; }
         public LocalizedText SHPC_No_legend_Content_3 { get; private set; }
         public LocalizedText SHPC_No_legend_Content_4 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_0 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_1 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_2 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_3 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_4 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_5 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_6 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_7 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_8 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_9 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_10 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_11 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_12 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_13 { get; private set; }
-        public LocalizedText SHPC_TextDictionary_Content_14 { get; private set; }
         public LocalizedText Halibut_No_legend_Content_1 { get; private set; }
         public LocalizedText Halibut_No_legend_Content_2 { get; private set; }
         public LocalizedText Halibut_No_legend_Content_3 { get; private set; }
@@ -123,26 +92,8 @@ namespace CalamityOverhaul.Common
         public LocalizedText OverhaulTheBibleUI_Text3 { get; private set; }
         public LocalizedText OverhaulTheBibleUI_Text4 { get; private set; }
         public LocalizedText OverhaulTheBibleUI_Text5 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text1 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text2 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text3 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text4 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text5 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text6 { get; private set; }
-        public LocalizedText CartridgeHolderUI_Text7 { get; private set; }
         public LocalizedText ArrowHolderUI_Text0 { get; private set; }
         public LocalizedText ArrowHolderUI_Text1 { get; private set; }
-        public LocalizedText CWRGun_KL_Text { get; private set; }
-        public LocalizedText CWRGun_Scope_Text { get; private set; }
-        public LocalizedText CWRGun_Recoil_Text { get; private set; }
-        public LocalizedText CWRGun_MustCA_Text { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_0 { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_1 { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_2 { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_3 { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_4 { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_5 { get; private set; }
-        public LocalizedText CWRGun_Recoil_Level_6 { get; private set; }
         public LocalizedText AmmoBox_Text { get; private set; }
         public LocalizedText AmmoBox_Text2 { get; private set; }
         public LocalizedText AmmoBox_Text3 { get; private set; }
@@ -161,6 +112,7 @@ namespace CalamityOverhaul.Common
         public LocalizedText IconUI_Text6 { get; private set; }
         public LocalizedText IconUI_Text7 { get; private set; }
         public LocalizedText IconUI_Text8 { get; private set; }
+        public LocalizedText IconUI_ExtraText { get; private set; }
         public LocalizedText SPU_Text0 { get; private set; }
         public LocalizedText SPU_Text1 { get; private set; }
         public LocalizedText SPU_Text2 { get; private set; }
@@ -177,9 +129,6 @@ namespace CalamityOverhaul.Common
         public LocalizedText Config_1 { get; private set; }
         public LocalizedText Config_2 { get; private set; }
         public LocalizedText SkeletronPrime_Text { get; private set; }
-        public LocalizedText MachineRebellion_SpawnInfo { get; private set; }
-        public LocalizedText MachineRebellion_DespawnMessage { get; private set; }
-        public LocalizedText MachineRebellion_DisplayName { get; private set; }
         public LocalizedText Notbound { get; private set; }
         public LocalizedText DisableMotionInterpolationMessage { get; private set; }
         public LocalizedText LegendItemUpgradeDisable { get; private set; }

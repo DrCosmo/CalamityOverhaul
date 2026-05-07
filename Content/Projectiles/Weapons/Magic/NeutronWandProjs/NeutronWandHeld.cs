@@ -22,7 +22,6 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Magic.NeutronWandProjs
             HandIdleDistanceY = -20;
             HandFireDistanceX = 52;
             GunPressure = 0;
-            Recoil = 0;
             ControlForce = 0;
             InOwner_HandState_AlwaysSetInFireRoding = true;
             Onehanded = true;
@@ -111,7 +110,6 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Magic.NeutronWandProjs
             effect.Parameters["uTime"].SetValue(rotation);
             effect.Parameters["cosine"].SetValue((float)Math.Cos(rotation));
             effect.Parameters["uColor"].SetValue(Color.White.ToVector3());
-            effect.Parameters["uImageSize1"].SetValue(new Vector2(Main.screenWidth, Main.screenHeight));
             effect.Parameters["uOpacity"].SetValue(uOpacity);
             effect.Parameters["set"].SetValue(set && onFireR);
             effect.CurrentTechnique.Passes[0].Apply();

@@ -1,4 +1,4 @@
-using CalamityOverhaul.Content.PRTTypes;
+ï»¿using CalamityOverhaul.Content.PRTTypes;
 using InnoVault.GameContent.BaseEntity;
 using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
 {
     /// <summary>
-    /// Ù¤ÂíÉäÏß
+    /// ä¼½é©¬å°„çº¿
     /// </summary>
     internal class GammaRayBeam : BaseHeldProj
     {
@@ -23,7 +23,7 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
         private float beamLength = 0f;
         private float maxBeamLength = 2200f;
 
-        //ÊÓ¾õĞ§¹û²ÎÊı
+        //è§†è§‰æ•ˆæœå‚æ•°
         private float pulseIntensity = 1f;
         private float coreIntensity = 1f;
         private float distortionStrength = 0.15f;
@@ -59,43 +59,43 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
             Projectile.rotation = Projectile.velocity.ToRotation();
             Projectile.position -= Projectile.velocity;
 
-            //¹âÊøÕ¹¿ªºÍÊÕËõ¶¯»­
+            //å…‰æŸå±•å¼€å’Œæ”¶ç¼©åŠ¨ç”»
             float lifeRatio = 1f - Projectile.timeLeft / 300f;
 
             if (lifeRatio < 0.1f) {
-                //¿ìËÙÕ¹¿ª½×¶Î
+                //å¿«é€Ÿå±•å¼€é˜¶æ®µ
                 float expandProgress = lifeRatio / 0.15f;
                 beamWidth = MathHelper.Lerp(4f, maxBeamWidth, CWRUtils.EaseOutCubic(expandProgress));
                 beamLength = MathHelper.Lerp(0f, maxBeamLength, CWRUtils.EaseOutQuad(expandProgress));
                 coreIntensity = MathHelper.Lerp(0.5f, 1.5f, expandProgress);
             }
             else if (lifeRatio > 0.9f) {
-                //ÊÕËõÏûÊ§½×¶Î
+                //æ”¶ç¼©æ¶ˆå¤±é˜¶æ®µ
                 float collapseProgress = (lifeRatio - 0.85f) / 0.15f;
                 beamWidth = MathHelper.Lerp(maxBeamWidth, 4f, CWRUtils.EaseInQuad(collapseProgress));
                 coreIntensity = MathHelper.Lerp(1.5f, 0f, collapseProgress);
             }
             else {
-                //ÎÈ¶¨½×¶Î
+                //ç¨³å®šé˜¶æ®µ
                 beamWidth = maxBeamWidth;
                 beamLength = maxBeamLength;
 
-                //Âö¶¯Ğ§¹û
+                //è„‰åŠ¨æ•ˆæœ
                 float pulse = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 8f) * 0.1f + 0.9f;
                 pulseIntensity = pulse;
                 coreIntensity = 1.2f + pulse * 0.3f;
             }
 
-            //ÄÜÁ¿Á£×ÓÌØĞ§
+            //èƒ½é‡ç²’å­ç‰¹æ•ˆ
             SpawnEnergyParticles();
 
-            //·¢¹âĞ§¹û
+            //ä¼½é©¬å°„çº¿è¾å°„å…‰ - ç´«è“è‰²è°ƒ
             Lighting.AddLight(Projectile.Center,
                 0.6f * coreIntensity,
-                0.9f * coreIntensity,
+                0.35f * coreIntensity,
                 1.2f * coreIntensity);
 
-            //ÒôĞ§
+            //éŸ³æ•ˆ
             if (Projectile.timeLeft % 30 == 0) {
                 SoundEngine.PlaySound(SoundID.Item15 with {
                     Volume = 0.3f,
@@ -117,37 +117,38 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                 return;
             }
 
-            //ĞÇ¹âÉÁË¸
-            if (Main.rand.NextBool(6)) {
-                Vector2 sparkPos = Projectile.Center + Main.rand.NextVector2Circular(beamWidth * 0.4f, beamWidth * 0.4f);
-                Vector2 sparkVel = Main.rand.NextVector2Circular(1f, 1f);
+            //ç”µç¦»é—ªçƒç«èŠ± - æ²¿å…‰æŸæ–¹å‘æ•£å°„
+            if (Main.rand.NextBool(4)) {
+                float along = Main.rand.NextFloat(0.1f, 0.9f);
+                Vector2 beamDir = Projectile.rotation.ToRotationVector2();
+                Vector2 sparkPos = Projectile.Center + beamDir * beamLength * along
+                    + beamDir.RotatedBy(MathHelper.PiOver2) * Main.rand.NextFloat(-beamWidth * 0.3f, beamWidth * 0.3f);
+                Vector2 sparkVel = beamDir.RotatedBy(Main.rand.NextFloat(-0.8f, 0.8f)) * Main.rand.NextFloat(1f, 3f);
 
-                BasePRT spark = new PRT_Spark(
+                PRTLoader.AddParticle(new PRT_Spark(
                     sparkPos,
                     sparkVel,
                     false,
-                    Main.rand.Next(10, 18),
-                    Main.rand.NextFloat(0.8f, 1.3f),
-                    Color.White,
+                    Main.rand.Next(8, 15),
+                    Main.rand.NextFloat(0.6f, 1.1f),
+                    Color.Lerp(new Color(180, 140, 255), Color.White, Main.rand.NextFloat(0.3f, 0.7f)),
                     Owner
-                );
-                PRTLoader.AddParticle(spark);
+                ));
             }
 
-            //ÄÜÁ¿Á÷¶¯ÏßÌõ
+            //é«˜èƒ½å°„çº¿æµçº¿ - ç´«è“è‰²è°ƒ
             if (Main.rand.NextBool(5)) {
-                Vector2 lineStart = Projectile.Center + Main.rand.NextVector2Circular(beamWidth * 0.3f, beamWidth * 0.3f);
-                Vector2 lineVel = Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(4f, 8f);
+                Vector2 lineStart = Projectile.Center + Main.rand.NextVector2Circular(beamWidth * 0.2f, beamWidth * 0.2f);
+                Vector2 lineVel = Projectile.rotation.ToRotationVector2() * Main.rand.NextFloat(5f, 10f);
 
-                BasePRT line = new PRT_Line(
+                PRTLoader.AddParticle(new PRT_Line(
                     lineStart,
                     lineVel,
                     false,
-                    Main.rand.Next(12, 20),
-                    Main.rand.NextFloat(0.5f, 1f),
-                    Color.Lerp(Color.Cyan, new Color(150, 220, 255), Main.rand.NextFloat())
-                );
-                PRTLoader.AddParticle(line);
+                    Main.rand.Next(10, 18),
+                    Main.rand.NextFloat(0.4f, 0.9f),
+                    Color.Lerp(new Color(140, 100, 255), new Color(80, 180, 255), Main.rand.NextFloat())
+                ));
             }
         }
 
@@ -156,123 +157,116 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                 return;
             }
 
-            //»÷ÖĞ±¬·¢Ğ§¹û
+            //å‡»ä¸­çˆ†å‘æ•ˆæœ
             SoundEngine.PlaySound(SoundID.Item94 with {
                 Volume = 0.5f,
                 Pitch = 0.4f
             }, Projectile.Center);
 
             if (!VaultUtils.isServer) {
-                //±¬·¢³å»÷Á£×Ó
-                for (int i = 0; i < 12; i++) {
-                    float angle = MathHelper.TwoPi * i / 12f;
-                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(4f, 9f);
+                //ç”µç¦»æ•£å°„ - é”åˆ©ç´«è“çŸ­çº¿æ®µä»å‘½ä¸­ç‚¹æ”¾å°„
+                for (int i = 0; i < 16; i++) {
+                    float angle = MathHelper.TwoPi * i / 16f + Main.rand.NextFloat(-0.15f, 0.15f);
+                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(5f, 12f);
 
-                    BasePRT impactBurst = new PRT_GammaImpact(
+                    PRTLoader.AddParticle(new PRT_GammaIonize(
+                        target.Center + Main.rand.NextVector2Circular(8f, 8f),
+                        velocity,
+                        Color.Lerp(new Color(160, 120, 255), Color.White, Main.rand.NextFloat(0.2f, 0.6f)),
+                        Main.rand.NextFloat(0.4f, 1.0f),
+                        Main.rand.Next(12, 22),
+                        Main.rand.NextFloat(MathHelper.TwoPi)
+                    ));
+                }
+
+                //ä¼½é©¬å†²å‡»æ®‹å½± - è¾ƒå¤§çš„FlashimpactåŠ¨ç”»
+                for (int i = 0; i < 6; i++) {
+                    float angle = MathHelper.TwoPi * i / 6f;
+                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(3f, 7f);
+
+                    PRTLoader.AddParticle(new PRT_GammaImpact(
                         target.Center,
                         velocity,
-                        Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()),
-                        Main.rand.NextFloat(0.2f, 1.2f),
+                        Color.Lerp(new Color(140, 100, 255), new Color(80, 180, 255), Main.rand.NextFloat()),
+                        Main.rand.NextFloat(0.3f, 0.8f),
+                        Main.rand.Next(15, 28),
+                        Main.rand.NextFloat(-0.2f, 0.2f),
+                        false,
+                        0.3f
+                    ));
+                }
+
+                //è¾å°„å…‰çº¿ - ä»å‘½ä¸­ç‚¹å‘å¤–çš„é«˜é€Ÿå…‰æŸ
+                float rand = Main.rand.NextFloat(MathHelper.TwoPi);
+                for (int i = 0; i < 10; i++) {
+                    float angle = MathHelper.TwoPi * i / 10f + rand;
+                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(20f, 35f);
+
+                    PRTLoader.AddParticle(new PRT_Light(
+                        target.Center,
+                        velocity,
+                        Main.rand.NextFloat(0.6f, 1.2f),
+                        Color.Lerp(new Color(160, 130, 255), new Color(200, 200, 255), Main.rand.NextFloat()),
+                        Main.rand.Next(18, 32),
+                        1.5f,
+                        2f,
+                        hueShift: 0.015f
+                    ));
+                }
+            }
+
+            //ç©¿é€ä¼¤å®³é€’å‡
+            Projectile.damage = (int)(Projectile.damage * 0.8f);
+        }
+
+        public override void OnKill(int timeLeft) {
+            //ä¼½é©¬å°„çº¿æ¶ˆæ•£æ•ˆæœ
+            if (!VaultUtils.isServer) {
+                SoundEngine.PlaySound(SoundID.Item62 with {
+                    Volume = 0.5f,
+                    Pitch = 0.5f
+                }, Projectile.Center);
+
+                //è¾å°„æ®‹ç•™ç”µç¦»çº¿æ®µ - æ”¾å°„çŠ¶æ•£å¼€
+                for (int i = 0; i < 18; i++) {
+                    float angle = MathHelper.TwoPi * i / 18f;
+                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(4f, 11f);
+
+                    PRTLoader.AddParticle(new PRT_GammaIonize(
+                        Projectile.Center,
+                        velocity,
+                        Color.Lerp(new Color(140, 100, 255), new Color(80, 160, 255), Main.rand.NextFloat()),
+                        Main.rand.NextFloat(0.5f, 0.9f),
+                        Main.rand.Next(15, 30),
+                        Main.rand.NextFloat(MathHelper.TwoPi)
+                    ));
+                }
+
+                //ä¼½é©¬å†²å‡»æ®‹å½±
+                for (int i = 0; i < 10; i++) {
+                    float angle = MathHelper.TwoPi * i / 10f;
+                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(5f, 10f);
+
+                    PRT_GammaImpact burst = new PRT_GammaImpact(
+                        Projectile.Center,
+                        velocity,
+                        Color.Lerp(new Color(160, 130, 255), Color.White, Main.rand.NextFloat(0.3f, 0.7f)),
+                        Main.rand.NextFloat(0.4f, 0.7f),
                         Main.rand.Next(20, 35),
                         Main.rand.NextFloat(-0.3f, 0.3f),
                         false,
                         0.25f
                     );
-                    PRTLoader.AddParticle(impactBurst);
-                }
-
-                float rand = Main.rand.NextFloat(MathHelper.TwoPi);
-                //¹âÃ¢Á£×Ó
-                for (int i = 0; i < 15; i++) {
-                    float angle = MathHelper.TwoPi * i / 15f + rand;
-                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(23f, 37f);
-
-                    BasePRT light = new PRT_Light(
-                        target.Center,
-                        velocity,
-                        Main.rand.NextFloat(0.8f, 1.5f),
-                        Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()),
-                        Main.rand.Next(25, 40),
-                        1.5f,
-                        2f,
-                        hueShift: 0.02f
-                    );
-                    PRTLoader.AddParticle(light);
-                }
-
-                //³å»÷²¨»·
-                for (int i = 0; i < 20; i++) {
-                    float angle = MathHelper.TwoPi * i / 20f;
-                    Vector2 offset = angle.ToRotationVector2() * 30f;
-                    Vector2 velocity = offset.SafeNormalize(Vector2.Zero) * 5f;
-
-                    BasePRT shock = new PRT_Spark(
-                        target.Center + offset,
-                        velocity,
-                        false,
-                        Main.rand.Next(15, 25),
-                        Main.rand.NextFloat(1f, 1.5f),
-                        new Color(100, 200, 255),
-                        Owner
-                    );
-                    PRTLoader.AddParticle(shock);
-                }
-            }
-
-            //´©Í¸ÉËº¦µİ¼õ
-            Projectile.damage = (int)(Projectile.damage * 0.8f);
-        }
-
-        public override void OnKill(int timeLeft) {
-            //ÏûÊ§±¬Õ¨Ğ§¹û
-            if (!VaultUtils.isServer) {
-                SoundEngine.PlaySound(SoundID.Item62 with {
-                    Volume = 0.5f,
-                    Pitch = 0.3f
-                }, Projectile.Center);
-
-                //·ÅÉä×´³å»÷Á£×Ó
-                for (int i = 0; i < 24; i++) {
-                    float angle = MathHelper.TwoPi * i / 24f;
-                    Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(6f, 13f);
-
-                    PRT_GammaImpact burst = new PRT_GammaImpact(
-                        Projectile.Center,
-                        velocity,
-                        Color.Lerp(Color.Cyan, Color.White, Main.rand.NextFloat()),
-                        Main.rand.NextFloat(0.5f, 0.75f),
-                        Main.rand.Next(30, 45),
-                        Main.rand.NextFloat(-0.4f, 0.4f),
-                        false,
-                        0.3f
-                    );
                     burst.inOwner = Owner.whoAmI;
                     PRTLoader.AddParticle(burst);
-                }
-
-                //ÄÚ±¬ÊÕËõÁ£×Ó
-                for (int i = 0; i < 15; i++) {
-                    Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(90f, 90f);
-                    Vector2 velocity = (Projectile.Center - spawnPos).SafeNormalize(Vector2.Zero) * Main.rand.NextFloat(10f, 18f);
-
-                    BasePRT implosion = new PRT_Spark(
-                        spawnPos,
-                        velocity,
-                        false,
-                        Main.rand.Next(20, 30),
-                        Main.rand.NextFloat(1f, 1.8f),
-                        Color.White,
-                        Owner
-                    );
-                    PRTLoader.AddParticle(implosion);
                 }
             }
         }
 
         public override Color? GetAlpha(Color lightColor) {
-            //¶¯Ì¬ÑÕÉ«±ä»¯
+            //ä¼½é©¬å°„çº¿åŠ¨æ€ç´«è“è‰²å˜åŒ–
             float colorShift = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 6f) * 0.5f + 0.5f;
-            return Color.Lerp(Color.Cyan, Color.White, colorShift * coreIntensity);
+            return Color.Lerp(new Color(140, 100, 255), new Color(220, 200, 255), colorShift * coreIntensity);
         }
 
         public override bool PreDraw(ref Color lightColor) {
@@ -287,14 +281,14 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
 
             SpriteBatch sb = Main.spriteBatch;
 
-            //×¼±¸äÖÈ¾
+            //å‡†å¤‡æ¸²æŸ“
             sb.End();
             sb.Begin(SpriteSortMode.Immediate, BlendState.Additive, SamplerState.LinearWrap,
                 DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
 
             Effect shader = Common.EffectLoader.GammaRayBeam.Value;
 
-            //ÉèÖÃ×ÅÉ«Æ÷²ÎÊı
+            //è®¾ç½®ç€è‰²å™¨å‚æ•°
             shader.Parameters["uTime"]?.SetValue(Main.GlobalTimeWrappedHourly);
             shader.Parameters["uOpacity"]?.SetValue(1f - Projectile.alpha / 255f);
             shader.Parameters["uIntensity"]?.SetValue(pulseIntensity);
@@ -304,14 +298,14 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
             shader.Parameters["uDistortionStrength"]?.SetValue(distortionStrength);
             shader.Parameters["uCoreIntensity"]?.SetValue(coreIntensity);
 
-            //ÉèÖÃÎÆÀí
-            shader.Parameters["uImage1"]?.SetValue(CWRAsset.Extra_193.Value); //ÔëÉùÎÆÀí
-            shader.Parameters["uImage2"]?.SetValue(CWRAsset.StarTexture.Value); //ĞÇ¹âÎÆÀí
-            shader.Parameters["uImage3"]?.SetValue(CWRAsset.Placeholder_White.Value); //¹âÊøÎÆÀí
+            //è®¾ç½®çº¹ç†
+            shader.Parameters["uImage1"]?.SetValue(CWRAsset.Extra_193.Value); //å™ªå£°çº¹ç†
+            shader.Parameters["uImage2"]?.SetValue(CWRAsset.StarTexture.Value); //æ˜Ÿå…‰çº¹ç†
+            shader.Parameters["uImage3"]?.SetValue(CWRAsset.Placeholder_White.Value); //å…‰æŸçº¹ç†
 
             shader.CurrentTechnique.Passes["GammaRayPass"].Apply();
 
-            //»æÖÆÖ÷¹âÊø
+            //ç»˜åˆ¶ä¸»å…‰æŸ
             Texture2D beamTexture = CWRAsset.Placeholder_White.Value;
             Vector2 beamOrigin = new Vector2(0, beamTexture.Height / 2f);
             Vector2 beamScale = new Vector2(beamLength / beamTexture.Width, beamWidth / beamTexture.Height);
@@ -320,7 +314,7 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                 beamTexture,
                 Projectile.Center - Main.screenPosition,
                 null,
-                new Color(255, 200, 100) * (1f - Projectile.alpha / 255f),
+                new Color(180, 140, 255) * (1f - Projectile.alpha / 255f),
                 Projectile.rotation,
                 beamOrigin,
                 beamScale,
@@ -328,25 +322,28 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                 0f
             );
 
-            //»æÖÆºËĞÄ¸ß¹â²ã
+            //ç»˜åˆ¶æ ¸å¿ƒé«˜å…‰å±‚
             DrawCoreHighlight(sb);
 
-            //»Ö¸´Ä¬ÈÏäÖÈ¾×´Ì¬
+            //æ¢å¤é»˜è®¤æ¸²æŸ“çŠ¶æ€
             sb.End();
             sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend, SamplerState.PointWrap,
                 DepthStencilState.None, RasterizerState.CullNone, null, Main.GameViewMatrix.TransformationMatrix);
         }
 
         private void DrawCoreHighlight(SpriteBatch sb) {
-            //»æÖÆ¶îÍâµÄºËĞÄ·¢¹â²ã
+            //ç»˜åˆ¶ä¼½é©¬å°„çº¿æ ¸å¿ƒå‘å…‰å±‚ - ç´«è“ç™½è‰²è°ƒ
             Texture2D glowTexture = CWRAsset.StarTexture.Value;
             Vector2 drawPos = Projectile.Center - Main.screenPosition;
 
-            for (int i = 0; i < 13; i++) {
-                float scale = (beamWidth / glowTexture.Width) * (1.2f - i * 0.2f) * coreIntensity;
-                float alpha = (1f - i * 0.3f) * pulseIntensity;
+            for (int i = 0; i < 4; i++) {
+                float scale = (beamWidth / glowTexture.Width) * (1.3f - i * 0.25f) * coreIntensity;
+                float a = (1f - i * 0.25f) * pulseIntensity;
 
-                Color glowColor = Color.Lerp(new Color(255, 200, 100), new Color(255, 120, 50), i / 3f) * alpha;
+                //æ ¸å¿ƒå±‚ï¼šç™½ç´« â†’ å¤–å±‚ï¼šè“ç´«
+                Color glowColor = Color.Lerp(
+                    new Color(220, 190, 255),
+                    new Color(100, 60, 220), i / 3f) * a;
 
                 sb.Draw(
                     glowTexture,
@@ -355,11 +352,26 @@ namespace CalamityOverhaul.Content.Items.Magic.AriaofTheCosmoses
                     glowColor,
                     Projectile.rotation,
                     new Vector2(0, glowTexture.Height / 2f),
-                    new Vector2(beamLength / glowTexture.Width * 0.8f, scale),
+                    new Vector2(beamLength / glowTexture.Width * 0.85f, scale),
                     SpriteEffects.None,
                     0f
                 );
             }
+
+            //åˆ‡ä¼¦ç§‘å¤«è¾å°„å…‰æ™•å±‚ - è–„è“å…‰
+            float cherenkovAlpha = pulseIntensity * 0.3f;
+            float cherenkovScale = (beamWidth / glowTexture.Width) * 1.8f * coreIntensity;
+            sb.Draw(
+                glowTexture,
+                drawPos,
+                null,
+                new Color(80, 160, 255) * cherenkovAlpha,
+                Projectile.rotation,
+                new Vector2(0, glowTexture.Height / 2f),
+                new Vector2(beamLength / glowTexture.Width * 0.9f, cherenkovScale),
+                SpriteEffects.None,
+                0f
+            );
         }
     }
 }

@@ -1,4 +1,10 @@
-﻿ElementWhip: {
+﻿SHPCModTooltipDraw: {
+	InstalledHeader: 已安装模块
+	NoModules: 无
+	BonusHeader: 当前模块总加成
+}
+
+ElementWhip: {
 	DisplayName: 元素长鞭
 	Tooltip:
 		'''
@@ -423,6 +429,11 @@ DragonBreathBox: {
 		'''
 }
 
+HalibutItem: {
+	DisplayName: 大比目鱼
+	Tooltip: ""
+}
+
 AvalancheM60: {
 	DisplayName: 雪崩 M60
 	Tooltip:
@@ -610,7 +621,13 @@ WeaverGrievances: {
 
 Starship: {
 	DisplayName: 群星巨舰
-	Tooltip: ""
+	Tooltip:
+		'''
+		持续射击积累热度，射速随热度不断提升
+		右键消耗弹药装填彗星弹，下次射击时发射，造成大量伤害并附加超级分解
+		热度达到顶峰时，两架僚机开始伴飞并追踪射击星弹，同时周期性从身后抛出行星弹幕
+		松开射击键触发终幕——14颗无视防御的追踪陨石与微型星系倾泻至鼠标位置
+		'''
 }
 
 SandDagger: {
@@ -1560,5 +1577,701 @@ Thrower: {
 
 Elysium: {
 	DisplayName: 天国极乐
-	Tooltip: ""
+	Tooltip:
+		'''
+		左键持续发射神圣巨蛇
+		右键感召附近居民成为十二使徒之一，最多12名
+		使徒殉道后积累殉道之力；聚集11层后使用[ElysiumQKey]令约翰殉道，启示录降临
+		在殉道之力未满时使用[ElysiumQKey]可召唤天雷
+		[c/AADDFF:门徒越多，全伤害、暴击率与防御持续提升；11名时额外回复生命，12名时移速大幅提升]
+		[c/FF6666:12名齐聚时：若血量跌破30%，犹大将背刺致死（10秒冷却）]
+		[c/FFD700:━━ 启示录阶段 ━━]
+		[c/FFD700:[ElysiumQKey] 降落天体陨石（180%伤害）]
+		[c/FFD700:[ElysiumRKey] 发动后三印审判（420%伤害）]
+		[c/FFD700:右键依次召唤四骑士：瘟疫、战争、饥荒、死亡]
+		[c/FFAA55:战争骑士提升伤害与暴击；饥荒骑士提供大量护甲穿透；死亡骑士强化天体陨石与战争骑士的一切效果]
+		'''
+	DiscipleName_0: 西门彼得
+	DiscipleName_1: 圣安德鲁
+	DiscipleName_2: 雅各布
+	DiscipleName_3: 圣约翰
+	DiscipleName_4: 腓力
+	DiscipleName_5: 巴多罗买
+	DiscipleName_6: 多马
+	DiscipleName_7: 圣马修
+	DiscipleName_8: 雅各
+	DiscipleName_9: 达泰
+	DiscipleName_10: 西门
+	DiscipleName_11: 犹大
+	HorsemanName_0: 瘟疫
+	HorsemanName_1: 战争
+	HorsemanName_2: 饥荒
+	HorsemanName_3: 死亡
+	DiscipleFullText: 门徒已满
+	NoConvertTargetText: 附近没有可转化的居民
+	DiscipleFallbackText: 门徒
+	RevelationText: 启示录
+	RevelationEndText: 启示录终止
+	CelestialMeteorText: 天体陨石
+	SealStarsText: 第五星 第六星 第七星
+	HorsemenFullText: 四骑士已齐聚
+	HorsemanArrivalText: "{0}骑士降临"
+	DiscipleJoinedText: "{0} 已加入"
+	JudasBetrayalText: 犹大的背叛!
+	JudasDeathReasonText: "{0} 被犹大背叛了"
+	DiscipleMartyrText: "{0} 殉道了"
+	MartyrdomPowerText: 殉道之力 {0}/11
+	Tooltip_DiscipleCountText: 当前门徒: {0}/12
+	Tooltip_NoDisciplesText: 尚无门徒追随
+	Tooltip_MartyrdomPowerText: 殉道之力: {0} {1}/11
+	Tooltip_RevelationReadyText: 按Q键 — 约翰将殉道，启示录将降临
+	Tooltip_JudgmentActiveText: 后三印审判进行中，等待终结收束
+	Tooltip_RevelationActiveText: 启示录已降临 Q降天体陨石 R发动后三印审判 右键召唤四骑士 {0}/4
+	Tooltip_JudasWarningText: 警告: 犹大的背叛已潜伏于你的身边
+}
+
+SandevistansItem: {
+	DisplayName: 斯安维斯坦Mk5
+	Tooltip: 减缓感知时间流速70%，持续5秒。冷却15秒。
+}
+
+MimicPerchedAuxBrain: {
+	DisplayName: 拟态栖置副脑
+	Tooltip:
+		'''
+		将佩戴者拆解为四个幻象环绕主体游荡
+		被击中时隐藏在幻象中的真身将引发混乱并免疫此次攻击不受伤
+		同时幻象将冲向袭击者引爆，伤害取决于敌怪原始攻击力
+		"混沌，狰狞，狞目......但就在你的后脑勺"
+		'''
+}
+
+RamCapacityUpgradeChip: {
+	DisplayName: RAM容量提升芯片
+	Tooltip: 使用后永久增加1点基础RAM上限
+}
+
+RamRecoveryUpgradeChip: {
+	DisplayName: RAM恢复提升芯片
+	Tooltip: 使用后永久增加0.05点每秒基础RAM恢复速度
+}
+
+Mewtwo: {
+	DisplayName: 超梦芯片
+	Tooltip: 使用后进入超梦
+}
+
+RapidBarrelModule: {
+	DisplayName: 速射枪管
+	Tooltip: 超长复进簧带来灼热脉冲，但代价是稳定性与单发威力
+}
+
+FocusBarrelModule: {
+	DisplayName: 聚束枪管
+	Tooltip: 三束追踪光束被强制汇拢为一束，造成灾难性的集中打击
+}
+
+PrecisionOpticModule: {
+	DisplayName: 精密瞄具
+	Tooltip: 激光辅助瞄准消除全部弹道散布，并提供额外暴击机率
+}
+
+OverloadCoreModule: {
+	DisplayName: 超载核心
+	Tooltip: 以更快的循环逻辑取代缓冲，使能量球蓄力更快、飞行更迅猛
+}
+
+SteadyStockModule: {
+	DisplayName: 稳压枪托
+	Tooltip: 复合式重型枪托吸纳冲击，以一定射速换取每发额外伤害
+}
+
+HarmonyGripModule: {
+	DisplayName: 谐振握把
+	Tooltip: 生物电感传导握把以人体导通法力，大幅压低魔力消耗
+}
+
+ResonanceFrameModule: {
+	DisplayName: 共振机匣
+	Tooltip: 谐波叠加机匣额外溢出一束光束，火力倾泻更加密集
+}
+
+AdaptiveOpticModule: {
+	DisplayName: 自适应瞄具
+	Tooltip: 神经联动算法持续修正弹道，使每束光能快速而精准的命中目标
+}
+
+AssaultStockModule: {
+	DisplayName: 突击枪托
+	Tooltip: 肾上腺素辅助应力支架以更激进的姿态触发，火力上扬但耗能加剧
+}
+
+BalancedGripModule: {
+	DisplayName: 平衡握把
+	Tooltip: 配重重新分布，全方位小幅强化射速、伤害与稳定性
+}
+
+CapacitorBankModule: {
+	DisplayName: 储能阵列
+	Tooltip: 高密度电容堆栈以更短的循环填满能量球，但抑制了出口动能
+}
+
+CrystalGripModule: {
+	DisplayName: 水晶握把
+	Tooltip: 合成水晶介质共振手感，节流法力消耗并提升暴击，但拖慢蓄力节奏
+}
+
+EfficientGripModule: {
+	DisplayName: 高效握把
+	Tooltip: 工程级人体工学握把同时优化能耗与扣动节奏
+}
+
+HeavyBarrelModule: {
+	DisplayName: 重型枪管
+	Tooltip: 加厚膛线压制散布与节奏，每发都化作沉重打击
+}
+
+HighVoltageCoreModule: {
+	DisplayName: 高压核心
+	Tooltip: 跃升输出电压，所有伤害与聚束打击都被显著推高，代价是法力开销
+}
+
+HoloOpticModule: {
+	DisplayName: 全息瞄具
+	Tooltip: 全息标线锁定弹着点，散布大幅压低、扣动节奏更快，能耗略微上扬
+}
+
+HypersonicBarrelModule: {
+	DisplayName: 超音速枪管
+	Tooltip: 声爆膛压将光束加速到极限速度，但难以再做精细追踪
+}
+
+KineticDamperModule: {
+	DisplayName: 动能阻尼托
+	Tooltip: 液态阻尼器吞食后坐力，散布几近归零并提供少量暴击
+}
+
+LightStockModule: {
+	DisplayName: 轻量枪托
+	Tooltip: 碳纤复合骨架显著加快射速，但稳定性与单发威力轻度下滑
+}
+
+MultiCellFrameModule: {
+	DisplayName: 多格机匣
+	Tooltip: 并列冷却腔同时吐出两束光，覆盖范围扩大，单发伤害下降
+}
+
+PlasmaInjectorModule: {
+	DisplayName: 等离子注入器
+	Tooltip: 高焓等离子注入显著放大能量球速度与聚束伤害，蓄力略慢
+}
+
+QuantumFrameModule: {
+	DisplayName: 量子机匣
+	Tooltip: 量子定向回路让光束更聪明地拐弯，能量球也更快，魔力小幅升高
+}
+
+ScattershotBarrelModule: {
+	DisplayName: 霰射枪管
+	Tooltip: 破裂膛口将一发拆为多束散弹，覆盖面剧增但单发威力骤降
+}
+
+ThermalOpticModule: {
+	DisplayName: 热成像瞄具
+	Tooltip: 红外锁定让光束如猎犬般紧咬目标，并伴随精度与暴击的双重提升
+}
+
+VolatileFrameModule: {
+	DisplayName: 不稳定机匣
+	Tooltip: 过载冷却结构压榨出额外光束与暴击，但能耗与散布同步飙升
+}
+
+NovaBarrelModule: {
+	DisplayName: 新星枪管
+	Tooltip:
+		'''
+		过载电浆膛口让每束光在命中时引爆一团微型脉冲炸裂
+		代价是膛口稳定性下滑、单发威力削弱与法力消耗加剧
+		'''
+}
+
+PrismOpticModule: {
+	DisplayName: 棱镜瞄具
+	Tooltip:
+		'''
+		光路终末处的相位棱镜分裂出两道副光束
+		主光束飞行距离略微缩短，但额外捕捉到精准的暴击窗口
+		'''
+}
+
+TeslaCoreModule: {
+	DisplayName: 特斯拉核心
+	Tooltip:
+		'''
+		高压电弧让命中后的光束跳跃至最近的敌人
+		链上每个节点都能继承命中行为，但魔力开销同步上扬
+		'''
+}
+
+RecoilStockModule: {
+	DisplayName: 反推枪托
+	Tooltip:
+		'''
+		过载缓冲器将能量球的爆炸冲击转化为玩家的弹射动能
+		光束的射程也被同步延长，代价是扣动节奏轻微变迟
+		'''
+}
+
+SwarmGripModule: {
+	DisplayName: 蜂群握把
+	Tooltip:
+		'''
+		神经网络握把在能量球爆炸瞬间释放数颗强追踪迷你光球
+		能量球的初速与法力开销随之付出代价
+		'''
+}
+
+GravityFrameModule: {
+	DisplayName: 引力机匣
+	Tooltip:
+		'''
+		微型奇点环将能量球转化为吸引装置
+		蓄力时持续把附近敌人拉向球心，爆炸范围显著放大
+		但精密腔体让蓄力节奏变得稍慢
+		'''
+}
+
+LaserBarrelModule: {
+	DisplayName: 棱镜激光枪管
+	Tooltip: 汇流光束转变为持续的棱镜激光光柱，代价是庞大的法力消耗和输出功率受限
+}
+
+OscillatorBarrelModule: {
+	DisplayName: 震荡激光枪管
+	Tooltip:
+		'''
+		棱镜光柱内嵌脉冲电容，每30帧在光束终点引爆一次能量脉冲
+		单帧伤害略降，但范围爆炸与更低的法力消耗填补了持续照射的弱点
+		'''
+}
+
+ScorchBarrelModule: {
+	DisplayName: 灼烧激光枪管
+	Tooltip:
+		'''
+		高焓等离子改性膛口让激光在命中时点燃目标
+		光束本体伤害轻微削弱，但持续灼烧与更低的法力消耗弥补了直接输出的缺口
+		'''
+}
+
+ReflectionBarrelModule: {
+	DisplayName: 折射激光枪管
+	Tooltip:
+		'''
+		菱形棱镜在命中点将一部分能量折射出两道副光束
+		主光束伤害提升，但极高的法力消耗让持续照射代价不菲
+		'''
+}
+
+EchoOpticModule: {
+	DisplayName: 回响瞄具
+	Tooltip:
+		'''
+		光路末端的残响元件捕获光束消亡时的能量余波
+		每束光消亡时释放三道扇射追踪副光束，弥补飞行距离缩短的损失
+		'''
+}
+
+FrostOpticModule: {
+	DisplayName: 冰霜瞄具
+	Tooltip:
+		'''
+		制冷聚焦系统在命中时将目标冻入冰霜灼烧状态
+		光束速度略降但追踪更稳定，并附带额外穿透与暴击加成
+		'''
+}
+
+SingularityCoreModule: {
+	DisplayName: 奇点核心
+	Tooltip:
+		'''
+		微型引力场发生器在能量球飞行途中持续偏转轨道朝向最近敌人
+		爆炸范围显著扩大，但高密度磁场让法力消耗同步攀升
+		'''
+}
+
+ScrambleFieldModule: {
+	DisplayName: 扰场核心
+	Tooltip:
+		'''
+		高频扰场线圈在蓄力期间每40帧在球体周围触发一次微型冲击波
+		爆炸规模放大，代价是蓄力节奏变慢与更高的法力开销
+		'''
+}
+
+BraceStockModule: {
+	DisplayName: 支架枪托
+	Tooltip: 重型稳定支架彻底消除散布并延长光束射程，以一定射速换取极高精准度
+}
+
+LaunchStockModule: {
+	DisplayName: 弹射枪托
+	Tooltip:
+		'''
+		过载弹簧机构在能量球发射瞬间额外释放三束扇形追踪光束
+		能量球速度提升，法力消耗同步加剧
+		'''
+}
+
+SentinelGripModule: {
+	DisplayName: 哨戒握把
+	Tooltip:
+		'''
+		智能传感握把在能量球飞行期间每20帧自动向最近敌人发射追踪光束
+		能量球初速降低，法力开销加剧，但持续的伴随火力弥补了损失
+		'''
+}
+
+ConductorGripModule: {
+	DisplayName: 导体握把
+	Tooltip:
+		'''
+		超导材质将链式电弧强化为更远距离、更多次的跳跃
+		每次命中都伴随电弧粒子爆发，单发伤害与法力消耗轻微上扬
+		'''
+}
+
+PhantomFrameModule: {
+	DisplayName: 相位机匣
+	Tooltip:
+		'''
+		量子相位腔每30帧将飞行中的光束传送到距最近敌人80像素处
+		彻底规避遮挡障碍，光束射程与伤害轻微提升，代价是法力消耗加剧
+		'''
+}
+
+RecursiveFrameModule: {
+	DisplayName: 递归机匣
+	Tooltip:
+		'''
+		拓扑回路机匣在每束光消亡时从玩家位置沿原方向重发一束副本
+		主光束伤害提升但射程缩短，副本伤害削弱且不再递归，法力消耗加剧
+		'''
+}
+
+ForkBarrelModule: {
+	DisplayName: 叉形枪管
+	Tooltip:
+		'''
+		腔内分路棱镜每50帧触发一次分叉，向两侧各派生一束子光束
+		单发伤害有所下降，法力消耗略有提升
+		'''
+}
+
+NullBarrelModule: {
+	DisplayName: 归零枪管
+	Tooltip:
+		'''
+		数据抹除器将单发威力压至极低，但穿透理论上无限
+		命中时注入剧毒数据流持续侵蚀目标
+		'''
+}
+
+HelixBarrelModule: {
+	DisplayName: 螺旋枪管
+	Tooltip:
+		'''
+		双通道腔体强制两束光束绕共同轴螺旋缠绕飞行
+		精准归零，单发略有折损，配合多段穿透效果出众
+		'''
+}
+
+TargetPainterOpticModule: {
+	DisplayName: 锁定瞄具
+	Tooltip:
+		'''
+		激光目标系统命中时对目标施加腐化感染，大幅削减其防御
+		追踪能力与暴击率同步提升
+		'''
+}
+
+StrobeOpticModule: {
+	DisplayName: 频闪瞄具
+	Tooltip:
+		'''
+		高频相位调制器让光束在穿墙与非穿墙状态间持续切换
+		有概率使命中目标陷入混乱，额外穿透与攻速小幅提升
+		'''
+}
+
+SniperOpticModule: {
+	DisplayName: 狙击瞄具
+	Tooltip:
+		'''
+		磁场准直器大幅提升弹速与射程并增强单发伤害
+		代价是攻速减缓、追踪能力几乎归零
+		配合超音速枪管可实现超远程极限打击
+		'''
+}
+
+StormCellModule: {
+	DisplayName: 风暴细胞
+	Tooltip:
+		'''
+		蓄力期间每25帧对周围最近敌人释放一束追踪光束
+		法力消耗加剧，但蓄力更快且爆炸范围扩大
+		'''
+}
+
+CryoCoreModule: {
+	DisplayName: 低温核心
+	Tooltip:
+		'''
+		超低温蓄能室在能量球爆炸时对范围内所有敌人施加冰冻
+		爆炸半径扩大，蓄力节奏略慢
+		'''
+}
+
+DarkMatterCoreModule: {
+	DisplayName: 暗物质核心
+	Tooltip:
+		'''
+		暗物质场在能量球飞行阶段持续将附近敌人向球心牵引聚拢
+		球体同时追踪目标，爆炸范围显著扩大，法力消耗加剧
+		'''
+}
+
+ErgonomicStockModule: {
+	DisplayName: 人体工学枪托
+	Tooltip: 精密人体工学设计大幅降低法力消耗，并带来轻微的攻速与精准提升
+}
+
+ExtenderStockModule: {
+	DisplayName: 延伸枪托
+	Tooltip:
+		'''
+		加长导轨延长光束射程与飞行速度，代价是极轻微的单发折损
+		与狙击瞄具叠加可实现极限远程覆盖
+		'''
+}
+
+StormStockModule: {
+	DisplayName: 风暴枪托
+	Tooltip:
+		'''
+		高密度复进弹簧将射速与弹数大幅增加，单发伤害因此受损
+		配合霰射枪管可实现密集弹幕地毯覆盖
+		'''
+}
+
+VampireGripModule: {
+	DisplayName: 虬血握把
+	Tooltip:
+		'''
+		生物电导握把将光束伤害的一部分反哺为生命回复
+		激光命中频率更高但单次回复量更小，持久战时提供有效续航
+		'''
+}
+
+ChronalGripModule: {
+	DisplayName: 时相握把
+	Tooltip:
+		'''
+		相位延迟线圈令命中目标陷入减速状态
+		配合追踪能力提升，密集弹幕可形成持续控制压制
+		'''
+}
+
+CascadeGripModule: {
+	DisplayName: 级联握把
+	Tooltip:
+		'''
+		拓扑触发器累计5次命中后在命中点向8方向辐射一轮爆发光束
+		爆发光束伤害适中，打出节奏感并清场，单发略有折损
+		'''
+}
+
+MirrorFrameModule: {
+	DisplayName: 镜像机匣
+	Tooltip:
+		'''
+		对称反射腔在每束光束生成瞬间派生一束180°对称镜像
+		镜像伤害削弱，双向覆盖大幅提升弹幕密度
+		'''
+}
+
+NullspaceFrameModule: {
+	DisplayName: 虚空机匣
+	Tooltip:
+		'''
+		虚空缝隙发生器在光束飞行轨迹上每20帧留下一个微型爆炸残影
+		射程轻微延长，单发折损极小
+		'''
+}
+
+OverkillFrameModule: {
+	DisplayName: 超杀机匣
+	Tooltip:
+		'''
+		超杀感知回路使你每次击杀生物叠加一层杀戮波动（最多 15 层），每层+2%伤害
+		层数随时间衰减，节奏越快越强
+		'''
+}
+
+GraviticBarrelModule: {
+	DisplayName: 引力枪管
+	Tooltip:
+		'''
+		内嵌微型奇点的炮膛让光束在飞行时持续吸引附近敌人
+		散布与追踪小幅压低，光束飞行距离延长，弹速略减
+		'''
+}
+
+PrismaticBarrelModule: {
+	DisplayName: 棱光枪管
+	Tooltip:
+		'''
+		色散棱镜让每束光在飞行中持续抛出彩色尾迹，命中时溅出彩色光屑
+		额外发射一束并提供爆击补偿，单发威力略降，散布略升
+		'''
+}
+
+ConcussionBarrelModule: {
+	DisplayName: 震荡膛口
+	Tooltip:
+		'''
+		过载缓冲腔在每累计 5 次命中后于命中点引爆一次微型震荡环
+		单发威力上扬、散布收紧，但攻速代价显著
+		'''
+}
+
+CrosslinkOpticModule: {
+	DisplayName: 联结瞄具
+	Tooltip:
+		'''
+		神经联结模块在命中时把目标与最近的另一只敌人之间架起一道数据电弧
+		链跳次数与跳跃半径双重提升，蓝量消耗略增
+		'''
+}
+
+ZoomOpticModule: {
+	DisplayName: 焦距瞄具
+	Tooltip:
+		'''
+		长焦磁透镜让光束飞行更远更快，但牺牲攻速与追踪
+		命中距离 ≥ 600 像素时附加一次额外白热打击，距离越远加成越高
+		'''
+}
+
+PingOpticModule: {
+	DisplayName: 标记瞄具
+	Tooltip: 信号标定系统命中时对目标施加死亡标记，同时提供一定的暴击率
+}
+
+CapacitorPulseModule: {
+	DisplayName: 脉冲电容
+	Tooltip:
+		'''
+		高密度电容堆栈在蓄力中每隔约半秒于球体上释放一次小型脉冲爆破
+		爆炸范围与蓄力时长同步上涨，蓝量消耗加剧
+		'''
+}
+
+EntropyCoreModule: {
+	DisplayName: 熵核
+	Tooltip:
+		'''
+		能量球飞行时持续从附近敌人吸取"熵蓄能"
+		引爆时按累积量额外释放一次余波爆破——目标群越密余波越强
+		'''
+}
+
+ResonanceReactorModule: {
+	DisplayName: 共振反应堆
+	Tooltip:
+		'''
+		蓄力期间持续释放共振粒子环
+		引爆时玩家脚下额外触发一次共振冲击，弥补近战覆盖
+		'''
+}
+
+OverwatchStockModule: {
+	DisplayName: 守望枪托
+	Tooltip:
+		'''
+		静止时逐步累积"哨戒"层数（最多 5 层），移动后迅速衰减
+		每层 +3% 伤害与 +2% 暴击，散布与攻速因稳重姿态略减
+		'''
+}
+
+MomentumStockModule: {
+	DisplayName: 动量枪托
+	Tooltip:
+		'''
+		高速移动时逐步累积"动能"层数（最多 6 层），停下后迅速衰减
+		每层 +4% 攻速与 +6% 弹速，与守望枪托互为镜像
+		'''
+}
+
+BulwarkStockModule: {
+	DisplayName: 壁垒枪托
+	Tooltip:
+		'''
+		手持 SHPC 时为玩家提供少量减伤
+		稳重姿态略微拖慢蓄力，减少蓝量消耗
+		'''
+}
+
+CombatGripModule: {
+	DisplayName: 战斗握把
+	Tooltip:
+		'''
+		命中并击杀目标时累积"战意"（最多 5 层）
+		每层 +4% 攻速与 +2% 伤害，层数在未造成击杀时随时间衰减
+		'''
+}
+
+TempestGripModule: {
+	DisplayName: 风暴握把
+	Tooltip:
+		'''
+		每累计若干次命中触发一次"风暴爆发"，朝最近命中点四周喷射多道电弧
+		单发威力略减、蓝量消耗加剧，但提供节奏感清场
+		'''
+}
+
+AbsorberGripModule: {
+	DisplayName: 吸收握把
+	Tooltip:
+		'''
+		光束与激光命中时按伤害比例返还少量蓝量，自循环补给法力
+		单发威力略减、原始法力消耗提升作为代价
+		'''
+}
+
+HarmonicFrameModule: {
+	DisplayName: 谐振机匣
+	Tooltip:
+		'''
+		多束光束同时存在时彼此架起共振电弧，造成额外伤害
+		额外发射一束、单发威力略减、散布略升
+		'''
+}
+
+ReplicatorFrameModule: {
+	DisplayName: 数据复制机匣
+	Tooltip:
+		'''
+		追踪光束消亡时在原地生成一束极短命的回响副本沿原方向继续飞行
+		主光束伤害提升但寿命缩短，蓝量消耗加剧
+		'''
+}
+
+ArchiveFrameModule: {
+	DisplayName: 归档机匣
+	Tooltip:
+		'''
+		持续累积 SHPC 命中所造成的伤害，每达到阈值在玩家位置释放一次"数据归档"爆破
+		单发伤害提升，蓝量消耗轻微上扬
+		'''
 }

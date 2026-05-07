@@ -1,6 +1,6 @@
+ï»¿using CalamityOverhaul.Common;
 using InnoVault.GameContent.BaseEntity;
 using Microsoft.Xna.Framework.Graphics;
-using ReLogic.Content;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -11,7 +11,7 @@ using Terraria.ModLoader;
 namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
 {
     /// <summary>
-    /// Êó±êÎ»ÖÃµÄÁò»Ç»ğ·¨Õó
+    /// é¼ æ ‡ä½ç½®çš„ç¡«ç£ºç«æ³•é˜µ
     /// </summary>
     internal class PandemoniumCircle : BaseHeldProj
     {
@@ -20,19 +20,12 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         private ref float ExpandTimer => ref Projectile.ai[0];
         private ref float AttackTimer => ref Projectile.ai[1];
 
-        //·¨ÕóÊÓ¾õÊı¾İ
+        //æ³•é˜µè§†è§‰æ•°æ®
         private List<RuneData> runes = new();
         private List<LightningData> lightnings = new();
         private float circleRadius = 0f;
         private float circleAlpha = 0f;
         private float rotationAngle = 0f;
-
-        [VaultLoaden(CWRConstant.Masking + "Fire")]
-        private static Asset<Texture2D> RuneAsset = null;
-        [VaultLoaden(CWRConstant.Masking)]
-        private static Asset<Texture2D> StarTexture = null;
-        [VaultLoaden(CWRConstant.Masking + "SoftGlow")]
-        private static Asset<Texture2D> GlowAsset = null;
 
         private class RuneData
         {
@@ -82,7 +75,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             ExpandTimer++;
             AttackTimer++;
 
-            //³õÊ¼»¯
+            //åˆå§‹åŒ–
             if (ExpandTimer == 1) {
                 InitializeRunes();
                 SoundEngine.PlaySound(SoundID.DD2_EtherianPortalOpen with {
@@ -91,7 +84,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 }, Projectile.Center);
             }
 
-            //·¨ÕóÀ©Õ¹½×¶Î (0-30Ö¡)
+            //æ³•é˜µæ‰©å±•é˜¶æ®µ (0-30å¸§)
             if (ExpandTimer <= 30f) {
                 float progress = ExpandTimer / 30f;
                 circleRadius = CWRUtils.EaseOutCubic(progress) * 200f;
@@ -102,30 +95,30 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 circleAlpha = 1f;
             }
 
-            //·¨ÕóĞı×ª
+            //æ³•é˜µæ—‹è½¬
             rotationAngle += 0.02f;
 
-            //¸üĞÂ·ûÎÄ
+            //æ›´æ–°ç¬¦æ–‡
             UpdateRunes();
 
-            //Éú³ÉÁ¬½ÓÉÁµç
+            //ç”Ÿæˆè¿æ¥é—ªç”µ
             if (AttackTimer % 8 == 0 && ExpandTimer > 15f) {
                 SpawnPlayerLightning();
             }
 
-            //¸üĞÂÉÁµç
+            //æ›´æ–°é—ªç”µ
             UpdateLightnings();
 
-            //³ÖĞø¹¥»÷µĞÈË
+            //æŒç»­æ”»å‡»æ•Œäºº
             if (AttackTimer % 20 == 0 && ExpandTimer > 30f) {
                 AttackNearbyEnemies();
             }
 
-            //Áò»Ç»ğÕÕÃ÷
+            //ç¡«ç£ºç«ç…§æ˜
             float lightIntensity = circleAlpha * 2f;
             Lighting.AddLight(Projectile.Center, 1.5f * lightIntensity, 0.5f * lightIntensity, 0.2f * lightIntensity);
 
-            //Éú³ÉÁò»Ç»ğÁ£×Ó
+            //ç”Ÿæˆç¡«ç£ºç«ç²’å­
             SpawnBrimstoneParticles();
         }
 
@@ -147,17 +140,17 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
 
         private void UpdateRunes() {
             foreach (var rune in runes) {
-                //µ­Èë
+                //æ·¡å…¥
                 rune.Alpha = MathHelper.Lerp(rune.Alpha, circleAlpha, 0.1f);
 
-                //»ğÑæÖ¡¸üĞÂ
+                //ç«ç„°å¸§æ›´æ–°
                 rune.FireFrameCounter += 0.4f;
                 if (rune.FireFrameCounter >= 1f) {
                     rune.FireFrameCounter = 0;
                     rune.FireFrame = (rune.FireFrame + 1) % 16;
                 }
 
-                //Ğı×ª
+                //æ—‹è½¬
                 rune.Rotation += 0.03f;
                 rune.PulsePhase += 0.08f;
             }
@@ -166,7 +159,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         private void SpawnPlayerLightning() {
             if (!Owner.active || Owner.dead) return;
 
-            //Éú³É´Ó·¨Õóµ½Íæ¼ÒµÄÉÁµç
+            //ç”Ÿæˆä»æ³•é˜µåˆ°ç©å®¶çš„é—ªç”µ
             List<Vector2> points = GenerateLightningPath(Projectile.Center, Owner.Center, 6);
 
             lightnings.Add(new LightningData {
@@ -178,7 +171,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 Intensity = Main.rand.NextFloat(0.8f, 1f)
             });
 
-            //Áò»Ç»ğÉÁµçÒôĞ§
+            //ç¡«ç£ºç«é—ªç”µéŸ³æ•ˆ
             if (Main.rand.NextBool(3)) {
                 SoundEngine.PlaySound(SoundID.Item122 with {
                     Volume = 0.4f,
@@ -192,7 +185,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 var lightning = lightnings[i];
                 lightning.Life++;
 
-                //¸üĞÂÖÕµãÎ»ÖÃ(¸úËæÍæ¼Ò)
+                //æ›´æ–°ç»ˆç‚¹ä½ç½®(è·Ÿéšç©å®¶)
                 if (Owner.active && !Owner.dead) {
                     lightning.EndPos = Owner.Center;
                     lightning.SegmentPoints = GenerateLightningPath(lightning.StartPos, lightning.EndPos, 6);
@@ -236,7 +229,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             }
 
             if (closestNPC != null && Main.myPlayer == Projectile.owner) {
-                //·¢ÉäÁò»Ç»ğÇò
+                //å‘å°„ç¡«ç£ºç«çƒ
                 Vector2 velocity = (closestNPC.Center - Projectile.Center).SafeNormalize(Vector2.Zero) * 12f;
                 Projectile.NewProjectile(
                     Projectile.GetSource_FromThis(),
@@ -247,10 +240,10 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                     Projectile.knockBack,
                     Projectile.owner,
                     0,
-                    2 //±ê¼ÇÎª·¨Õó»ğÇò
+                    2 //æ ‡è®°ä¸ºæ³•é˜µç«çƒ
                 );
 
-                //Éú³É¹¥»÷ÉÁµçÊÓ¾õĞ§¹û
+                //ç”Ÿæˆæ”»å‡»é—ªç”µè§†è§‰æ•ˆæœ
                 List<Vector2> lightningPath = GenerateLightningPath(Projectile.Center, closestNPC.Center, 5);
                 lightnings.Add(new LightningData {
                     StartPos = Projectile.Center,
@@ -280,7 +273,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 brimstone.noGravity = true;
             }
 
-            //·¨Õó±ßÔµ»ğÑæ
+            //æ³•é˜µè¾¹ç¼˜ç«ç„°
             if (Main.rand.NextBool(3)) {
                 float angle = Main.rand.NextFloat(MathHelper.TwoPi);
                 Vector2 edgePos = Projectile.Center + angle.ToRotationVector2() * circleRadius;
@@ -298,7 +291,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         }
 
         public override void OnKill(int timeLeft) {
-            //·¨ÕóÏûÉ¢ÌØĞ§
+            //æ³•é˜µæ¶ˆæ•£ç‰¹æ•ˆ
             for (int i = 0; i < 50; i++) {
                 float angle = MathHelper.TwoPi * i / 50f;
                 Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(4f, 8f);
@@ -324,174 +317,55 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             SpriteBatch sb = Main.spriteBatch;
             Vector2 center = Projectile.Center - Main.screenPosition;
 
-            //Áò»Ç»ğÉ«²Ê
-            Color coreColor = new Color(255, 80, 40);
-            Color midColor = new Color(200, 50, 30);
-            Color darkColor = new Color(120, 30, 20);
+            //ç»˜åˆ¶ç€è‰²å™¨æ³•é˜µ
+            DrawBrimstoneDomainShader(sb, center);
 
-            //»æÖÆÍâ²ã°µÓ°¹â»·
-            if (GlowAsset?.IsLoaded ?? false) {
-                for (int i = 0; i < 3; i++) {
-                    float ringSize = circleRadius * (1.2f + i * 0.3f);
-                    float alpha = circleAlpha * (0.4f - i * 0.1f);
-                    float rotation = rotationAngle + i * MathHelper.PiOver4;
-
-                    sb.Draw(
-                        GlowAsset.Value,
-                        center,
-                        null,
-                        new Color(40, 10, 10) with { A = 0 } * alpha,
-                        rotation,
-                        GlowAsset.Value.Size() / 2,
-                        ringSize / GlowAsset.Value.Width * 2.5f,
-                        SpriteEffects.None,
-                        0
-                    );
-                }
-            }
-
-            //»æÖÆ·¨Õó¼¸ºÎÍ¼ĞÎ
-            DrawCircle(sb, center, circleRadius, 3f, darkColor * circleAlpha);
-            DrawPentagram(sb, center, circleRadius * 0.8f, 2.5f, midColor * circleAlpha, rotationAngle);
-            DrawHexagram(sb, center, circleRadius * 0.6f, 2f, coreColor * circleAlpha, -rotationAngle * 1.5f);
-
-            //»æÖÆ·ûÎÄ
-            if (RuneAsset?.IsLoaded ?? false) {
-                DrawRunes(sb, RuneAsset.Value, center);
-            }
-
-            //»æÖÆÉÁµç
+            //ç»˜åˆ¶é—ªç”µ
             DrawLightnings(sb);
-
-            //»æÖÆÖĞĞÄ»Ô¹â
-            if (GlowAsset?.IsLoaded ?? false) {
-                DrawCenterGlow(sb, GlowAsset.Value, center, coreColor, midColor);
-            }
 
             return false;
         }
 
-        private void DrawCircle(SpriteBatch sb, Vector2 center, float radius, float thickness, Color color) {
-            Texture2D pixel = CWRAsset.Placeholder_White.Value;
-            int segments = 60;
+        private void DrawBrimstoneDomainShader(SpriteBatch sb, Vector2 center) {
+            Effect shader = EffectLoader.BrimstoneDomain?.Value;
+            if (shader == null) return;
 
-            for (int i = 0; i < segments; i++) {
-                float angle = MathHelper.TwoPi * i / segments;
-                float nextAngle = MathHelper.TwoPi * (i + 1) / segments;
+            Texture2D canvas = CWRAsset.Placeholder_White.Value;
+            Texture2D noise = CWRAsset.Extra_193.Value;
+            if (canvas == null || noise == null) return;
 
-                Vector2 start = center + angle.ToRotationVector2() * radius;
-                Vector2 end = center + nextAngle.ToRotationVector2() * radius;
+            //å³é”®æ³•é˜µè¾ƒå°ï¼Œä½¿ç”¨é€‚å½“çš„ç»˜åˆ¶åŒºåŸŸ
+            float drawRadius = circleRadius * 1.3f;
+            float drawDiameter = drawRadius * 2f;
 
-                DrawLine(sb, pixel, start, end, thickness, color);
-            }
-        }
+            shader.Parameters["uTime"]?.SetValue((float)Main.timeForVisualEffects * 0.016f);
+            shader.Parameters["fadeAlpha"]?.SetValue(circleAlpha);
+            shader.Parameters["tierLevel"]?.SetValue(1.5f); //å³é”®æ³•é˜µå›ºå®šä¸­ç­‰å±‚çº§
+            shader.Parameters["expandProgress"]?.SetValue(MathHelper.Clamp(circleAlpha, 0f, 1f));
+            shader.Parameters["pulseIntensity"]?.SetValue(0.5f + (float)Math.Sin(Main.GlobalTimeWrappedHourly * 3f) * 0.3f);
 
-        private void DrawPentagram(SpriteBatch sb, Vector2 center, float radius, float thickness, Color color, float rotation) {
-            Texture2D pixel = CWRAsset.Placeholder_White.Value;
-            int points = 5;
-            Vector2[] vertices = new Vector2[points];
+            //ç¨å¾®æŸ”å’Œçš„è‰²å½©ï¼ˆåŒºåˆ†äºä¸»æ³•é˜µï¼‰
+            shader.Parameters["coreColor"]?.SetValue(new Vector3(1f, 0.31f, 0.16f));
+            shader.Parameters["midColor"]?.SetValue(new Vector3(0.78f, 0.2f, 0.12f));
+            shader.Parameters["edgeColor"]?.SetValue(new Vector3(0.47f, 0.12f, 0.08f));
+            shader.Parameters["voidColor"]?.SetValue(new Vector3(0.16f, 0.04f, 0.04f));
+            shader.Parameters["uNoiseTex"]?.SetValue(noise);
 
-            for (int i = 0; i < points; i++) {
-                float angle = rotation + i * MathHelper.TwoPi / points - MathHelper.PiOver2;
-                vertices[i] = center + angle.ToRotationVector2() * radius;
-            }
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive,
+                SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,
+                null, Main.GameViewMatrix.TransformationMatrix);
 
-            for (int i = 0; i < points; i++) {
-                DrawLine(sb, pixel, vertices[i], vertices[(i + 2) % points], thickness, color);
-            }
-        }
+            shader.CurrentTechnique.Passes[0].Apply();
 
-        private void DrawHexagram(SpriteBatch sb, Vector2 center, float radius, float thickness, Color color, float rotation) {
-            Texture2D pixel = CWRAsset.Placeholder_White.Value;
+            sb.Draw(canvas, center, null, Color.White,
+                0f, canvas.Size() * 0.5f, new Vector2(drawDiameter, drawDiameter),
+                SpriteEffects.None, 0f);
 
-            //»æÖÆÁ½¸öÈı½ÇĞÎ
-            for (int t = 0; t < 2; t++) {
-                Vector2[] vertices = new Vector2[3];
-                for (int i = 0; i < 3; i++) {
-                    float angle = rotation + (t * MathHelper.Pi) + i * MathHelper.TwoPi / 3f;
-                    vertices[i] = center + angle.ToRotationVector2() * radius;
-                }
-
-                for (int i = 0; i < 3; i++) {
-                    DrawLine(sb, pixel, vertices[i], vertices[(i + 1) % 3], thickness, color);
-                }
-            }
-        }
-
-        private void DrawLine(SpriteBatch sb, Texture2D pixel, Vector2 start, Vector2 end, float thickness, Color color) {
-            Vector2 diff = end - start;
-            float length = diff.Length();
-            if (length < 1f) return;
-
-            sb.Draw(
-                pixel,
-                start,
-                new Rectangle(0, 0, 1, 1),
-                color,
-                diff.ToRotation(),
-                Vector2.Zero,
-                new Vector2(length, thickness),
-                SpriteEffects.None,
-                0f
-            );
-        }
-
-        private void DrawRunes(SpriteBatch sb, Texture2D runeTex, Vector2 center) {
-            int frameWidth = runeTex.Width / 4;
-            int frameHeight = runeTex.Height / 4;
-
-            foreach (var rune in runes) {
-                if (rune.Alpha < 0.01f) continue;
-
-                Vector2 pos = center + rune.Offset.RotatedBy(rotationAngle) * (circleRadius / 180f);
-
-                //¼ÆËã»ğÑæÖ¡
-                int frameX = rune.FireFrame % 4;
-                int frameY = rune.FireFrame / 4;
-                Rectangle fireFrame = new Rectangle(frameX * frameWidth, frameY * frameHeight, frameWidth, frameHeight);
-
-                //»ğÑæĞ§¹û
-                float intensityPulse = (float)Math.Sin(rune.PulsePhase) * 0.3f + 0.7f;
-                Color fireColor = Color.Lerp(
-                    new Color(180, 60, 40),
-                    new Color(100, 30, 20),
-                    intensityPulse
-                );
-
-                fireColor *= rune.Alpha * circleAlpha * intensityPulse;
-                fireColor.A = 0;
-
-                float scale = rune.Scale * (0.9f + intensityPulse * 0.2f);
-
-                //»æÖÆ»ğÑæ
-                sb.Draw(
-                    runeTex,
-                    pos,
-                    fireFrame,
-                    fireColor,
-                    rune.Rotation,
-                    new Vector2(frameWidth, frameHeight) / 2f,
-                    scale,
-                    SpriteEffects.None,
-                    0f
-                );
-
-                //ĞÇĞÇºËĞÄ
-                if (StarTexture != null && StarTexture.IsLoaded) {
-                    Color coreColor = new Color(255, 90, 50) with { A = 0 } * rune.Alpha * circleAlpha * 0.6f;
-                    sb.Draw(
-                        StarTexture.Value,
-                        pos,
-                        null,
-                        coreColor,
-                        rune.Rotation,
-                        StarTexture.Value.Size() / 2f,
-                        scale * 0.4f,
-                        SpriteEffects.None,
-                        0f
-                    );
-                }
-            }
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone,
+                null, Main.GameViewMatrix.TransformationMatrix);
         }
 
         private void DrawLightnings(SpriteBatch sb) {
@@ -513,47 +387,12 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             }
         }
 
-        private void DrawCenterGlow(SpriteBatch sb, Texture2D glow, Vector2 center, Color c1, Color c2) {
-            float pulse = (float)Math.Sin(Main.GlobalTimeWrappedHourly * 8f) * 0.3f + 0.7f;
-
-            //Íâ²ã
-            sb.Draw(
-                glow,
-                center,
-                null,
-                new Color(80, 25, 18) with { A = 0 } * circleAlpha * 0.4f,
-                rotationAngle,
-                glow.Size() / 2,
-                circleRadius / glow.Width * 2f,
-                SpriteEffects.None,
-                0
-            );
-
-            //ÖĞ²ã
-            sb.Draw(
-                glow,
-                center,
-                null,
-                c2 with { A = 0 } * circleAlpha * pulse * 0.6f,
-                -rotationAngle * 1.5f,
-                glow.Size() / 2,
-                circleRadius / glow.Width * 1.5f,
-                SpriteEffects.None,
-                0
-            );
-
-            //ÄÚ²ã
-            sb.Draw(
-                glow,
-                center,
-                null,
-                c1 with { A = 0 } * circleAlpha * pulse * 0.8f,
-                rotationAngle * 2f,
-                glow.Size() / 2,
-                circleRadius / glow.Width,
-                SpriteEffects.None,
-                0
-            );
+        private static void DrawLine(SpriteBatch sb, Texture2D pixel, Vector2 start, Vector2 end, float thickness, Color color) {
+            Vector2 diff = end - start;
+            float length = diff.Length();
+            if (length < 1f) return;
+            sb.Draw(pixel, start, new Rectangle(0, 0, 1, 1), color, diff.ToRotation(),
+                Vector2.Zero, new Vector2(length, thickness), SpriteEffects.None, 0f);
         }
     }
 }

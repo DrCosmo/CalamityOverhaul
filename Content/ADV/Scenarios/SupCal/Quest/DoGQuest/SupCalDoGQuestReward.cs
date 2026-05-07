@@ -1,12 +1,11 @@
-﻿using CalamityOverhaul.Content.ADV.ADVQuestTracker;
-using CalamityOverhaul.Content.ADV.ADVRewardPopups;
+﻿using CalamityOverhaul.Content.ADV.ADVRewardPopups;
 using CalamityOverhaul.Content.ADV.Common;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
 using CalamityOverhaul.Content.ADV.Scenarios.Helen;
+using CalamityOverhaul.Content.ADV.Scenarios.Helen.Gifts;
 using CalamityOverhaul.Content.Items.Melee;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
-using InnoVault.UIHandles;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -100,15 +99,16 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.DoGQuest
             }
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (!save.SupCalDoGQuestReward) {
+        public override void Update(ADVSave save, Player player) {
+            if (!save.Get<SupCalADVData>().SupCalDoGQuestReward) {
                 return;
             }
-            if (save.SupCalDoGQuestRewardSceneComplete) {
+            if (save.Get<SupCalADVData>().SupCalDoGQuestRewardSceneComplete) {
                 return;
             }
             //如果玩家拿着大比目鱼，则必须先获得过比目鱼小姐给的礼物才能触发，避免这两个场景冲突
-            if (halibutPlayer.HeldHalibut && !save.DevourerOfGodsGift) {
+            var halibutPlayer = player.GetOverride<HalibutPlayer>();
+            if (halibutPlayer.HeldHalibut && !save.Get<BossGiftADVData>().DevourerOfGodsGift) {
                 return;
             }
             if (!Spawned) {
@@ -118,7 +118,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.DoGQuest
                 return;
             }
             if (ScenarioManager.Start<SupCalDoGQuestReward>()) {
-                save.SupCalDoGQuestRewardSceneComplete = true;
+                save.Get<SupCalADVData>().SupCalDoGQuestRewardSceneComplete = true;
                 Spawned = false;
             }
         }
@@ -146,17 +146,17 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.DoGQuest
         internal override float RequiredContribution => REQUIRED_CONTRIBUTION;
 
         public override bool IsQuestActive(Player player) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out var save)) {
                 return false;
             }
 
-            if (!halibutPlayer.ADVSave.SupCalQuestReward//先完成前置任务
-                || halibutPlayer.ADVSave.SupCalDoGQuestDeclined//且未拒绝当前任务
+            if (!save.Get<SupCalADVData>().SupCalQuestReward//先完成前置任务
+                || save.Get<SupCalADVData>().SupCalDoGQuestDeclined//且未拒绝当前任务
                 ) {
                 return false;
             }
 
-            if (halibutPlayer.ADVSave.SupCalDoGQuestReward) {
+            if (save.Get<SupCalADVData>().SupCalDoGQuestReward) {
                 return false;//任务已经完成
             }
 
@@ -164,38 +164,16 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.DoGQuest
         }
 
         public override void OnQuestCompleted(Player player, float contribution) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out var save)) {
                 return;
             }
 
             //标记任务完成
-            halibutPlayer.ADVSave.SupCalDoGQuestReward = true;
+            save.Get<SupCalADVData>().SupCalDoGQuestReward = true;
 
             //延迟触发奖励场景
             SupCalDoGQuestReward.Spawned = true;
             SupCalDoGQuestReward.RandomTimer = 60 * Main.rand.Next(3, 5);
-        }
-    }
-
-    internal class DoGQuestTrackerUI : BaseQuestTrackerUI
-    {
-        public override string LocalizationCategory => "UI";
-        public static DoGQuestTrackerUI Instance => UIHandleLoader.GetUIHandleOfType<DoGQuestTrackerUI>();
-
-        public override int TargetNPCType => CWRID.NPC_DevourerofGodsHead;
-
-        protected override void SetupLocalizedTexts() {
-            QuestTitle = this.GetLocalization(nameof(QuestTitle), () => "委托：猎杀神明吞噬者");
-            DamageContribution = this.GetLocalization(nameof(DamageContribution), () => "刻心者伤害");
-            RequiredContribution = this.GetLocalization(nameof(RequiredContribution), () => "需求: 80%");
-        }
-
-        protected override (float current, float total, bool isActive) GetTrackingData() {
-            return BaseDamageTracker.GetDamageTrackingData();
-        }
-
-        protected override float GetRequiredContribution() {
-            return DoGQuestTracker.REQUIRED_CONTRIBUTION;
         }
     }
 }

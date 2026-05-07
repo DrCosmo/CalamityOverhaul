@@ -1,7 +1,7 @@
-sampler uImage0 : register(s0); //Ö÷ÎÆÀí
-sampler uImage1 : register(s1); //ÔëÉùÎÆÀí
-sampler uImage2 : register(s2); //ĞÇ¹âÎÆÀí
-sampler uImage3 : register(s3); //¹âÊøÎÆÀí
+sampler uImage0 : register(s0);
+sampler uImage1 : register(s1);
+sampler uImage2 : register(s2);
+sampler uImage3 : register(s3);
 
 float3 uColor;
 float3 uSecondaryColor;
@@ -21,18 +21,18 @@ float uSaturation;
 float4 uSourceRect;
 float2 uZoom;
 
-//Ù¤ÂíÉäÏßÌØ¶¨²ÎÊı
 float uBeamWidth;
 float uBeamLength;
 float uPulseSpeed;
 float uDistortionStrength;
 float uCoreIntensity;
 
-//ÑÕÉ«ÅäÖÃ
-static const float3 CoreColor = float3(1.0, 1.0, 1.0); 
-static const float3 InnerColor = float3(0.4, 0.9, 1.0);
-static const float3 OuterColor = float3(0.2, 0.6, 1.0);
-static const float3 EdgeColor = float3(0.1, 0.4, 0.8); 
+//ä¼½é©¬å°„çº¿è‰²è°ƒ - é«˜èƒ½ç´«è“-ç™½å…‰è°±
+static const float3 CoreColor = float3(0.95, 0.9, 1.0);   //è¿‘ç™½å¾®ç´«æ ¸å¿ƒ
+static const float3 InnerColor = float3(0.7, 0.5, 1.0);   //äº®ç´«
+static const float3 OuterColor = float3(0.4, 0.25, 0.9);  //æ·±è“ç´«
+static const float3 EdgeColor = float3(0.2, 0.1, 0.6);    //æš—é›è“è¾¹ç¼˜
+static const float3 CherenkovColor = float3(0.3, 0.6, 1.0); //åˆ‡ä¼¦ç§‘å¤«è¾å°„è“
 
 struct VertexShaderInput
 {
@@ -57,13 +57,11 @@ VertexShaderOutput VertexShaderFunction(VertexShaderInput input)
     return output;
 }
 
-//¼ò»¯µÄÔëÉùº¯Êı
 float noise(float2 uv)
 {
     return frac(sin(dot(uv, float2(12.9898, 78.233))) * 43758.5453);
 }
 
-//Æ½»¬ÔëÉù
 float smoothNoise(float2 uv)
 {
     float2 i = floor(uv);
@@ -78,7 +76,6 @@ float smoothNoise(float2 uv)
     return lerp(lerp(a, b, f.x), lerp(c, d, f.x), f.y);
 }
 
-//·ÖĞÎ²¼ÀÊÔË¶¯
 float fbm(float2 uv, int octaves)
 {
     float value = 0.0;
@@ -95,147 +92,149 @@ float fbm(float2 uv, int octaves)
     return value;
 }
 
-//Ö÷ÏñËØ×ÅÉ«Æ÷º¯Êı
+//ä¼½é©¬å°„çº¿åƒç´ ç€è‰²å™¨
 float4 PixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
     float2 uv = input.TexCoords;
     
-    //¼ÆËãµ½¹âÊøÖĞĞÄµÄ¾àÀë£¨Y·½Ïò£©
     float distFromCenter = abs(uv.y - 0.5) * 2.0;
-    
-    //ÑØ¹âÊø·½ÏòµÄÎ»ÖÃ£¨X·½Ïò£©
     float alongBeam = uv.x;
     
-    //=== ºËĞÄ¹âÊø ===
-    //Ê¹ÓÃ¹âÊøÎÆÀí (ShineLine) ×÷Îª»ù´¡ĞÎ×´
+    //å…‰æŸåŸºç¡€å½¢çŠ¶ - ä½¿ç”¨ç™½è‰²çº¹ç†å®šä¹‰
     float beamShape = tex2D(uImage3, float2(alongBeam, 0.5)).r;
     
-    //¸ù¾İ¾àÀëÖĞĞÄµÄÔ¶½ü´´½¨Ç¿¶ÈË¥¼õ
-    float coreIntensity = 1.0 - smoothstep(0.0, 0.3, distFromCenter);
-    coreIntensity = pow(coreIntensity, 2.0) * beamShape;
+    //=== é”åˆ©çš„æ ¸å¿ƒå…‰æŸ± ===
+    //ä¼½é©¬å°„çº¿æå…¶é›†ä¸­ï¼Œæ ¸å¿ƒè¡°å‡æ›´é”åˆ©
+    float coreIntensity = 1.0 - smoothstep(0.0, 0.15, distFromCenter);
+    coreIntensity = pow(coreIntensity, 1.5) * beamShape;
     
-    //=== ¶¯Ì¬ÔëÉùÈÅ¶¯ ===
-    //Ê¹ÓÃÔëÉùÎÆÀí´´½¨Á÷¶¯Ğ§¹û
-    float2 noiseUV = float2(alongBeam * 3.0 - uTime * 2.0, distFromCenter * 2.0);
+    //æ¬¡çº§æ ¸å¿ƒ - ç¨å®½çš„æŸ”å’Œè¾‰å…‰
+    float subCore = 1.0 - smoothstep(0.0, 0.35, distFromCenter);
+    subCore = pow(subCore, 2.5) * beamShape * 0.6;
+    
+    //=== é«˜èƒ½å™ªå£°æ‰°åŠ¨ ===
+    float2 noiseUV = float2(alongBeam * 4.0 - uTime * 3.0, distFromCenter * 2.0);
     float noise1 = tex2D(uImage1, noiseUV).r;
     
-    float2 noiseUV2 = float2(alongBeam * 5.0 + uTime * 1.5, distFromCenter * 3.0);
+    float2 noiseUV2 = float2(alongBeam * 7.0 + uTime * 2.0, distFromCenter * 4.0);
     float noise2 = tex2D(uImage1, noiseUV2).g;
     
-    //×éºÏÔëÉù´´½¨ÍÄÁ÷Ğ§¹û
-    float turbulence = (noise1 * 0.6 + noise2 * 0.4) * uDistortionStrength;
+    //é«˜é¢‘ç”µç¦»æ‰°åŠ¨
+    float2 noiseUV3 = float2(alongBeam * 12.0 - uTime * 5.0, distFromCenter * 1.5 + uTime * 0.8);
+    float ionNoise = tex2D(uImage1, noiseUV3).b;
     
-    //Ó¦ÓÃÍÄÁ÷µ½Ç¿¶È
-    float distortedDist = distFromCenter + turbulence * 0.1;
-    float turbulentIntensity = 1.0 - smoothstep(0.0, 0.5, distortedDist);
-    turbulentIntensity = pow(turbulentIntensity, 1.5);
+    float turbulence = (noise1 * 0.5 + noise2 * 0.3 + ionNoise * 0.2) * uDistortionStrength;
+    float distortedDist = distFromCenter + turbulence * 0.12;
+    float turbulentIntensity = 1.0 - smoothstep(0.0, 0.45, distortedDist);
+    turbulentIntensity = pow(turbulentIntensity, 1.8);
     
-    //=== Âö³åĞ§¹û ===
-    float pulse = sin(alongBeam * 10.0 - uTime * uPulseSpeed) * 0.5 + 0.5;
-    pulse = pow(pulse, 3.0) * 0.3 + 0.7; //µ÷ÕûÂö³åÇ¿¶È
+    //=== é«˜èƒ½è„‰å†² ===
+    float pulse = sin(alongBeam * 15.0 - uTime * uPulseSpeed * 1.5) * 0.5 + 0.5;
+    pulse = pow(pulse, 2.0) * 0.25 + 0.75;
     
-    //=== ÄÜÁ¿²¨ÎÆ ===
-    float wave = sin(alongBeam * 20.0 - uTime * 3.0) * 0.5 + 0.5;
-    wave *= (1.0 - distFromCenter * 0.5);
+    //=== ç”µç¦»é—ªçƒ ===
+    //æ¨¡æ‹Ÿé«˜èƒ½ç”µç¦»æ•ˆåº”ï¼Œæ²¿å…‰æŸéšæœºé—ªçƒ
+    float ionFlicker = noise(float2(alongBeam * 30.0 + uTime * 8.0, distFromCenter * 5.0));
+    ionFlicker = step(0.85, ionFlicker); //åªæœ‰æå°‘æ•°ç‚¹é—ªçƒ
+    float ionGlow = ionFlicker * (1.0 - distFromCenter) * 2.0;
     
-    //=== ĞÇ¹âÉÁË¸ ===
-    //Ê¹ÓÃĞÇ¹âÎÆÀíÌí¼ÓÉÁË¸Ğ§¹û
-    float2 starUV = float2(alongBeam * 2.0 - uTime * 0.5, uv.y);
+    //=== åˆ‡ä¼¦ç§‘å¤«è¾å°„è¾¹ç¼˜ ===
+    //å…‰æŸè¾¹ç¼˜å‡ºç°è“è‰²åˆ‡ä¼¦ç§‘å¤«è¾å°„å…‰æ™•
+    float cherenkov = smoothstep(0.2, 0.5, distFromCenter) * smoothstep(0.7, 0.5, distFromCenter);
+    cherenkov *= beamShape;
+    //ç»™åˆ‡ä¼¦ç§‘å¤«æ•ˆæœåŠ ä¸Šæ³¢åŠ¨
+    float cherenkovWave = sin(alongBeam * 25.0 - uTime * 4.0) * 0.4 + 0.6;
+    cherenkov *= cherenkovWave;
+    
+    //=== æ˜Ÿå…‰é—ªçƒ ===
+    float2 starUV = float2(alongBeam * 2.5 - uTime * 0.7, uv.y);
     float starGlow = tex2D(uImage2, starUV).r;
-    starGlow *= (1.0 - distFromCenter);
+    starGlow *= pow(1.0 - distFromCenter, 2.0);
     
-    //=== ±ßÔµ»Ô¹â ===
-    float edgeGlow = smoothstep(0.3, 0.6, distFromCenter) * smoothstep(0.8, 0.6, distFromCenter);
-    edgeGlow *= beamShape;
-    
-    //=== ×éºÏËùÓĞĞ§¹û ===
+    //=== æ€»å¼ºåº¦åˆæˆ ===
     float totalIntensity = 0.0;
-    
-    //ºËĞÄ
     totalIntensity += coreIntensity * uCoreIntensity * pulse;
+    totalIntensity += subCore * pulse;
+    totalIntensity += turbulentIntensity * 0.5 * pulse;
+    totalIntensity += ionGlow * 0.6;
+    totalIntensity += cherenkov * 0.35;
+    totalIntensity += starGlow * 0.25;
     
-    //ÍÄÁ÷²ã
-    totalIntensity += turbulentIntensity * 0.6 * pulse;
-    
-    //²¨ÎÆ
-    totalIntensity += wave * 0.2;
-    
-    //ĞÇ¹â
-    totalIntensity += starGlow * 0.3;
-    
-    //±ßÔµ»Ô¹â
-    totalIntensity += edgeGlow * 0.4;
-    
-    //Ó¦ÓÃÕûÌåÇ¿¶ÈºÍÍ¸Ã÷¶È
     totalIntensity *= uIntensity * uOpacity;
     
-    //=== ÑÕÉ«»ìºÏ ===
+    //=== ä¼½é©¬å°„çº¿è‰²å¸¦æ˜ å°„ ===
     float3 finalColor = float3(0, 0, 0);
     
-    //¸ù¾İµ½ÖĞĞÄµÄ¾àÀë»ìºÏÑÕÉ«
-    if (distFromCenter < 0.2)
+    if (distFromCenter < 0.12)
     {
-        //ºËĞÄÇøÓò - ´¿°×µ½ÇàÉ«
-        float t = distFromCenter / 0.2;
+        //æäº®æ ¸å¿ƒ - è¿‘ç™½å¾®ç´«
+        float t = distFromCenter / 0.12;
         finalColor = lerp(CoreColor, InnerColor, t);
     }
-    else if (distFromCenter < 0.5)
+    else if (distFromCenter < 0.35)
     {
-        //ÖĞ¼äÇøÓò - ÇàÉ«µ½À¶É«
-        float t = (distFromCenter - 0.2) / 0.3;
+        //å†…å±‚ - ç´«è‰²æ¸å˜
+        float t = (distFromCenter - 0.12) / 0.23;
         finalColor = lerp(InnerColor, OuterColor, t);
+    }
+    else if (distFromCenter < 0.55)
+    {
+        //è¿‡æ¸¡å±‚ - æ··å…¥åˆ‡ä¼¦ç§‘å¤«è“
+        float t = (distFromCenter - 0.35) / 0.2;
+        finalColor = lerp(OuterColor, CherenkovColor, t * 0.6);
     }
     else
     {
-        //ÍâÎ§ÇøÓò - À¶É«µ½ÉîÀ¶
-        float t = (distFromCenter - 0.5) / 0.3;
-        finalColor = lerp(OuterColor, EdgeColor, t);
+        //è¾¹ç¼˜ - æš—é›è“æ¶ˆæ•£
+        float t = (distFromCenter - 0.55) / 0.25;
+        float3 edgeMix = lerp(CherenkovColor * 0.6, EdgeColor, t);
+        finalColor = edgeMix;
     }
     
-    //Ìí¼ÓÂö³åÑÕÉ«±ä»¯
-    finalColor = lerp(finalColor, CoreColor, pulse * coreIntensity * 0.3);
+    //åˆ‡ä¼¦ç§‘å¤«è¾å°„å åŠ è“è‰²
+    finalColor = lerp(finalColor, CherenkovColor, cherenkov * 0.4);
     
-    //Ìí¼ÓĞÇ¹âÉÁË¸µÄ°×É«
-    finalColor = lerp(finalColor, float3(1, 1, 1), starGlow * 0.5);
+    //ç”µç¦»é—ªçƒå åŠ ç™½è‰²
+    finalColor = lerp(finalColor, CoreColor, ionGlow * 0.8);
     
-    //=== ¸ß¹âĞ§¹û ===
-    //ÔÚºËĞÄÌí¼Ó¶îÍâµÄÁÁ¶È
-    float highlight = pow(1.0 - distFromCenter, 8.0) * beamShape;
-    finalColor += CoreColor * highlight * 0.8;
+    //æ ¸å¿ƒè¶…äº®æº¢å‡º
+    float highlight = pow(1.0 - distFromCenter, 10.0) * beamShape;
+    finalColor += CoreColor * highlight * 1.0;
     
-    //=== ±ßÔµ·¢¹â ===
-    float3 edgeColor = EdgeColor * edgeGlow * 0.8;
-    finalColor += edgeColor;
+    //æ˜Ÿå…‰é—ªçƒçš„ç™½è‰²ç‚¹ç¼€
+    finalColor = lerp(finalColor, float3(1, 1, 1), starGlow * 0.4);
     
-    //Ó¦ÓÃÊäÈëÑÕÉ«µ÷ÖÆ
+    //=== åˆ‡ä¼¦ç§‘å¤«è¾¹ç¼˜è¾‰å…‰ ===
+    float3 edgeRadiance = CherenkovColor * cherenkov * 0.6;
+    finalColor += edgeRadiance;
+    
+    //åº”ç”¨é¡¶ç‚¹é¢œè‰²
     finalColor *= input.Color.rgb;
     
-    //×îÖÕÍ¸Ã÷¶È
-    float alpha = totalIntensity * input.Color.a;
-    
-    //È·±£alpha²»³¬¹ı1
-    alpha = saturate(alpha);
+    float alpha = saturate(totalIntensity * input.Color.a);
     
     return float4(finalColor, alpha);
 }
 
-//=== ¼ò»¯°æ×ÅÉ«Æ÷£¨ÓÃÓÚµÍÅäÖÃ£© ===
+//ç®€åŒ–ç‰ˆä¼½é©¬å°„çº¿ï¼ˆä½ç«¯é™çº§ï¼‰
 float4 SimplePixelShaderFunction(VertexShaderOutput input) : COLOR0
 {
     float2 uv = input.TexCoords;
     float distFromCenter = abs(uv.y - 0.5) * 2.0;
     float alongBeam = uv.x;
     
-    //¼òµ¥µÄ¾¶Ïò½¥±ä
-    float intensity = 1.0 - smoothstep(0.0, 0.5, distFromCenter);
+    //é”åˆ©æ ¸å¿ƒ
+    float intensity = 1.0 - smoothstep(0.0, 0.35, distFromCenter);
     intensity = pow(intensity, 2.0);
     
-    //¼òµ¥Âö³å
-    float pulse = sin(alongBeam * 10.0 - uTime * uPulseSpeed) * 0.3 + 0.7;
+    //è„‰å†²
+    float pulse = sin(alongBeam * 15.0 - uTime * uPulseSpeed * 1.5) * 0.25 + 0.75;
     intensity *= pulse * uIntensity * uOpacity;
     
-    //¼òµ¥ÑÕÉ«»ìºÏ
+    //ä¼½é©¬è‰²å¸¦
     float3 color = lerp(OuterColor, CoreColor, pow(1.0 - distFromCenter, 2.0));
+    //è¾¹ç¼˜åŠ å…¥åˆ‡ä¼¦ç§‘å¤«è“
+    color = lerp(color, CherenkovColor, smoothstep(0.3, 0.6, distFromCenter) * 0.4);
     color *= input.Color.rgb;
     
     return float4(color, intensity * input.Color.a);

@@ -1,4 +1,10 @@
-﻿ElementWhip: {
+SHPCModTooltipDraw: {
+	// InstalledHeader: INSTALLED MODULES
+	// NoModules: NONE
+	// BonusHeader: TOTAL MODULE BONUSES
+}
+
+ElementWhip: {
 	DisplayName: Элементальный хлыст
 	Tooltip:
 		'''
@@ -428,6 +434,11 @@ DragonBreathBox: {
 		нанося урон широкому кругу врагов
 		"Это слюна того дракона, верите ли вы?"
 		'''
+}
+
+HalibutItem: {
+	// DisplayName: Halibut
+	// Tooltip: ""
 }
 
 AvalancheM60: {
@@ -1585,4 +1596,692 @@ Thrower: {
 Elysium: {
 	DisplayName: Элизиум
 	Tooltip: ""
+	DiscipleName_0: Симон Петр
+	DiscipleName_1: Святой Андрей
+	DiscipleName_2: Иаков
+	DiscipleName_3: Святой Иоанн
+	DiscipleName_4: Филипп
+	DiscipleName_5: Варфоломей
+	DiscipleName_6: Фома
+	DiscipleName_7: Святой Матфей
+	DiscipleName_8: Иаков Алфеев
+	DiscipleName_9: Фаддей
+	DiscipleName_10: Симон Зилот
+	DiscipleName_11: Иуда
+	HorsemanName_0: Чума
+	HorsemanName_1: Война
+	HorsemanName_2: Голод
+	HorsemanName_3: Смерть
+	DiscipleFullText: Максимум апостолов
+	NoConvertTargetText: Поблизости нет жителей для обращения
+	DiscipleFallbackText: Апостол
+	RevelationText: Откровение
+	RevelationEndText: Откровение прервано
+	CelestialMeteorText: Небесный метеорит
+	SealStarsText: Пятая звезда Шестая звезда Седьмая звезда
+	HorsemenFullText: Четыре всадника в сборе
+	HorsemanArrivalText: "{0} прибыл"
+	DiscipleJoinedText: "{0} присоединился"
+	JudasBetrayalText: Предательство Иуды!
+	JudasDeathReasonText: Иуда предал {0}
+	DiscipleMartyrText: "{0} принял мученическую смерть"
+	MartyrdomPowerText: Сила Мученичества {0}/11
+	Tooltip_DiscipleCountText: Текущее количество апостолов: {0}/12
+	Tooltip_NoDisciplesText: Пока нет последователей-апостолов
+	Tooltip_MartyrdomPowerText: Сила Мученичества: {0} {1}/11
+	Tooltip_RevelationReadyText: Нажмите Q — Иоанн примет мученическую смерть, и грядет Откровение
+	Tooltip_JudgmentActiveText: Идет суд последних трех печатей, ожидание финального завершения
+	Tooltip_RevelationActiveText: Откровение свершилось: [Q] Метеорит, [R] Суд последних трех печатей, [ПКМ] Призыв Четырех Всадников {0}/4
+	Tooltip_JudasWarningText: Предупреждение: предательство Иуды уже скрывается рядом с вами
+}
+
+SandevistansItem: {
+	DisplayName: Сандевистан Mk.5
+	Tooltip: Замедляет восприятие времени на 70% в течение 5 секунд. Перезарядка 15 секунд.
+}
+
+MimicPerchedAuxBrain: {
+	DisplayName: Мимикрирующий вспомогательный мозг
+	Tooltip:
+		'''
+		Разделяет носителя на четыре иллюзии, блуждающие вокруг него.
+		При получении удара настоящее тело, скрытое среди иллюзий, вызовет замешательство, станет невосприимчивым к этой атаке и избежит урона.
+		Одновременно с этим иллюзии бросятся на атакующего и взорвутся, нанося урон, зависящий от базовой атаки врага.
+		"Хаос, свирепость, злобные взгляды... но всё это прямо у тебя на затылке."
+		'''
+}
+
+RamCapacityUpgradeChip: {
+	DisplayName: Чип расширения памяти ОЗУ
+	Tooltip: Использование навсегда увеличивает базовый предел ОЗУ на 1 единицу
+}
+
+RamRecoveryUpgradeChip: {
+	DisplayName: Чип ускорения восстановления ОЗУ
+	Tooltip: Использование навсегда увеличивает базовую скорость восстановления ОЗУ на 0.05 ед./сек
+}
+
+Mewtwo: {
+	DisplayName: Чип брейнданса
+	Tooltip: Использование погружает в брейнданс
+}
+
+RapidBarrelModule: {
+	DisplayName: Скорострельный ствол
+	Tooltip: Удлиненная возвратная пружина обеспечивает обжигающие импульсы ценой стабильности и урона за выстрел.
+}
+
+FocusBarrelModule: {
+	DisplayName: Фокусирующий ствол
+	Tooltip: Три самонаводящихся луча принудительно сливаются в один, нанося разрушительный концентрированный удар.
+}
+
+PrecisionOpticModule: {
+	DisplayName: Точный прицел
+	Tooltip: Лазерный помощник прицеливания полностью устраняет разброс лучей и дает дополнительный шанс критического удара.
+}
+
+OverloadCoreModule: {
+	DisplayName: Перегруженное ядро
+	Tooltip: Заменяет буферизацию более быстрой логикой цикла, что позволяет быстрее заряжать энергосферу и ускоряет её полет.
+}
+
+SteadyStockModule: {
+	DisplayName: Стабилизирующий приклад
+	Tooltip: Тяжелый композитный приклад поглощает отдачу, обменивая часть скорострельности на дополнительный урон каждого выстрела.
+}
+
+HarmonyGripModule: {
+	DisplayName: Резонирующая рукоять
+	Tooltip: Биоэлектрическая проводящая рукоять использует тело для передачи маны, значительно снижая её расход.
+}
+
+ResonanceFrameModule: {
+	DisplayName: Резонансная ствольная коробка
+	Tooltip: Гармоническое наложение позволяет генерировать дополнительный луч, делая шквал огня более плотным.
+}
+
+AdaptiveOpticModule: {
+	DisplayName: Адаптивный прицел
+	Tooltip: Нейросетевые алгоритмы постоянно корректируют траекторию, обеспечивая быстрое и точное попадание каждого луча.
+}
+
+AssaultStockModule: {
+	DisplayName: Штурмовой приклад
+	Tooltip: Адреналиновые опоры активируются при агрессивной стрельбе, повышая огневую мощь ценой повышенного расхода энергии.
+}
+
+BalancedGripModule: {
+	DisplayName: Сбалансированная рукоять
+	Tooltip: Перераспределение веса слегка улучшает скорострельность, урон и стабильность.
+}
+
+CapacitorBankModule: {
+	DisplayName: Массив конденсаторов
+	Tooltip: Стек конденсаторов высокой плотности заряжает энергосферу за более короткий цикл, но снижает кинетическую энергию на выходе.
+}
+
+CrystalGripModule: {
+	DisplayName: Кристальная рукоять
+	Tooltip: Синтетический кристалл резонирует с отдачей, экономя ману и повышая шанс крита, но замедляя ритм зарядки.
+}
+
+EfficientGripModule: {
+	DisplayName: Эффективная рукоять
+	Tooltip: Инженерная эргономичная рукоять оптимизирует как энергопотребление, так и ритм нажатия на спусковой крючок.
+}
+
+HeavyBarrelModule: {
+	DisplayName: Тяжелый ствол
+	Tooltip: Утолщенные нарезы подавляют разброс и скорострельность, превращая каждый выстрел в тяжелый удар.
+}
+
+HighVoltageCoreModule: {
+	DisplayName: Высоковольтное ядро
+	Tooltip: Повышает выходное напряжение, значительно увеличивая общий урон и урон от сфокусированного удара ценой расхода маны.
+}
+
+HoloOpticModule: {
+	DisplayName: Голографический прицел
+	Tooltip: Голографическая сетка фиксирует точку попадания, сильно снижая разброс и ускоряя ритм стрельбы. Слегка повышает энергопотребление.
+}
+
+HypersonicBarrelModule: {
+	DisplayName: Сверхзвуковой ствол
+	Tooltip: Звуковой удар разгоняет луч до предельной скорости, но делает точное самонаведение невозможным.
+}
+
+KineticDamperModule: {
+	DisplayName: Кинетический демпфирующий приклад
+	Tooltip: Жидкостный демпфер поглощает отдачу, сводя разброс почти к нулю и давая небольшой бонус к криту.
+}
+
+LightStockModule: {
+	DisplayName: Легкий приклад
+	Tooltip: Карбоновый каркас заметно повышает скорострельность, но слегка снижает стабильность и урон от одного выстрела.
+}
+
+MultiCellFrameModule: {
+	DisplayName: Многокамерная ствольная коробка
+	Tooltip: Параллельные камеры охлаждения испускают два луча одновременно, расширяя зону поражения, но снижая урон за попадание.
+}
+
+PlasmaInjectorModule: {
+	DisplayName: Плазменный инжектор
+	Tooltip: Впрыск высокоэнтальпийной плазмы значительно увеличивает скорость энергосферы и сфокусированный урон, слегка замедляя зарядку.
+}
+
+QuantumFrameModule: {
+	DisplayName: Квантовая ствольная коробка
+	Tooltip: Квантовые контуры направленности позволяют лучам умнее огибать препятствия, а энергосферам — летать быстрее. Расход маны немного увеличен.
+}
+
+ScattershotBarrelModule: {
+	DisplayName: Дробовой ствол
+	Tooltip: Рассекатель на дуле разделяет выстрел на несколько лучей-дробинок, резко увеличивая охват, но критически снижая урон одного луча.
+}
+
+ThermalOpticModule: {
+	DisplayName: Тепловизионный прицел
+	Tooltip: Инфракрасный захват заставляет лучи вгрызаться в цель, как гончие, повышая как точность, так и шанс крита.
+}
+
+VolatileFrameModule: {
+	DisplayName: Нестабильная ствольная коробка
+	Tooltip: Перегруженная структура охлаждения выдает дополнительные лучи и шанс крита, но потребление энергии и разброс взлетают до небес.
+}
+
+NovaBarrelModule: {
+	DisplayName: Ствол "Нова"
+	Tooltip:
+		'''
+		Перегруженное плазменное дуло заставляет каждый луч при попадании вызывать микроимпульсный взрыв.
+		Это достигается ценой снижения дульной стабильности, ослабления урона каждого луча и повышенного расхода маны.
+		'''
+}
+
+PrismOpticModule: {
+	DisplayName: Призматический прицел
+	Tooltip:
+		'''
+		Фазовая призма на конце оптического пути разделяет луч на два побочных.
+		Дальность полета основного луча немного сокращается, но появляется дополнительное окно для точных критических попаданий.
+		'''
+}
+
+TeslaCoreModule: {
+	DisplayName: Ядро Теслы
+	Tooltip:
+		'''
+		Высоковольтная дуга заставляет луч после попадания перескакивать на ближайшего врага.
+		Каждый узел в цепи наследует эффекты попадания, но расход маны возрастает пропорционально.
+		'''
+}
+
+RecoilStockModule: {
+	DisplayName: Реактивный приклад
+	Tooltip:
+		'''
+		Амортизатор перегрузки преобразует ударную волну от взрыва энергосферы в кинетическую энергию, отталкивающую игрока.
+		Дальность полета луча также увеличивается, но темп стрельбы слегка замедляется.
+		'''
+}
+
+SwarmGripModule: {
+	DisplayName: Рукоять "Рой"
+	Tooltip:
+		'''
+		Нейросетевая рукоять выпускает несколько самонаводящихся мини-сфер в момент взрыва энергосферы.
+		Начальная скорость энергосферы и расход маны приносятся в жертву этому эффекту.
+		'''
+}
+
+GravityFrameModule: {
+	DisplayName: Гравитационная ствольная коробка
+	Tooltip:
+		'''
+		Микросингулярное кольцо превращает энергосферу в притягивающее устройство.
+		Во время зарядки она непрерывно стягивает ближайших врагов к центру сферы, а радиус взрыва значительно увеличивается.
+		Однако сложная конструкция немного замедляет ритм зарядки.
+		'''
+}
+
+LaserBarrelModule: {
+	DisplayName: Призм-лазерный ствол
+	Tooltip: Заменяет левую кнопку мыши непрерывным лазерным столбом, следящим за курсором
+}
+
+OscillatorBarrelModule: {
+	DisplayName: Осциллирующий лазерный ствол
+	Tooltip:
+		'''
+		Призматический канал со встроенными импульсными конденсаторами вызывает энергетический импульс в конечной точке луча каждые 30 кадров.
+		Урон за кадр слегка снижен, но урон по области и меньший расход маны компенсируют недостатки непрерывного облучения.
+		'''
+}
+
+ScorchBarrelModule: {
+	DisplayName: Обжигающий лазерный ствол
+	Tooltip:
+		'''
+		Модифицированное дуло с высокоэнтальпийной плазмой позволяет лазеру поджигать цель при попадании.
+		Собственный урон луча незначительно ослаблен, но длительное горение и меньший расход маны восполняют нехватку прямого урона.
+		'''
+}
+
+ReflectionBarrelModule: {
+	DisplayName: Преломляющий лазерный ствол
+	Tooltip:
+		'''
+		Ромбовидная призма преломляет часть энергии в две побочные струи в точке попадания.
+		Урон основного луча увеличен, но крайне высокий расход маны делает непрерывное ведение огня дорогостоящим.
+		'''
+}
+
+EchoOpticModule: {
+	DisplayName: Резонансный прицел
+	Tooltip:
+		'''
+		Компоненты на конце оптического пути улавливают остаточное эхо энергии при затухании луча.
+		При исчезновении каждого луча высвобождаются три веерных самонаводящихся луча, компенсируя сокращенную дальность полета.
+		'''
+}
+
+FrostOpticModule: {
+	DisplayName: Морозный прицел
+	Tooltip:
+		'''
+		Система охлаждающей фокусировки при попадании погружает цель в состояние обморожения.
+		Скорость луча слегка снижена, но самонаведение более стабильно; добавлены бонусы к пробиванию и критическому шансу.
+		'''
+}
+
+SingularityCoreModule: {
+	DisplayName: Ядро сингулярности
+	Tooltip:
+		'''
+		Миниатюрный генератор гравитационного поля постоянно отклоняет траекторию летящей энергосферы в сторону ближайшего врага.
+		Радиус взрыва значительно увеличен, но из-за высокой плотности магнитного поля расход маны возрастает пропорционально.
+		'''
+}
+
+ScrambleFieldModule: {
+	DisplayName: Ядро помехового поля
+	Tooltip:
+		'''
+		Катушки высокочастотного поля создают микро-ударную волну вокруг сферы каждые 40 кадров во время зарядки.
+		Масштаб взрыва увеличен ценой замедления ритма зарядки и повышенных затрат маны.
+		'''
+}
+
+BraceStockModule: {
+	DisplayName: Упорный приклад
+	Tooltip: Тяжелый стабилизирующий упор полностью устраняет разброс и увеличивает дальность луча, обменивая часть скорострельности на высочайшую точность.
+}
+
+LaunchStockModule: {
+	DisplayName: Пусковой приклад
+	Tooltip:
+		'''
+		Перегруженный пружинный механизм выпускает три дополнительных веерных самонаводящихся луча в момент выстрела энергосферы.
+		Скорость энергосферы увеличена, расход маны также возрастает.
+		'''
+}
+
+SentinelGripModule: {
+	DisplayName: Сторожевая рукоять
+	Tooltip:
+		'''
+		Интеллектуальная сенсорная рукоять автоматически выпускает самонаводящийся луч в ближайшего врага каждые 20 кадров полета энергосферы.
+		Начальная скорость сферы снижена, расход маны увеличен, но постоянная огневая поддержка компенсирует эти потери.
+		'''
+}
+
+ConductorGripModule: {
+	DisplayName: Рукоять-проводник
+	Tooltip:
+		'''
+		Сверхпроводящий материал усиливает цепную дугу, увеличивая дальность и количество прыжков.
+		Каждое попадание сопровождается вспышкой электрических частиц; разовый урон и расход маны незначительно повышены.
+		'''
+}
+
+PhantomFrameModule: {
+	DisplayName: Фазовая ствольная коробка
+	Tooltip:
+		'''
+		Квантовая фазовая камера каждые 30 кадров телепортирует летящий луч в точку в 80 пикселях от ближайшего врага.
+		Полностью игнорирует препятствия; дальность и урон луча слегка увеличены ценой повышенного расхода маны.
+		'''
+}
+
+RecursiveFrameModule: {
+	DisplayName: Рекурсивная ствольная коробка
+	Tooltip:
+		'''
+		Топологический контур перевыпускает копию луча в исходном направлении от позиции игрока при исчезновении оригинала.
+		Урон основного луча увеличен, но дальность сокращена; копия наносит меньше урона, не создает рекурсии и потребляет больше маны.
+		'''
+}
+
+ForkBarrelModule: {
+	// DisplayName: Fork Barrel
+	/* Tooltip:
+		'''
+		An internal splitting prism forks each beam into two angled sub-beams every 50 frames
+		Slight damage and mana cost penalty
+		''' */
+}
+
+NullBarrelModule: {
+	// DisplayName: Null Barrel
+	/* Tooltip:
+		'''
+		A data-erasure chamber drops damage to near-zero but grants virtually unlimited pierce
+		Hits inject a virulent toxin that corrodes the target over time
+		''' */
+}
+
+HelixBarrelModule: {
+	// DisplayName: Helix Barrel
+	/* Tooltip:
+		'''
+		Dual-channel optics force two beams to spiral around a shared axis
+		Spread is zeroed; slight damage and speed penalty; great synergy with high-pierce setups
+		''' */
+}
+
+TargetPainterOpticModule: {
+	// DisplayName: Target Painter
+	/* Tooltip:
+		'''
+		A laser designation system marks struck targets with corrosive ichor, reducing their defense
+		Also boosts homing strength and critical strike chance
+		''' */
+}
+
+StrobeOpticModule: {
+	// DisplayName: Strobe Optic
+	/* Tooltip:
+		'''
+		A phase-shift modulator rapidly cycles the beam between wall-piercing and solid states
+		Has a 30% chance to confuse struck enemies; minor pierce and speed bonus
+		''' */
+}
+
+SniperOpticModule: {
+	// DisplayName: Sniper Optic
+	/* Tooltip:
+		'''
+		Magnetic collimators dramatically increase projectile speed, range, and single-hit damage
+		At the cost of greatly reduced fire rate and near-zero homing
+		Best paired with the Focus Barrel for extreme long-range strikes
+		''' */
+}
+
+StormCellModule: {
+	// DisplayName: Storm Cell
+	/* Tooltip:
+		'''
+		During charge, releases a homing electric bolt toward the nearest enemy every 25 frames
+		Faster charge and larger blast radius, but higher mana cost
+		''' */
+}
+
+CryoCoreModule: {
+	// DisplayName: Cryo Core
+	/* Tooltip:
+		'''
+		A supercooled energy cell freezes all enemies caught in the orb's blast radius
+		Slightly larger explosion, slightly slower charge
+		''' */
+}
+
+DarkMatterCoreModule: {
+	// DisplayName: Dark Matter Core
+	/* Tooltip:
+		'''
+		A dark-matter field pulls nearby enemies toward the orb during its flight phase
+		The orb simultaneously tracks targets; explosion radius significantly increased
+		High mana cost
+		''' */
+}
+
+ErgonomicStockModule: {
+	// DisplayName: Ergonomic Stock
+	// Tooltip: Precision ergonomic design substantially lowers mana cost with minor gains to fire rate and accuracy
+}
+
+ExtenderStockModule: {
+	// DisplayName: Extender Stock
+	/* Tooltip:
+		'''
+		An extended rail grants beams greater range and flight speed at minimal damage cost
+		Stack with the Sniper Optic for extreme long-range coverage
+		''' */
+}
+
+StormStockModule: {
+	// DisplayName: Storm Stock
+	/* Tooltip:
+		'''
+		High-density recoil springs push fire rate and beam count to the limit at the cost of per-hit damage
+		Pair with the Scattershot Barrel for carpet-coverage saturation
+		''' */
+}
+
+VampireGripModule: {
+	// DisplayName: Vampire Grip
+	/* Tooltip:
+		'''
+		A bio-electric grip converts a portion of beam damage into health recovery
+		Laser hits are more frequent but restore less per tick; effective for sustained fights
+		''' */
+}
+
+ChronalGripModule: {
+	// DisplayName: Chronal Grip
+	/* Tooltip:
+		'''
+		A phase-delay coil slows enemies on each hit
+		Combined with improved homing, dense fire can maintain persistent crowd control
+		''' */
+}
+
+CascadeGripModule: {
+	// DisplayName: Cascade Grip
+	/* Tooltip:
+		'''
+		A topological trigger fires a radial burst of 8 beams at the point of impact every 5 hits
+		Burst beams deal moderate damage; creates rhythmic high-density output
+		''' */
+}
+
+MirrorFrameModule: {
+	// DisplayName: Mirror Frame
+	/* Tooltip:
+		'''
+		A symmetric reflection cavity spawns a 180-degree mirror beam for every beam fired
+		Mirror beams deal reduced damage; dual-directional coverage dramatically increases hit density
+		''' */
+}
+
+NullspaceFrameModule: {
+	// DisplayName: Nullspace Frame
+	/* Tooltip:
+		'''
+		A void-rift generator leaves a micro-explosion echo along the beam's path every 20 frames
+		Slightly extended range; minimal damage penalty
+		''' */
+}
+
+OverkillFrameModule: {
+	// DisplayName: Overkill Frame
+	/* Tooltip:
+		'''
+		An overkill-sensing circuit stacks one Overkill charge per kill, up to 10; each stack adds 3% damage
+		Stacks decay over time — the faster you slay, the stronger you become
+		''' */
+}
+
+GraviticBarrelModule: {
+	// DisplayName: Gravitic Barrel
+	/* Tooltip:
+		'''
+		An embedded micro-singularity tugs nearby enemies toward each beam in flight
+		Spread and homing tighten while range extends; muzzle velocity drops slightly
+		''' */
+}
+
+PrismaticBarrelModule: {
+	// DisplayName: Prismatic Barrel
+	/* Tooltip:
+		'''
+		Dispersion prisms shed RGB tracers from every beam, scattering color shards on hit
+		Adds one extra beam and a crit edge at the cost of a little damage and spread
+		''' */
+}
+
+ConcussionBarrelModule: {
+	// DisplayName: Concussion Muzzle
+	/* Tooltip:
+		'''
+		An overload buffer detonates a small concussion ring at the impact point every 5 stacked hits
+		Per-shot damage and spread tighten, but attack speed pays the toll
+		''' */
+}
+
+CrosslinkOpticModule: {
+	// DisplayName: Crosslink Optic
+	/* Tooltip:
+		'''
+		On hit, a neural-link unit arcs a data tether from the struck target to the nearest other foe
+		Chain count and chain range both extend, with a slight bump to mana cost
+		''' */
+}
+
+ZoomOpticModule: {
+	// DisplayName: Zoom Optic
+	/* Tooltip:
+		'''
+		A long-focus magnetic lens pushes beams faster and farther at the cost of homing and attack speed
+		Hits beyond 600 px trigger a bonus white-hot strike that scales with distance
+		''' */
+}
+
+PingOpticModule: {
+	// DisplayName: Ping Optic
+	/* Tooltip:
+		'''
+		Signal-painter system stamps Marked-for-Death on every target struck, amplifying all incoming damage
+		Bonus homing, crit, and tighter spread complete the targeting kit
+		''' */
+}
+
+CapacitorPulseModule: {
+	// DisplayName: Capacitor Pulse
+	/* Tooltip:
+		'''
+		Dense capacitor stacks vent a micro-pulse detonation roughly twice a second while charging
+		Explosion radius and charge time both rise, mana cost climbs
+		''' */
+}
+
+EntropyCoreModule: {
+	// DisplayName: Entropy Core
+	/* Tooltip:
+		'''
+		The orb siphons "entropy" from nearby enemies during flight
+		On detonation it releases a secondary aftershock scaled by accumulated entropy
+		''' */
+}
+
+ResonanceReactorModule: {
+	// DisplayName: Resonance Reactor
+	/* Tooltip:
+		'''
+		Emits a resonance ring every ~0.75 s while charging
+		Detonation triggers an extra resonance shock at the player's feet, covering melee gaps
+		''' */
+}
+
+OverwatchStockModule: {
+	// DisplayName: Overwatch Stock
+	/* Tooltip:
+		'''
+		Standing still ramps up "Overwatch" stacks (max 5) that decay rapidly once you move
+		Each stack grants +2.5% damage and +2% crit; a stoic posture trims attack speed and spread
+		''' */
+}
+
+MomentumStockModule: {
+	// DisplayName: Momentum Stock
+	/* Tooltip:
+		'''
+		Moving fast ramps up "Momentum" stacks (max 6) that decay rapidly once you stop
+		Each stack grants +5% attack speed and +8% beam speed — a mirror to Overwatch
+		''' */
+}
+
+BulwarkStockModule: {
+	// DisplayName: Bulwark Stock
+	/* Tooltip:
+		'''
+		Holding the SHPC grants modest damage reduction
+		The reinforced posture slightly slows charge time and bumps mana cost
+		''' */
+}
+
+CombatGripModule: {
+	// DisplayName: Combat Grip
+	/* Tooltip:
+		'''
+		Killing blows with beams or laser stack "Combat" charges (max 5)
+		Each stack grants +6% attack speed and +2% damage; charges decay between fights
+		''' */
+}
+
+TempestGripModule: {
+	// DisplayName: Tempest Grip
+	/* Tooltip:
+		'''
+		After every few stacked hits, fires a Tempest Burst — multiple data arcs around the latest impact
+		Per-shot damage trims and mana cost climbs in exchange for rhythmic clearing
+		''' */
+}
+
+AbsorberGripModule: {
+	// DisplayName: Absorber Grip
+	/* Tooltip:
+		'''
+		Beam and laser hits return a slice of the damage dealt as mana
+		Per-shot damage drops slightly and base mana cost rises in exchange
+		''' */
+}
+
+HarmonicFrameModule: {
+	// DisplayName: Harmonic Frame
+	/* Tooltip:
+		'''
+		Multiple coexisting beams arc resonance tethers between each other for bonus damage
+		Adds one extra beam at the cost of per-shot damage and a touch of spread
+		''' */
+}
+
+ReplicatorFrameModule: {
+	// DisplayName: Replicator Frame
+	/* Tooltip:
+		'''
+		On expiration, a beam spawns a brief echo in place that flies on along its original heading
+		Primary damage rises while range shortens; mana cost climbs
+		''' */
+}
+
+ArchiveFrameModule: {
+	// DisplayName: Archive Frame
+	/* Tooltip:
+		'''
+		Accumulates SHPC damage; each time the threshold is crossed, an Archive blast detonates at the player's feet
+		Per-shot damage rises slightly with a small mana surcharge
+		''' */
 }

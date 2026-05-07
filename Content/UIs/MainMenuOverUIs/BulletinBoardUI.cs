@@ -10,6 +10,8 @@ using Terraria;
 using Terraria.Audio;
 using Terraria.GameContent;
 using Terraria.ID;
+#if DEBUG
+#endif
 
 namespace CalamityOverhaul.Content.UIs.MainMenuOverUIs
 {
@@ -68,6 +70,10 @@ namespace CalamityOverhaul.Content.UIs.MainMenuOverUIs
             BulletinBoardElement overhaulSettingsButtonBoard = new BulletinBoardElement()
                 .Setproperty(OverhaulSettingsButton.OverhaulSettingsButtonText, OverhaulSettingsButton.OnOpen, disabledFunc: () => Main.menuMode == 888);
             bulletinBoardElements.Add(overhaulSettingsButtonBoard);
+
+            //BulletinBoardElement extraBulletinBoard = new BulletinBoardElement()
+            //    .Setproperty(CWRLocText.Instance.IconUI_ExtraText, ExtraMain.OnOpen, disabledFunc: () => Main.menuMode == ExtraMain.ExtraMenuMode);
+            //bulletinBoardElements.Add(extraBulletinBoard);
         }
         public override void UnLoad() {
             Font = null;

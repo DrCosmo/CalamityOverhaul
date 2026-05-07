@@ -1,4 +1,5 @@
 ﻿using CalamityOverhaul.Content.ADV;
+using CalamityOverhaul.Content.ADV.Scenarios.SupCal;
 using CalamityOverhaul.Content.ADV.Scenarios.SupCal.SupCalDisplayTexts;
 using CalamityOverhaul.Content.PRTTypes;
 using InnoVault.GameContent.BaseEntity;
@@ -64,7 +65,7 @@ namespace CalamityOverhaul.Content.Items.Ranged
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips) {
-            if (Main.LocalPlayer.TryGetADVSave(out ADVSave save) && save.SupCalQuestReward) {
+            if (Main.LocalPlayer.TryGetADVSave(out ADVSave save) && save.Get<SupCalADVData>().SupCalQuestReward) {
                 TooltipLine line = new(Mod, "Story", SupCalDisplayText.Story1.Value);
                 line.OverrideColor = Color.OrangeRed;
                 tooltips.Add(line);
@@ -581,7 +582,16 @@ namespace CalamityOverhaul.Content.Items.Ranged
             }
             SpawnHitEffect(target);
         }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
+            TryApplyDRPenetration(target, ref modifiers);
+        }
 
+        private void TryApplyDRPenetration(NPC target, ref NPC.HitModifiers modifiers) {
+            float dr = CWRRef.GetNPCDR(target);
+            if (dr > 0f && dr <= 0.9f) {
+                modifiers.FinalDamage *= (1f - dr * 0.5f) / (1f - dr);
+            }
+        }
         private void SpawnHitEffect(NPC target) {
             if (Main.dedServ)
                 return;
@@ -680,6 +690,7 @@ namespace CalamityOverhaul.Content.Items.Ranged
             Projectile.extraUpdates = (int)(1 + ChargeLevel);
             Projectile.usesLocalNPCImmunity = true;
             Projectile.localNPCHitCooldown = -1;
+            Projectile.ArmorPenetration = 32767;
         }
 
         public override void AI() {
@@ -772,6 +783,16 @@ namespace CalamityOverhaul.Content.Items.Ranged
             //满蓄力时有几率生成追踪箭矢
             if (ChargeLevel >= 0.9f && Main.rand.NextBool(3) && Projectile.IsOwnedByLocalPlayer()) {
                 SpawnHomingArrow(target);
+            }
+        }
+        public override void ModifyHitNPC(NPC target, ref NPC.HitModifiers modifiers) {
+            TryApplyDRPenetration(target, ref modifiers);
+        }
+
+        private void TryApplyDRPenetration(NPC target, ref NPC.HitModifiers modifiers) {
+            float dr = CWRRef.GetNPCDR(target);
+            if (dr > 0f && dr <= 0.9f) {
+                modifiers.FinalDamage *= (1f - dr * 0.5f) / (1f - dr);
             }
         }
 

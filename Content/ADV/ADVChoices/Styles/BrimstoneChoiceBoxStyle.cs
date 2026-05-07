@@ -1,3 +1,4 @@
+ï»¿using CalamityOverhaul.Content.ADV.UIEffect;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -6,21 +7,26 @@ using Terraria;
 namespace CalamityOverhaul.Content.ADV.ADVChoices.Styles
 {
     /// <summary>
-    /// Áò»Ç»ğ·ç¸ñ
+    /// ç¡«ç£ºç«é£æ ¼
     /// </summary>
     internal class BrimstoneChoiceBoxStyle : IChoiceBoxStyle
     {
         private float brimstoneFlameTimer = 0f;
+        //ç€è‰²å™¨ä¸“ç”¨å•è°ƒé€’å¢æ—¶é—´
+        private float shaderTime = 0f;
+        private const int ShaderEdgePad = 14;
         private readonly List<BrimstoneEmber> brimstoneEmbers = new();
         private int brimstoneEmberTimer = 0;
 
         public void Update(Rectangle panelRect, bool active, bool closing) {
             brimstoneFlameTimer += 0.045f;
+            shaderTime += 0.016f;
             if (brimstoneFlameTimer > MathHelper.TwoPi) {
                 brimstoneFlameTimer -= MathHelper.TwoPi;
             }
+            if (shaderTime > 10000f) shaderTime -= 10000f;
 
-            //Éú³ÉÓà½ıÁ£×Ó
+            //ç”Ÿæˆä½™çƒ¬ç²’å­
             brimstoneEmberTimer++;
             if (active && !closing && brimstoneEmberTimer >= 6 && brimstoneEmbers.Count < 20) {
                 brimstoneEmberTimer = 0;
@@ -29,7 +35,7 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices.Styles
                 brimstoneEmbers.Add(new BrimstoneEmber(startPos));
             }
 
-            //¸üĞÂÁ£×Ó
+            //æ›´æ–°ç²’å­
             for (int i = brimstoneEmbers.Count - 1; i >= 0; i--) {
                 if (brimstoneEmbers[i].Update(panelRect)) {
                     brimstoneEmbers.RemoveAt(i);
@@ -40,12 +46,35 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices.Styles
         public void Draw(SpriteBatch spriteBatch, Rectangle panelRect, float alpha) {
             Texture2D pixel = VaultAsset.placeholder2.Value;
 
-            //»æÖÆÒõÓ°
+            //ç»˜åˆ¶é˜´å½±
             Rectangle shadowRect = panelRect;
             shadowRect.Offset(7, 9);
             spriteBatch.Draw(pixel, shadowRect, new Rectangle(0, 0, 1, 1), new Color(20, 0, 0) * (alpha * 0.65f));
 
-            //½¥±ä±³¾° - Áò»Ç»ğÉîºìÉ«
+            //ä¸“å±ç€è‰²å™¨é¢æ¿,é™çº§æ—¶å›é€€åˆ°åŸCPUå †å 
+            if (BrimstoneShaderPanel.Available) {
+                float pulse01 = (float)Math.Sin(brimstoneFlameTimer * 1.8f) * 0.5f + 0.5f;
+                BrimstoneShaderPanel.Draw(spriteBatch, panelRect, alpha * 0.97f, pulse01, shaderTime, ShaderEdgePad, Color.White);
+            }
+            else {
+                DrawFallbackPanel(spriteBatch, panelRect, alpha);
+            }
+
+            //ç«ç„°è¾¹æ¡†
+            Color flameEdge = GetEdgeColor(alpha);
+            DrawBorder(spriteBatch, panelRect, flameEdge);
+
+            //ç»˜åˆ¶ä½™çƒ¬ç²’å­
+            foreach (var ember in brimstoneEmbers) {
+                ember.Draw(spriteBatch, alpha * 0.9f);
+            }
+        }
+
+        //CPUé™çº§é¢æ¿:åŸç‰ˆ2Då †å ç»˜åˆ¶
+        private void DrawFallbackPanel(SpriteBatch spriteBatch, Rectangle panelRect, float alpha) {
+            Texture2D pixel = VaultAsset.placeholder2.Value;
+
+            //æ¸å˜èƒŒæ™¯ - ç¡«ç£ºç«æ·±çº¢è‰²
             int segments = 25;
             for (int i = 0; i < segments; i++) {
                 float t = i / (float)segments;
@@ -66,22 +95,13 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices.Styles
                 spriteBatch.Draw(pixel, r, new Rectangle(0, 0, 1, 1), finalColor);
             }
 
-            //»ğÑæÂö³åµş¼Ó
+            //ç«ç„°è„‰å†²å åŠ 
             float pulseBrightness = (float)Math.Sin(brimstoneFlameTimer * 1.8f) * 0.5f + 0.5f;
             Color pulseOverlay = new Color(120, 25, 15) * (alpha * 0.25f * pulseBrightness);
             spriteBatch.Draw(pixel, panelRect, new Rectangle(0, 0, 1, 1), pulseOverlay);
 
-            //»æÖÆÈÈÀËÅ¤ÇúĞ§¹û
+            //ç»˜åˆ¶çƒ­æµªæ‰­æ›²æ•ˆæœ
             DrawBrimstoneHeatWaves(spriteBatch, panelRect, alpha * 0.75f);
-
-            //»ğÑæ±ß¿ò
-            Color flameEdge = GetEdgeColor(alpha);
-            DrawBorder(spriteBatch, panelRect, flameEdge);
-
-            //»æÖÆÓà½ıÁ£×Ó
-            foreach (var ember in brimstoneEmbers) {
-                ember.Draw(spriteBatch, alpha * 0.9f);
-            }
         }
 
         public void DrawChoiceBackground(SpriteBatch spriteBatch, Rectangle choiceRect, bool enabled, float hoverProgress, float alpha) {
@@ -127,11 +147,12 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices.Styles
 
         public void Reset() {
             brimstoneFlameTimer = 0f;
+            shaderTime = 0f;
             brimstoneEmbers.Clear();
             brimstoneEmberTimer = 0;
         }
 
-        #region ¹¤¾ß·½·¨
+        #region å·¥å…·æ–¹æ³•
         private void DrawBrimstoneHeatWaves(SpriteBatch sb, Rectangle rect, float alpha) {
             Texture2D pixel = VaultAsset.placeholder2.Value;
             int waveCount = 5;
@@ -209,7 +230,7 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices.Styles
         }
         #endregion
 
-        #region Á£×ÓÀà
+        #region ç²’å­ç±»
         private class BrimstoneEmber
         {
             public Vector2 Pos;

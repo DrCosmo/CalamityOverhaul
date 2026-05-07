@@ -26,9 +26,9 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.End.EternalBlazingNows
     internal class EbnRender : RenderHandle//渲染控制
     {
         [VaultLoaden(CWRConstant.Effects)]
-        public static MiscShaderData EbnShader;
+        public static MiscShaderData EbnShader = null!;
         [VaultLoaden(CWRConstant.Masking)]
-        public static Texture2D Noise2;
+        public static Texture2D Noise2 = null!;
         public override void EndCaptureDraw(SpriteBatch spriteBatch, GraphicsDevice graphicsDevice, RenderTarget2D screenSwap) {
             if (!EbnEffect.IsActive && EbnEffect.Sengs <= 0 && !EbnEffect.IsRedScreenActive && !EbnEffect.EpilogueFadeIn) {
                 return;
@@ -574,6 +574,19 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.End.EternalBlazingNows
                 );
                 PRTLoader.AddParticle(spark);
             }
+        }
+
+        public override void OnWorldLoad() {
+            IsActive = false;
+            CekTimer = 0;
+            Sengs = 0f;
+            particleTimer = 0;
+            ResetEffects();
+        }
+
+        public override void PostSetupContent() {
+            ADVScenarioScheduler.RegisterBlocker(() =>
+                IsActive ? ScenarioBlockers.Cutscene : ScenarioBlockers.None);
         }
 
         public override void Unload() {

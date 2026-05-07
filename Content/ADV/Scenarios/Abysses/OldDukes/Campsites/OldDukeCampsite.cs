@@ -1,6 +1,4 @@
-﻿using CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Quest.FindCampsites;
-using CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Quest.Findfragments;
-using CalamityOverhaul.OtherMods.SubWorld;
+﻿using CalamityOverhaul.OtherMods.SubWorld;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -21,13 +19,13 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Campsites
         //头像矩形区域
         public readonly static Rectangle PortraitRec = new(128, 26, 78, 94);
         //反射加载老公爵纹理，以便在ADV场景中使用，总共七帧，一般只使用前六帧，因为第七帧是张嘴动画
-        public static Texture2D OldDuke;
+        public static Texture2D OldDuke = null!;
         //老公爵的头像图标
-        public static Texture2D OldDuke_Head_Boss;
+        public static Texture2D OldDuke_Head_Boss = null!;
         [VaultLoaden(CWRConstant.ADV + "Abysse/")]
-        public static Texture2D OldPot;//反射加载老公爵营地的锅纹理，大小宽46像素高48像素，适合放地上用于丰富营地场景
+        public static Texture2D OldPot = null!;//反射加载老公爵营地的锅纹理，大小宽46像素高48像素，适合放地上用于丰富营地场景
         [VaultLoaden(CWRConstant.ADV + "Abysse/")]
-        public static Texture2D Oldflagpole;//反射加载老公爵营地的旗帜纹理，大小宽60像素高160像素，适合放地上用于丰富营地场景
+        public static Texture2D Oldflagpole = null!;//反射加载老公爵营地的旗帜纹理，大小宽60像素高160像素，适合放地上用于丰富营地场景
         /// <summary>
         /// 人鱼钓是否正在收回
         /// </summary>
@@ -175,12 +173,12 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Campsites
             }
 
             //检查玩家是否已经完成碎片任务
-            if (save.OldDukeFindFragmentsQuestTriggered || save.OldDukeFindFragmentsQuestCompleted) {
+            if (save.Get<OldDukeADVData>().OldDukeFindFragmentsQuestTriggered || save.Get<OldDukeADVData>().OldDukeFindFragmentsQuestCompleted) {
                 return true;
             }
 
             //检查玩家是否已经同意合作
-            if (!save.OldDukeCooperationAccepted) {
+            if (!save.Get<OldDukeADVData>().OldDukeCooperationAccepted) {
                 return false;
             }
 
@@ -336,7 +334,6 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Campsites
         /// 营地生成后的初始化操作
         /// </summary>
         private static void OnCampsiteGenerated() {
-            FindCampsiteUI.Instance.SetDefScreenYValue();
             ModContent.GetInstance<OldDukeCampsiteRenderer>().SetEntityInitialized(false);
             //播放生成音效
             SoundEngine.PlaySound(SoundID.Splash with { Volume = 0.5f, Pitch = -0.2f }, CampsitePosition);
@@ -410,13 +407,12 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Campsites
             }
 
             //首次营地对话
-            if (!save.OldDukeFirstCampsiteDialogueCompleted) {
-                save.OldDukeFirstCampsiteDialogueCompleted = true;
+            if (!save.Get<OldDukeADVData>().OldDukeFirstCampsiteDialogueCompleted) {
+                save.Get<OldDukeADVData>().OldDukeFirstCampsiteDialogueCompleted = true;
 
                 //触发首次对话场景
                 ScenarioManager.Reset<Quest.FindFragments.FirstCampsiteDialogue>();
                 ScenarioManager.Start<Quest.FindFragments.FirstCampsiteDialogue>();
-                FindFragmentUI.Instance.SetDefScreenYValue();
                 return;
             }
 

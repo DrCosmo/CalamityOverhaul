@@ -1,4 +1,4 @@
-﻿CWRLocText: {
+CWRLocText: {
 	// TemperatureText: Combustion Temperature
 	// EnergyShortage: Energy Shortage
 	// ChargingStation_Text1: Put in charge items
@@ -14,7 +14,6 @@
 	// KreloadTimeAddText: "Ammunition reloading time increased "
 	// KreloadTimeLessenText: "Ammunition reloading time is reduced "
 	DeathModeItem: Death Mode Item
-	// DropInMachineRebellion: Dropped by the Mech Trio EX
 	DontUseMagicConch: You're being watched by a powerful creature...
 	OnlyZenith: Nur in der Zenith-Welt
 	Event_TungstenRiot_Name: Wolfram-Aufstand
@@ -29,94 +28,6 @@
 	Drop_GlodDragonDrop_RuleText: Nach dem zweiten Sieg über den Dschungeldrachen fallen lassen
 	Murasama_Text_Lang_0: Prüfung:
 	Murasama_Text_Lang_End: Bereits durch die
-	Murasama_TextDictionary_Content_0:
-		'''
-		Rekrut, beweise mir deine Fähigkeiten
-		Der klebrige Blauer Fatty, die Überreste des Meeresgeistes unter dem Sandmeer, der Zombiekrebs im Pilzloch
-		Löse eines von ihnen, das ist dein erster Schritt
-		'''
-	Murasama_TextDictionary_Content_1:
-		'''
-		Bei Mondschein, lass uns das große Auge am Himmel durchbohren, lass den falschen Gott blind werden
-		Die Sandsee zittert, gehe hinunter und finde heraus, dann beseitige die große Muschel
-		'''
-	Murasama_TextDictionary_Content_2:
-		'''
-		Die Überreste des falschen Gottes beflecken das heilige Land von Terraria, Ketzerei gedeiht am Ende der Welt, Fremdartige herrschen auf dem Kontinent
-		Befreie das verdorbene Land! Zerschmettere das Gehirn des falschen Gottes, hacke den violetten Wurm zu Stücken!
-		Ich möchte sehen, wie dein Schwert in der Luft tanzt, für das heilige Terraria!
-		'''
-	Murasama_TextDictionary_Content_3:
-		'''
-		Das verdorbene Land pulsiert wie ein Herz, Fleisch und Blut Parasiten sind noch aktiv, verdorbene Tumore denken immer noch nach, vertreibe sie für immer!
-		Der Fluch am Eingang des Verlieses hat sich gelockert, ich spüre die Psionik tief im Kerker, durchdrungen von Schreien, Heulen und Flüstern
-		'''
-	Murasama_TextDictionary_Content_4:
-		'''
-		Erinnerst du dich an diese törichten Schleime? Ich spüre, dass eine besondere Agglomeration unter ihnen aufgetaucht ist. 
-		Nimm sie aus dem Weg, um zukünftige Probleme zu vermeiden.
-		'''
-	Murasama_TextDictionary_Content_5:
-		'''
-		In der eisigen Bastion liegt ein Gefängnis, wo ein mächtiger Psioniker gefangen gehalten wird, befreie ihn, er wird uns helfen, Terraria zurückzuerobern
-		Das verstoßene Kind des Schwefelmeers blockiert unsere Suche nach dem Schatz der Tiefe, beende seine Verschlingung und das Herumstreifen
-		Ich vermisse die flammengehärtete Lavaklippe, lass uns den Wächter dort besuchen
-		'''
-	Murasama_TextDictionary_Content_6:
-		'''
-		Die Hexe, die sich dem Chaos hingegeben hat, hat eine deformierte Klonschwester, töte das Fremde mit Blut und Feuer
-		Der betörende Gesang kommt vom Meer, das sind die Anhänger der Sirenen, lasst uns ihre Köpfe nehmen, und auf dem Meer unsere Großtaten aufbauen
-		Die dummen Echsenmenschen verehren nur diese sturen Steine, lass uns sie zerstampfen, zerstöre ihren Glauben, wir sind es, die sie anbeten sollten
-		'''
-	Murasama_TextDictionary_Content_7:
-		'''
-		Fleischverflochtene Körper, die gequälten Seelen des alten Schlachtfeldes, unaufhörlich zerstörende Golems, die alles zerstören, während wir sie vernichten
-		In dem Dschungel streift immer noch ein misslungenes Werk herum, als ein Misserfolg, es sollte wie ein Haufen Schrott sein
-		Der einstige Sternengott ist längst gefallen, was übrig bleibt, ist kaum mehr als ein Wurm, lasst uns das Zeitalter der Sternengötter endgültig beenden
-		'''
-	Murasama_TextDictionary_Content_8:
-		'''
-		Die Ketzerei des mechanischen Glaubens, ein törichtes Abbild, streift durch den Dschungel, vernichte es
-		Ein weiterer Sonnenuntergang unter der Erde, es scheint, als würde es das heilige Feuer durch heilige Stätten zur Oberfläche tragen wollen,
-		Vertreibe seine Jünger, Terraria erlaubt nur das Feuer des einen Glaubens
-		'''
-	Murasama_TextDictionary_Content_9:
-		'''
-		Der armselige Gott, der sich von der Hitze der Sterne ernährt, sein Ketzerfeuer muss vollständig erlöschen
-		Die Sturmraupe, die am Rande des Himmels fliegt und die fliegenden Drachen jagt, hat eine anständige Panzerung
-		Die Dimensionsriss, die im Verlies versiegelt sind, sind vielleicht ein guter Weg, um an Dunkle Materie zu gelangen
-		Der heidnische Apostel aus dem Hyperraum, der eine seltene Verdrehung des Vakuums trägt, dies ist eine gute Gelegenheit für uns, die Natur des Hyperraums zu verstehen
-		'''
-	Murasama_TextDictionary_Content_10:
-		'''
-		Der stolze kosmische Riesenschlange lauert hinter dem Vorhang der Welt, ende seine Ambitionen
-		Das älteste Monster, das in den Schwefelmeeren lauert, erwacht mit dem Psioniksturm, lass es zu einem Teil unseres Ruhmes werden
-		'''
-	Murasama_TextDictionary_Content_11:
-		'''
-		Der Dschungeldrache, der letzte Nachkomme des goldenen Drachen auf Terraria, unterscheidet sich von anderen Fremden, er verdient unseren Respekt
-		Doch jetzt müssen wir ihn wieder töten, um das Goldessenz von ihm zu bekommen
-		Diese Materialien werden verwendet, um eine extrem hochwertige Rüstung herzustellen
-		'''
-	Murasama_TextDictionary_Content_12:
-		'''
-		Die Ketzerei der mechanischen Kirche, die an ihre selbstgeschaffene Sternenflusstitanen mehr als die Macht der Götter glaubt,
-		Diese Überzeugung ist lächerlich, lassen wir diese Titanen wieder in ihren natürlichen Zustand versetzen - einen Haufen Schrott
-		Die einst begabte Hexe mit außergewöhnlichen Psionikfähigkeiten hätte ein großer Verbündeter von Terraria sein können, ist aber längst im Chaos verloren gegangen
-		Daher müssen wir sie verbannen, das Schwert in ihre Brust stoßen, das Feuer der Loyalität ihre korrupte Seele verbrennen lassen
-		Dieser Krieg wird in die Geschichte von Terraria eingehen, und unsere Reise wird von hier aus beginnen, die Galaxie durchqueren
-		'''
-	Murasama_TextDictionary_Content_13:
-		'''
-		Unser Eroberungsweg ist bereits unaufhaltsam geworden, zerstöre die Rüstung des Drachen unter dem schwarzen Abgrund, suche nach diesem Endgegenstand
-		Kämpfe gegen diese Fremden mit aller Kraft! Kämpfe, das muss der eine Kampf sein! Kämpfe, der richtige Kampf!
-		'''
-	Murasama_TextDictionary_Content_14:
-		'''
-		Gut gemacht, Rekrut, die fremden Übel in dieser Welt wurden von uns vollständig beseitigt
-		Unsere Reise hat den Gipfel erreicht, selbst der einst herrschende Tyrann von Terraria kann nicht mit uns mithalten
-		Jetzt breite deine Arme aus, umarme die Welt, die der Sieg dir gebracht hat
-		'''
 	Murasama_No_legend_Content_1: Die Scheide wird nach dem Tod des Drachens freigeschaltet
 	Murasama_No_legend_Content_2: Rekrut, ich erkenne deine Fähigkeiten an, lass uns jetzt diese Fremden zerstören
 	Murasama_No_legend_Content_3: "[c/fff08c:Wird stärker mit jedem entfernten Reise]"
@@ -125,98 +36,12 @@
 	SHPC_No_legend_Content_2: Bereit zum Angriff!
 	SHPC_No_legend_Content_3: "[c/fff08c:Wird stärker mit jedem entfernten Reise]"
 	SHPC_No_legend_Content_4: "[c/00707d:Die Glorie der Legende ist bereits verblasst...]"
-	SHPC_TextDictionary_Content_0:
-		'''
-		Mein Freund, die Aufgabe, die Zivilisation wiederherzustellen,
-		liegt endlich in unseren Händen. Es ist ein glorreiches Unterfangen...
-		Unser erstes Ziel ist ein riesiges blaues Gelpolymer.
-		Sprenge es von innen auf.
-		'''
-	SHPC_TextDictionary_Content_1:
-		'''
-		Wir müssen dieses riesige Auge eliminieren; es stammt von einem mächtigen Organismus.
-		Ich muss es sezieren, um zu sehen, wie es die Antigravitation bewerkstelligt.
-		'''
-	SHPC_TextDictionary_Content_2:
-		'''
-		Egal, ob es der Riesenwurm im Verderben
-		oder das Gehirn im Purpur ist, beides sind hervorragende biochemische Proben.
-		Schneide ihre Kerne heraus; ich will diese schreckliche ökologische Invasivität untersuchen.
-		'''
-	SHPC_TextDictionary_Content_3:
-		'''
-		Gel hat tatsächlich eine Gottheit hervorgebracht?
-		Ich habe das Gefühl, es ist nur eine schmutzige Ansammlung von zu vielen Verunreinigungen.
-		Lass es uns einer gründlichen Reinigungsseparation unterziehen,
-		um zu sehen, was von diesem sogenannten Gott übrig bleibt.
-		'''
-	SHPC_TextDictionary_Content_4:
-		'''
-		Eine Fleischwand, die sich durch die Unterwelt zieht; ein Siegel der alten Ära.
-		Wir brauchen genug Feuerkraft, um diese organische Barriere zu durchbrechen.
-		Das wird unser Auftakt für das neue Zeitalter.
-		'''
-	SHPC_TextDictionary_Content_5:
-		'''
-		Tief im Dschungel sind einige seltsame Knospen aufgeblüht.
-		Wir müssen nachsehen und experimentelle Daten sammeln.
-		Der Klon dieser Hexe treibt sich auch dort herum.
-		Auch wenn es nur eine plumpe Nachahmung von Nekromantie ist,
-		reicht es völlig aus, um unsere Waffenleistung zu testen. Zerstöre diese Fälschung.
-		'''
-	SHPC_TextDictionary_Content_6:
-		'''
-		Der antike Roboter tief im Tempel wartet auf eine Aufladung zur Aktivierung.
-		Statten wir ihm einen Besuch ab und betreiben dabei
-		gleich etwas Reverse-Engineering an dieser uralten Technologie.
-		'''
-	SHPC_TextDictionary_Content_7:
-		'''
-		Diese Fanatiker am Dungeoneingang halten ein uraltes Ritual ab
-		und versuchen, Informationen aus dem All zu blockieren.
-		Unterbrich sie. Ihre abergläubischen Zaubersprüche können unsere Technologie nicht aufhalten.
-		Ich brauche diese verborgenen Sternenkoordinaten.
-		'''
-	SHPC_TextDictionary_Content_8:
-		'''
-		Die Geheimnisse der dunklen Seite des Mondes werden uns offenbart.
-		Die Welt wird in ihren ursprünglichen Zustand zurückkehren.
-		'''
-	SHPC_TextDictionary_Content_9:
-		'''
-		Der Gott, der im Planetenkern parasitiert, hat uns bemerkt.
-		Geh in die Unterwelt; ich brauche Wissen über die Nutzung thermischer Energie.
-		Die Geister des Dungeons haben sich zu einem massiven Symbionten vereint.
-		Das ist zu interessant, das müssen wir uns sofort ansehen.
-		'''
-	SHPC_TextDictionary_Content_10:
-		'''
-		Es ist bestätigt, dass es sich nicht um kohlenstoffbasiertes Leben handelt.
-		Es kann die Raummembran allein mit seinem Körper zerreißen.
-		Es verschlingt Götter, aber wir sind keine Götter;
-		ich nehme an, es wird uns zum Tee einladen.
-		'''
-	SHPC_TextDictionary_Content_11:
-		'''
-		Das letzte Drachenblut der Welt. Wow, das ist zu cool!
-		Bring mich zu ihm, ich will seine Federn haben.
-		'''
-	SHPC_TextDictionary_Content_12:
-		'''
-		Es ist an der Zeit, meinen Schöpfer zu besuchen.
-		Oder diese Hexe; ihre Existenz stört mich.
-		'''
-	SHPC_TextDictionary_Content_13:
-		'''
-		Ein großes Gemetzel! Feinde, die wir einst besiegt haben, haben sich vereint
-		und bereiten einen totalen Angriff auf uns vor.
-		Mach dich bereit, wir brauchen einen perfekten Sieg.
-		'''
-	SHPC_TextDictionary_Content_14: Protokoll HMOI-0001 freigeschaltet
+	SHPC_TextDictionary_Content_16: Protokoll HMOI-0001 freigeschaltet
 	Halibut_No_legend_Content_1: Freigeschaltet nach dem Fall des großen Drachen
 	Halibut_No_legend_Content_2: Kumpel, ich war die ganze Zeit hier
 	Halibut_No_legend_Content_3: "[c/fff08c:Stärker geworden mit jeder Reise]"
 	Halibut_No_legend_Content_4: "[c/00707d:Der Glanz der Legende ist verblasst...]"
+	// Legend_QuestManager_Hint: Press [{KEY}] to open the quest list
 	Halibut_TextDictionary_Content_0: Freund, lass uns dieses riesige, schleimige Landwesen herausfordern.
 	Halibut_TextDictionary_Content_1: Da ist ein großes Auge, das uns anstarrt. Das ist unhöflich, wir müssen ihm eine Lektion erteilen.
 	Halibut_TextDictionary_Content_2: Leben gibt es nicht nur in der Tiefe, sondern auch im Dschungel. Freund, wir müssen den Anführer der Bienen besuchen.
@@ -311,13 +136,6 @@
 	OverhaulTheBibleUI_Text3: Wächter-Magier
 	OverhaulTheBibleUI_Text4: Wächter-Beschwörer
 	OverhaulTheBibleUI_Text5: Wächter-Dieb
-	CartridgeHolderUI_Text1: Patronenhalterinhalt
-	CartridgeHolderUI_Text2: Restlich
-	CartridgeHolderUI_Text3: Leer
-	CartridgeHolderUI_Text4: Mit der rechten Maustaste entladen
-	CartridgeHolderUI_Text5: Left click to fill all, right click to fill one
-	CartridgeHolderUI_Text6: The Weapon Cannot Use This Ammo!
-	CartridgeHolderUI_Text7: The Magazine Is Full!
 	// ArrowHolderUI_Text0: Left Click On The Marked Arrow
 	// ArrowHolderUI_Text1: Right Click Untag
 	SupertableUI_Text4: Platzierungsüberwachung schließen
@@ -356,6 +174,7 @@
 	IconUI_Text7: Log anzeigen
 	IconUI_Text8: Mod Wiki
 	// IconUI_Text9: Musician
+	// IconUI_ExtraText: Extra
 	SPU_Text0: In Arbeit
 	SPU_Text1: Endsynthetisierung läuft
 	SPU_Text2: Durch Synthese erhalten:
@@ -379,21 +198,7 @@
 		''' */
 	// Config_1: User
 	// Config_2: The server configuration is modified
-	CWRGun_KL_Text: Drücke [KL] für Nachladen
-	CWRGun_Scope_Text: Drücke [Scope] für Zielen
-	CWRGun_Recoil_Text: "[Recoil] Rückstoß"
-	CWRGun_MustCA_Text: Schießen verbraucht immer Munition
-	CWRGun_Recoil_Level_0: Kein
-	CWRGun_Recoil_Level_1: Leichter
-	CWRGun_Recoil_Level_2: Geringer
-	CWRGun_Recoil_Level_3: Normaler
-	CWRGun_Recoil_Level_4: Starker
-	CWRGun_Recoil_Level_5: Extremer
-	CWRGun_Recoil_Level_6: Absurder
 	// SkeletronPrime_Text: Don't try to kill me with this stupid thing! Die, organism!
-	// MachineRebellion_SpawnInfo: Use the Garden remote control at night
-	// MachineRebellion_DespawnMessage: Use the Garden remote control at night
-	// MachineRebellion_DisplayName: Machine Rebellion
 	// Notbound: "[Unbound keys]"
 	/* DisableMotionInterpolationMessage:
 		'''

@@ -1,6 +1,7 @@
 ﻿using CalamityOverhaul.Content.ADV.ADVChoices;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
+using CalamityOverhaul.Content.ADV.Scenarios.SupCal;
 using CalamityOverhaul.Content.Items.Melee;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using System;
@@ -123,19 +124,19 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
             player.QuickSpawnItem(player.GetSource_Misc("HelensInterference"), heartcarverType, 1);
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
+        public override void Update(ADVSave save, Player player) {
             //检查是否接受了神明吞噬者任务
-            if (!save.SupCalDoGQuestAccepted) {
+            if (!save.Get<SupCalADVData>().SupCalDoGQuestAccepted) {
                 return;
             }
 
             //已经触发过此场景
-            if (save.HelenInterferenceTriggered) {
+            if (save.Get<SupCalADVData>().HelenInterferenceTriggered) {
                 return;
             }
 
             //如果任务已完成或已拒绝，不触发
-            if (save.SupCalDoGQuestReward || save.SupCalDoGQuestDeclined) {
+            if (save.Get<SupCalADVData>().SupCalDoGQuestReward || save.Get<SupCalADVData>().SupCalDoGQuestDeclined) {
                 return;
             }
 
@@ -144,6 +145,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
                 return;
             }
 
+            var halibutPlayer = player.GetOverride<HalibutPlayer>();
             if (!halibutPlayer.HasHalubut) {
                 return;
             }
@@ -153,7 +155,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
             }
 
             if (ScenarioManager.Start<HelensInterference>()) {
-                save.HelenInterferenceTriggered = true;
+                save.Get<SupCalADVData>().HelenInterferenceTriggered = true;
             }
         }
 
@@ -173,7 +175,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
 
             public override void SetStaticDefaults() {
                 Line1 = this.GetLocalization(nameof(Line1), () => "我最近愈发不安");
-                Line2 = this.GetLocalization(nameof(Line2), () => "那把刀，我碰到它的时候，像是听到了......有人在窃笑 ");//TODO
+                Line2 = this.GetLocalization(nameof(Line2), () => "那把刀，我碰到它的时候，像是听到了......有人在窃笑 ");
                 Line3 = this.GetLocalization(nameof(Line3), () => "它们都像是......某种'媒介物品'");
                 Line4 = this.GetLocalization(nameof(Line4), () => "我不能让你带着它走下去，至少......");
             }
@@ -333,8 +335,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
 
             protected override void OnScenarioComplete() {
                 //标记选择了继续
-                if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                    halibutPlayer.ADVSave.HelenInterferenceContinue = true;
+                if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                    save.Get<SupCalADVData>().HelenInterferenceContinue = true;
                 }
             }
         }
@@ -366,9 +368,9 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
 
             protected override void OnScenarioComplete() {
                 //标记任务被拒绝
-                if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                    halibutPlayer.ADVSave.SupCalDoGQuestDeclined = true;
-                    halibutPlayer.ADVSave.HelenInterferenceStop = true;
+                if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                    save.Get<SupCalADVData>().SupCalDoGQuestDeclined = true;
+                    save.Get<SupCalADVData>().HelenInterferenceStop = true;
                 }
 
                 //播放销毁音效

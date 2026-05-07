@@ -14,7 +14,6 @@
 	KreloadTimeAddText: 弹药装填时间增加
 	KreloadTimeLessenText: 弹药装填时间减少
 	DeathModeItem: 死亡模式
-	DropInMachineRebellion: 掉落自机械三王EX
 	DontUseMagicConch: 你被一个强大的生物盯住了...
 	OnlyZenith: 仅在天顶世界
 	Event_TungstenRiot_Name: 钨钢暴乱
@@ -29,60 +28,6 @@
 	Drop_GlodDragonDrop_RuleText: 当丛林巨龙被二次击败后掉落
 	Murasama_Text_Lang_0: 试炼:
 	Murasama_Text_Lang_End: 已通过
-	Murasama_TextDictionary_Content_0:
-		'''
-		新兵，向我证明你自己
-		那个黏糊糊的蓝胖子，沙海之下的海妖余孽
-		解决他们，这是你的第一步
-		'''
-	Murasama_TextDictionary_Content_1: 夜月当空，让我们去戳爆那颗在空中乱飞的大眼球，让那个伪神彻底变成瞎子
-	Murasama_TextDictionary_Content_2:
-		'''
-		伪神的残躯玷污着泰拉的大地，异端在世界尽头滋生，异形在大陆上横行
-		去解放被腐化的大陆，砍碎那坨伪神的大脑，剁碎那条紫色蠕虫！
-		我要看到你的刀在异形的血肉中飞舞!
-		'''
-	Murasama_TextDictionary_Content_3: 腐化的大地还在像心脏一样颤动，血肉的寄生者还在活动，腐化的肿瘤仍旧在思考，去将他们彻底放逐！
-	Murasama_TextDictionary_Content_4:
-		'''
-		史莱姆王国流传着一个传说，它们有一个堕落的异神，
-		祂现在正处于虚弱状态，正是将其放逐回亚空间的好机会
-		地牢门口的诅咒已经松动，我感觉到灵能在深牢中蠢动，夹杂着惨叫、哀嚎、低语...
-		'''
-	Murasama_TextDictionary_Content_5:
-		'''
-		硫磺之海的弃儿阻挡了我们探寻深渊的宝藏，去终结它的吞噬和游荡
-		一个巨大的钢铁蠕虫挡住了我们的征途，将它剁成碎片
-		'''
-	Murasama_TextDictionary_Content_6: 那个投入混沌的女巫，她有一个畸变的克隆姊妹，杀了那个异形，以血和火焰祭刀
-	Murasama_TextDictionary_Content_7: 愚蠢的蜥蜴族只会信奉这些冥顽不灵的石头，让我们把它斩为齑粉，摧毁他们的信仰，我们才是它们应该供奉的
-	Murasama_TextDictionary_Content_8: 那个躲在月亮背面的伪神不过是个残缺的拼凑物。去斩断它的触须，挖出它的心脏，用它的血来痛饮
-	Murasama_TextDictionary_Content_9: 靠吸食恒星热能苟延残喘的可怜神明，它的异端之火需要彻底熄灭
-	Murasama_TextDictionary_Content_10: 那条傲慢的宇宙巨蟒在世界的帷幕后蠢蠢欲动，终结他的野望
-	Murasama_TextDictionary_Content_11:
-		'''
-		丛林巨龙，泰拉大陆仅存的金源龙裔，与其他异形迥然不同，它值得我们的尊重
-		然而，眼下我们却需让它再次赴死，剥夺其身上的金源魄
-		这些材料将被用来打造出一套无比上乘的装备
-		'''
-	Murasama_TextDictionary_Content_12:
-		'''
-		那个机械教会的异端，他笃信自己所创造的星流泰坦胜过神明之力
-		这种信念荒谬至极，让我们将那几台泰坦归还自然的状态 —— 一堆废铁
-		曾拥有出色灵能天赋的女巫，本应成为守护泰拉的一大助力，却早已迷失于混沌之中
-		我们唯有将她放逐，将刀锋刺入她的胸膛，让忠诚之火焚尽她腐朽的灵魂
-		'''
-	Murasama_TextDictionary_Content_13:
-		'''
-		我们的征服之路早已不可阻挡，破碎那黑渊之下妖龙的铠甲
-		使用那终焉之石，与异形展开最终决战
-		'''
-	Murasama_TextDictionary_Content_14:
-		'''
-		好样的，新兵，这个世界上的异形邪祟已被我们一扫而空
-		我们的征途已经攀登至巅峰，就连那曾经统治泰拉的暴君也不及我们万一
-		现在，展开你的双臂，拥抱这个由胜利带给你的世界
-		'''
 	Murasama_No_legend_Content_1: 刀鞘将在巨龙陨落后解锁
 	Murasama_No_legend_Content_2: 新兵，我认可你的能力，现在，让我们去斩碎那帮异形
 	Murasama_No_legend_Content_3: "[c/fff08c:随着旅途的遥远而变强]"
@@ -91,85 +36,12 @@
 	SHPC_No_legend_Content_2: 蓄势待发!
 	SHPC_No_legend_Content_3: "[c/fff08c:随着旅途的遥远而变强]"
 	SHPC_No_legend_Content_4: "[c/00707d:传奇的光辉已经暗淡...]"
-	SHPC_TextDictionary_Content_0:
-		'''
-		朋友，复兴文明的任务终于落在了我两手上，这是一件光荣的事情...
-		我们的第一个目标是一坨蓝色的凝胶聚合物，它非常的巨大，把它从内部轰开
-		'''
-	SHPC_TextDictionary_Content_1:
-		'''
-		我们需要干掉那只大眼球，它来自一个强大的生命体
-		我需要解剖它，看看它是如何实现反重力的
-		'''
-	SHPC_TextDictionary_Content_2:
-		'''
-		无论那是盘踞腐土的巨虫，还是支配血肉的大脑，它们都是极佳的生化样本
-		去切下它们的核心，我要研究这种恐怖的生态侵蚀性
-		'''
-	SHPC_TextDictionary_Content_3:
-		'''
-		凝胶居然衍生出了神？我感觉只是吞噬了太多杂质的污秽集合体
-		让我们对它来一次彻底的提纯分离，看看它还能剩下什么
-		'''
-	SHPC_TextDictionary_Content_4:
-		'''
-		一道横亘在地狱的血肉长墙，它是旧时代的封印
-		我们需要用足够的火力轰穿这道有机屏障，这将是我们迈向新时代的开门红
-		'''
-	SHPC_TextDictionary_Content_5:
-		'''
-		丛林地下有几朵妖艳的大花苞已经盛开
-		我们需要去看看，收集一些实验资料
-		那个女巫的克隆体也在游荡，虽然只是死灵法术的拙劣模仿
-		但用来测试我们的武器性能绰绰有余，去摧毁那个冒牌货
-		'''
-	SHPC_TextDictionary_Content_6:
-		'''
-		神庙深处的远古机器人等待着一次充能启动
-		让我们去拜访一下，顺带逆向出远古科技
-		'''
-	SHPC_TextDictionary_Content_7:
-		'''
-		地牢门口那群狂热的信徒正在举行某种古老的仪式，企图封锁天外的信息
-		打断他们，那些迷信的咒语挡不住我们的科技，我需要那个被隐藏的星际坐标
-		'''
-	SHPC_TextDictionary_Content_8:
-		'''
-		月亮背面的秘密将被我们知晓
-		世界将回到原来的样子
-		'''
-	SHPC_TextDictionary_Content_9:
-		'''
-		寄生在地核中的神明注意到了我们
-		去地狱看看，我需要热能利用的知识
-		地牢的怨灵聚集起来了，它们组成了一个庞大的共生体
-		这太有趣了，我们现在就得去看看
-		'''
-	SHPC_TextDictionary_Content_10:
-		'''
-		可以确定它不是碳基生命，仅靠身体就能撕开空间膜
-		它吞噬神明，但我们不是神，我想它会请我们喝茶的
-		'''
-	SHPC_TextDictionary_Content_11:
-		'''
-		世界上仅存的龙裔，哇这太酷了！
-		带我去看看，我要得到它的羽毛
-		'''
-	SHPC_TextDictionary_Content_12:
-		'''
-		是时候拜访我的造物主了
-		或者那个女巫，她的存在让我感到困扰
-		'''
-	SHPC_TextDictionary_Content_13:
-		'''
-		大混战！曾经被我们击败过的敌人联合了起来，准备向我们发起总攻
-		做好准备，我们需要一次完美的胜利
-		'''
-	SHPC_TextDictionary_Content_14: HMOI-0001协议已解锁
+	SHPC_TextDictionary_Content_16: HMOI-0001协议已解锁
 	Halibut_No_legend_Content_1: 在巨龙陨落后解锁
 	Halibut_No_legend_Content_2: 老兄，我一直在这里
 	Halibut_No_legend_Content_3: "[c/fff08c:随着旅途的遥远而变强]"
 	Halibut_No_legend_Content_4: "[c/00707d:传奇的光辉已经暗淡...]"
+	Legend_QuestManager_Hint: 按下[{KEY}]打开任务列表
 	Halibut_TextDictionary_Content_0: 先生，让我们去挑战一下那个巨大的黏糊糊的陆地生物
 	Halibut_TextDictionary_Content_1: 有一个大眼睛直盯着我们看，这很不礼貌，我们需要去教训教训它
 	Halibut_TextDictionary_Content_2: 生机盎然的地方不只有深渊，还有丛林，朋友，我们需要去拜访一下哪里的蜜蜂头头
@@ -238,9 +110,9 @@
 	CWRRecipes_FishGroup: 鱼
 	LoadItemRecipe_Condition_Text1: 背包中需要存在一本大修宝典
 	Murasama_Text0: 已解锁
-	Murasama_Text1: 未解锁 需要通过试炼2
-	Murasama_Text2: 未解锁 需要通过试炼5
-	Murasama_Text3: 未解锁 需要通过试炼9
+	Murasama_Text1: 未解锁 需要通过试炼3
+	Murasama_Text2: 未解锁 需要通过试炼7
+	Murasama_Text3: 未解锁 需要通过试炼20
 	MouseTextContactPanel_TextContent: 按下[KEY]切换终焉合成配方预览状态
 	CWRItem_IsRemakeItem_TextContent: -大修-
 	OnEnterWorld_TextContent: 个武器重置已经装载
@@ -265,13 +137,6 @@
 	OverhaulTheBibleUI_Text3: 监视法师
 	OverhaulTheBibleUI_Text4: 监视召唤师
 	OverhaulTheBibleUI_Text5: 监视盗贼
-	CartridgeHolderUI_Text1: 弹匣填充内容
-	CartridgeHolderUI_Text2: 剩余
-	CartridgeHolderUI_Text3: 空
-	CartridgeHolderUI_Text4: 右键卸弹
-	CartridgeHolderUI_Text5: 左键点击全部装填，右键点击装填入一颗
-	CartridgeHolderUI_Text6: 该武器不能使用此弹药!
-	CartridgeHolderUI_Text7: 弹匣已满!
 	ArrowHolderUI_Text0: 左键点击标记箭矢
 	ArrowHolderUI_Text1: 右键点击取消标记
 	SupertableUI_Text4: 关闭摆放监视
@@ -306,6 +171,7 @@
 	IconUI_Text7: 查看日志
 	IconUI_Text8: 模组维基
 	IconUI_Text9: 音乐制作
+	IconUI_ExtraText: 额外内容
 	SPU_Text0: 在
 	SPU_Text1: 进行终焉合成
 	SPU_Text2: 合成获得：
@@ -329,21 +195,7 @@
 		'''
 	Config_1: 用户
 	Config_2: 修改了服务端配置
-	CWRGun_KL_Text: 按下[KL]键进行换弹
-	CWRGun_Scope_Text: 按下[Scope]开镜
-	CWRGun_Recoil_Text: "[Recoil]后坐力"
-	CWRGun_MustCA_Text: 开火必定消耗弹药
-	CWRGun_Recoil_Level_0: 无
-	CWRGun_Recoil_Level_1: 微弱的
-	CWRGun_Recoil_Level_2: 较弱的
-	CWRGun_Recoil_Level_3: 一般的
-	CWRGun_Recoil_Level_4: 较强的
-	CWRGun_Recoil_Level_5: 疯狂的
-	CWRGun_Recoil_Level_6: 荒诞的
 	SkeletronPrime_Text: 别妄图用这愚蠢的东西杀死我!去死吧有机体!
-	MachineRebellion_SpawnInfo: 在夜晚使用嘉登遥控器
-	MachineRebellion_DespawnMessage: 在夜晚使用嘉登遥控器
-	MachineRebellion_DisplayName: 机械暴乱
 	Notbound: "[未绑定按键]"
 	DisableMotionInterpolationMessage:
 		'''

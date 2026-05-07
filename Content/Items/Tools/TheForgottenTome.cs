@@ -3,7 +3,6 @@ using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.MainMenuOvers;
 using CalamityOverhaul.Content.ADV.Scenarios;
 using CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Campsites;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -44,29 +43,27 @@ namespace CalamityOverhaul.Content.Items.Tools
             if (player.CountProjectilesOfID<ForgottenTomeEffect>() > 0) {
                 return false;
             }
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                return false;
-            }
-            ADVSave save = halibutPlayer.ADVSave;
-            if (save == null) {
+            if (!player.TryGetADVSave(out var save)) {
                 return false;
             }
             return IsAnySaveDataActive(save);
         }
 
         internal static bool IsAnySaveDataActive(ADVSave save) {
-            FieldInfo[] fields = typeof(ADVSave).GetFields(BindingFlags.Public | BindingFlags.Instance);
-            foreach (FieldInfo field in fields) {
-                if (field.FieldType == typeof(bool)) {
-                    bool value = (bool)field.GetValue(save);
-                    if (value) {
-                        return true;
+            foreach (ADVDataModule module in save.AllModules) {
+                FieldInfo[] fields = module.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+                foreach (FieldInfo field in fields) {
+                    if (field.FieldType == typeof(bool)) {
+                        bool value = (bool)field.GetValue(module);
+                        if (value) {
+                            return true;
+                        }
                     }
-                }
-                if (field.FieldType == typeof(int)) {
-                    int value = (int)field.GetValue(save);
-                    if (value != 0) {
-                        return true;
+                    if (field.FieldType == typeof(int)) {
+                        int value = (int)field.GetValue(module);
+                        if (value != 0) {
+                            return true;
+                        }
                     }
                 }
             }
@@ -80,31 +77,28 @@ namespace CalamityOverhaul.Content.Items.Tools
 
         internal static int ResetAllADVData(Player owner) {
             int resetFieldCount = 0;
-            if (!owner.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!owner.TryGetADVSave(out var save)) {
                 return resetFieldCount;
             }
 
-            ADVSave save = halibutPlayer.ADVSave;
-            if (save == null) {
-                return resetFieldCount;
-            }
-
-            FieldInfo[] fields = typeof(ADVSave).GetFields(BindingFlags.Public | BindingFlags.Instance);
             resetFieldCount = 0;
 
-            foreach (FieldInfo field in fields) {
-                if (field.FieldType == typeof(bool)) {
-                    bool value = (bool)field.GetValue(save);
-                    if (value) {
-                        field.SetValue(save, false);
-                        resetFieldCount++;
+            foreach (ADVDataModule module in save.AllModules) {
+                FieldInfo[] fields = module.GetType().GetFields(BindingFlags.Public | BindingFlags.Instance);
+                foreach (FieldInfo field in fields) {
+                    if (field.FieldType == typeof(bool)) {
+                        bool value = (bool)field.GetValue(module);
+                        if (value) {
+                            field.SetValue(module, false);
+                            resetFieldCount++;
+                        }
                     }
-                }
-                if (field.FieldType == typeof(int)) {
-                    int value = (int)field.GetValue(save);
-                    if (value != 0) {
-                        field.SetValue(save, 0);
-                        resetFieldCount++;
+                    if (field.FieldType == typeof(int)) {
+                        int value = (int)field.GetValue(module);
+                        if (value != 0) {
+                            field.SetValue(module, 0);
+                            resetFieldCount++;
+                        }
                     }
                 }
             }
@@ -137,7 +131,7 @@ namespace CalamityOverhaul.Content.Items.Tools
         }
 
         public override bool? UseItem(Player player) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out _)) {
                 return false;
             }
             if (Main.myPlayer == player.whoAmI) {
@@ -306,7 +300,9 @@ namespace CalamityOverhaul.Content.Items.Tools
             if (Timer >= RewindDuration) {
                 Phase = EffectPhase.Reset;
                 Timer = 0;
-                TheForgottenTome.ResetAllADVData(owner);
+                if (Projectile.IsOwnedByLocalPlayer()) {
+                    TheForgottenTome.ResetAllADVData(owner);
+                }
                 for (int i = 0; i < 40; i++) {
                     SpawnResetExplosion(owner.Center);
                 }

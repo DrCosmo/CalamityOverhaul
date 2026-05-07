@@ -12,8 +12,6 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Defeats
     /// </summary>
     internal class ExoMechThirdDefeat : ADVScenarioBase, ILocalizedModType, IWorldInfo
     {
-        public override bool CanRepeat => false;
-
         //角色名称
         public static LocalizedText DraedonName { get; private set; }
 
@@ -52,7 +50,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Defeats
             DraedonEffect.IsActive = false;
             DraedonEffect.Send();
             if (Main.LocalPlayer.TryGetADVSave(out var save)) {
-                save.ExoMechThirdDefeat = true;
+                save.Get<DraedonADVData>().ExoMechThirdDefeat = true;
             }
         }
     }

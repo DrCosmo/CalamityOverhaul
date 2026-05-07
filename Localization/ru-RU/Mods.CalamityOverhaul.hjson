@@ -1,10 +1,25 @@
-EndlessDamageClassTextContent.EndlessDamageClass.DisplayName: ед. неиссекаемого урона
-Tools.RecipesLoseText: Вы не можете создать этот предмет просто так
+EndlessDamageClassTextContent.EndlessDamageClass.DisplayName: Бесконечный урон
+Tools.RecipesLoseText: Вы не можете создать этот предмет напрямую!
 
 Biomes: {
 	TungstenBiome: {
-		DisplayName: Вольфрамовый стальной бунт
-		TownNPCDialogueName: Вольфрамовая стальная биологическая система
+		DisplayName: Вольфрамовый бунт
+		TownNPCDialogueName: вольфрамовом биоме
+	}
+
+	MachineBiome: {
+		DisplayName: Машинный биом
+		TownNPCDialogueName: машинном биоме
+	}
+
+	DropPodBiome: {
+		DisplayName: Биом десантной капсулы
+		TownNPCDialogueName: биоме десантной капсулы
+	}
+
+	VoidColonyBiome: {
+		DisplayName: Биом колонии Пустоты
+		TownNPCDialogueName: биоме колонии Пустоты
 	}
 }
 
@@ -17,18 +32,250 @@ Biomes: {
 Arcanes: {
 	Items: {
 		ArcaneTransformer: {
-			// DisplayName: Arcane Transformer
-			// Tooltip: ""
+			DisplayName: Чародейский преобразователь
+			Tooltip: ""
 		}
 	}
 }
 
 Resurrections: {
 	ResurrectionDeath: {
-		DeathText: "{0} был поглощён Возрождением Бездны"
-		WarningCombatText: Бездна пожирает вас...
-		DeathNoticeText: Вы были поглощены Бездной...
-		MarkRemainText: Метка Бездны всё ещё цепляется за вас...
+		DeathText: "{0} погибает от Возрождения Бездны"
+		WarningCombatText: Бездна поглощает вас...
+		DeathNoticeText: Вас поглотила Бездна...
+		MarkRemainText: Метка Бездны всё ещё опутывает вас...
 		RetainValueFormat: Значение Возрождения: {0}%
 	}
+}
+
+QuickHack: {
+	SynapseBurn: {
+		DisplayName: Плавление синапсов
+		Description: Перегружает нейронные синапсы цели, нанося продолжительный термический урон.
+	}
+
+	ShortCircuit: {
+		DisplayName: Замыкание
+		Description: Выпускает электромагнитный импульс, наносящий мгновенный урон и кратковременно парализующий цель.
+	}
+
+	Cyberpsychosis: {
+		DisplayName: Киберпсихоз
+		Description: Доводит цель до безумия, заставляя атаковать все сущности вокруг.
+	}
+
+	SystemReset: {
+		DisplayName: Сброс системы
+		Description: Принудительно перезагружает систему цели, полностью ее парализуя.
+	}
+
+	OpticOverload: {
+		DisplayName: Сбой оптики
+		Description: Ослепляет цель, лишая ее возможности воспринимать окружение.
+	}
+
+	MemoryWipe: {
+		DisplayName: Стирание памяти
+		Description: Удаляет данные о враждебности цели, сбрасывая список агрессии.
+	}
+
+	Contagion: {
+		DisplayName: Заражение
+		Description: Внедряет самовоспроизводящуюся вредоносную программу, распространяющуюся на ближайшие цели.
+	}
+
+	TileDetonate: {
+		DisplayName: Подрыв блока
+		Description: Разрушает структурную целостность, вызывая локальный взрыв.
+	}
+
+	TilePhase: {
+		DisplayName: Протокол сдвига
+		Description: Искажает физические свойства блока, делая его бестелесным на некоторое время.
+	}
+
+	TileMagPull: {
+		DisplayName: Магнитное притяжение
+		Description: Генерирует магнитное поле, притягивающее к вам ближайшие выпавшие предметы.
+	}
+
+	MachineShortCircuit: {
+		DisplayName: Замыкание механизмов
+		Description: Опустошает запас энергии механической цели, высвобождая электрическую дугу, наносящую урон ближайшим сущностям.
+	}
+
+	TurretHijack: {
+		DisplayName: Взлом турели
+		Description: Взламывает модуль распознавания «свой-чужой», временно заставляя турель атаковать своих.
+	}
+
+	FalseMemory: {
+		DisplayName: Подмена памяти
+		Description: Внедряет ложные воспоминания, заставляя цель ненадолго прекратить преследование или подавляя её инстинкт убийцы.
+	}
+
+	SelfDismember: {
+		DisplayName: Саморасчленение
+		Description: Заставляет паранормальную сущность расчленить саму себя.
+	}
+
+	SystemHalt: {
+		DisplayName: Сбой системы
+		Description: Заставляет цель ненадолго замереть и прекратить любые действия.
+	}
+
+	TurretCircuitOverload: {
+		DisplayName: Перегрузка цепи
+		Description: Подает обратный ток в цепь питания турели, полностью выводя ее из строя на длительное время.
+	}
+
+	TurretShortCircuit: {
+		DisplayName: Короткое замыкание турели
+		Description: Мгновенно сбрасывает энергию турели, вызывая кратковременную остановку, после чего она сразу же возвращается в строй.
+	}
+
+	VirusBroadcast: {
+		DisplayName: Вирусная трансляция
+		Description: Внедряет код червя в сигнальную башню, заставляя ее излучать кибер-электромагнитные импульсы, надолго замыкающие все турели в радиусе действия.
+	}
+}
+
+HackTargetType: {
+	ItemTargetType.DisplayName: Цель: Выпавший предмет
+	NpcTargetType.DisplayName: Цель: NPC
+	ProjectileTargetType.DisplayName: Цель: Снаряд
+	SignalTowerTargetType.DisplayName: Цель: Сигнальная башня
+	TileTargetType.DisplayName: Цель: Блок
+	TurretTargetType.DisplayName: Цель: Турель
+	WaterTargetType.DisplayName: Цель: Жидкость
+	WraithTargetType.DisplayName: Цель: Призрак
+}
+
+TileNameFallback: {
+	Dirt: Земля
+	Stone: Камень
+	Grass: Трава
+	Plants: Дикие растения
+	Torch: Факел
+	Tree: Дерево
+	Iron: Железная руда
+	Copper: Медная руда
+	Gold: Золотая руда
+	Silver: Серебряная руда
+	ClosedDoor: Дверь
+	OpenDoor: Дверь
+	Heart: Хрустальное сердце
+	Bottle: Банка
+	Table: Стол
+	Chair: Стул
+	Anvil: Наковальня
+	Furnace: Печь
+	WorkBench: Верстак
+	Platform: Платформа
+	Sapling: Саженец
+	Container: Сундук
+	Demonite: Демонитовая руда
+	CorruptGrass: Искаженная трава
+	CorruptPlants: Дикие искаженные растения
+	Ebonstone: Эбонит
+	DemonAltar: Демонический алтарь
+	Sunflower: Подсолнух
+	Pot: Горшок
+	PiggyBank: Свинья-копилка
+	WoodBlock: Древесина
+	ShadowOrb: Теневая сфера
+	CorruptThorns: Искаженные колючки
+	Candle: Свеча
+	Chandelier: Люстра
+	JackOLantern: Светильник Джека
+	Present: Подарок
+	Meteorite: Метеорит
+	GrayBrick: Серый кирпич
+	RedBrick: Красный кирпич
+	ClayBlock: Глина
+	BlueDungeonBrick: Синий кирпич
+	HangingLantern: Подвесной фонарь
+	GreenDungeonBrick: Зеленый кирпич
+	PinkDungeonBrick: Розовый кирпич
+	GoldBrick: Золотой кирпич
+	SilverBrick: Серебряный кирпич
+	CopperBrick: Медный кирпич
+	Spikes: Шипы
+	WaterCandle: Водяная свеча
+	Book: Книга
+	Cobweb: Паутина
+	Vine: Лоза
+	Sand: Песок
+	Glass: Стекло
+	Sign: Знак
+	Obsidian: Обсидиан
+	Ash: Пепел
+	Hellstone: Адский камень
+	Mud: Грязь
+	JungleGrass: Трава джунглей
+	JunglePlants: Дикие растения джунглей
+	JungleVine: Лоза джунглей
+	Sapphire: Сапфир
+	Ruby: Рубин
+	Emerald: Изумруд
+	Topaz: Топаз
+	Amethyst: Аметист
+	Diamond: Алмаз
+	JungleThorns: Колючки джунглей
+	MushroomGrass: Грибная трава
+	MushroomPlants: Светящийся гриб
+	MushroomTree: Гигантский светящийся гриб
+	Plants2: Высокая трава
+	JunglePlants2: Высокие растения джунглей
+	ObsidianBrick: Обсидиановый кирпич
+	HellstoneBrick: Кирпич адского камня
+	Hellforge: Адская кузня
+	ClayPot: Глиняный горшок
+	Bed: Кровать
+	Cactus: Кактус
+	Coral: Коралл
+	ImmatureHerb: Росток травы
+	MatureHerb: Созревшая трава
+	BloomingHerb: Цветущая трава
+	Tombstone: Надгробие
+	Loom: Ткацкий станок
+	Piano: Пианино
+	Dresser: Комод
+	Bench: Скамья
+	Bathtub: Ванна
+	BlueTorch: Синий факел
+	RedTorch: Красный факел
+	GreenTorch: Зеленый факел
+	PurpleTorch: Фиолетовый факел
+	WhiteTorch: Белый факел
+	YellowTorch: Желтый факел
+	DemonTorch: Демонический факел
+	CursedTorch: Проклятый факел
+	IceTorch: Ледяной факел
+	OrangeTorch: Оранжевый факел
+	IchorTorch: Ихорный факел
+	UltrabrightTorch: Сверхъяркий факел
+	BoneTorch: Костяной факел
+	RainbowTorch: Радужный факел
+	PinkTorch: Розовый факел
+	DesertTorch: Пустынный факел
+	CoralTorch: Коралловый факел
+	CorruptTorch: Искаженный факел
+	CrimsonTorch: Багряный факел
+	HallowedTorch: Освященный факел
+	JungleTorch: Факел джунглей
+	MushroomTorch: Грибной факел
+	AetherTorch: Эфирный факел
+	ForestTree: Лесное дерево
+	EbonwoodTree: Эбонитовое дерево
+	RichMahoganyTree: Красное дерево
+	PearlwoodTree: Жемчужное дерево
+	BorealTree: Хвойное дерево
+	ShadewoodTree: Мрачное дерево
+	IronAnvil: Железная наковальня
+	LeadAnvil: Свинцовая наковальня
+	CrimsonAltar: Багряный алтарь
+	Tile192: Листва живого дерева
+	Tile187: Сорняки
+	Tile352: Шипы
 }

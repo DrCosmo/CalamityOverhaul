@@ -1,4 +1,4 @@
-﻿using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer.Core;
+using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer.Core;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -6,7 +6,7 @@ using Terraria;
 namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer.Rendering
 {
     /// <summary>
-    /// 毁灭者绘制辅助类
+    /// 毁灭者绘制辅助类（蓄力特效/残影专用；通用机械热感滤镜见 <see cref="Common.MechBossThermalRenderer"/>）
     /// </summary>
     internal static class DestroyerRenderHelper
     {

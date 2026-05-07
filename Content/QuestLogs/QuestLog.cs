@@ -1,4 +1,5 @@
 ﻿using CalamityOverhaul.Common;
+using CalamityOverhaul.Content.ADV.EntrustManager;
 using CalamityOverhaul.Content.QuestLogs.Core;
 using CalamityOverhaul.Content.QuestLogs.Styles;
 using InnoVault.UIHandles;
@@ -80,6 +81,7 @@ namespace CalamityOverhaul.Content.QuestLogs
         public static LocalizedText SunModeText;
         public static LocalizedText ResetViewText;
         public static LocalizedText LauncherHoverText;
+        public static LocalizedText QuestManagerText;
 
         private List<IQuestLogStyle> availableStyles;
         private int currentStyleIndex;
@@ -100,6 +102,16 @@ namespace CalamityOverhaul.Content.QuestLogs
             CurrentStyle = availableStyles[0];
         }
 
+        /// <summary>按索引设置样式，sync为true时同步委托管理器样式</summary>
+        public void SetStyleByIndex(int index, bool sync = true) {
+            if (availableStyles == null || availableStyles.Count == 0) return;
+            currentStyleIndex = Math.Clamp(index, 0, availableStyles.Count - 1);
+            CurrentStyle = availableStyles[currentStyleIndex];
+            if (sync) {
+                ADV.EntrustManager.QuestManagerUI.Instance?.SetStyleByIndex(currentStyleIndex, false);
+            }
+        }
+
         public override void SetStaticDefaults() {
             ObjectiveText = this.GetLocalization(nameof(ObjectiveText), () => "任务目标");
             RewardText = this.GetLocalization(nameof(RewardText), () => "任务奖励");
@@ -111,6 +123,7 @@ namespace CalamityOverhaul.Content.QuestLogs
             SunModeText = this.GetLocalization(nameof(SunModeText), () => "日间模式");
             ResetViewText = this.GetLocalization(nameof(ResetViewText), () => "重置视图");
             LauncherHoverText = this.GetLocalization(nameof(LauncherHoverText), () => "左键开关面板，右键拖动");
+            QuestManagerText = this.GetLocalization(nameof(QuestManagerText), () => "委托任务");
         }
 
         public new void SaveUIData(TagCompound tag) {
@@ -164,8 +177,20 @@ namespace CalamityOverhaul.Content.QuestLogs
                 }
             }
 
-            //打开时居中
-            panelRect.X = (Main.screenWidth - panelRect.Width) / 2;
+            //默认屏幕居中，若与委托面板重叠则向右推开
+            int availLeft = 0;
+            var entrustUI = QuestManagerUI.Instance;
+            if (entrustUI != null) {
+                int rightEdge = entrustUI.PanelRightEdge;
+                if (rightEdge > 0)
+                    availLeft = rightEdge;
+            }
+            panelRect.X = Math.Max(0, (Main.screenWidth - panelRect.Width) / 2);
+            int overlap = availLeft + 8 - panelRect.X;
+            if (overlap > 0) {
+                panelRect.X += overlap;
+                panelRect.X = Math.Min(panelRect.X, Math.Max(0, Main.screenWidth - panelRect.Width));
+            }
             panelRect.Y = (Main.screenHeight - panelRect.Height) / 2;
 
             //更新主UI碰撞箱
@@ -236,9 +261,15 @@ namespace CalamityOverhaul.Content.QuestLogs
 
             //如果详情面板开启，优先处理详情面板交互
             if (showDetailPanel && detailPanelAlpha > 0.5f) {
-                //计算详情面板位置(居中)
+                //计算详情面板位置（同样避让委托面板）
+                int detailX = Math.Max(0, (Main.screenWidth - DetailPanelWidth) / 2);
+                int detailOverlap = availLeft + 8 - detailX;
+                if (detailOverlap > 0) {
+                    detailX += detailOverlap;
+                    detailX = Math.Min(detailX, Math.Max(0, Main.screenWidth - DetailPanelWidth));
+                }
                 detailPanelRect = new Rectangle(
-                    (Main.screenWidth - DetailPanelWidth) / 2,
+                    detailX,
                     (Main.screenHeight - DetailPanelHeight) / 2,
                     DetailPanelWidth,
                     DetailPanelHeight
@@ -294,8 +325,8 @@ namespace CalamityOverhaul.Content.QuestLogs
                 player.mouseInterface = true;
                 hoveredOtherButton = true;
                 if (keyLeftPressState == KeyPressState.Pressed) {
-                    currentStyleIndex = (currentStyleIndex + 1) % availableStyles.Count;
-                    CurrentStyle = availableStyles[currentStyleIndex];
+                    int nextIndex = (currentStyleIndex + 1) % availableStyles.Count;
+                    SetStyleByIndex(nextIndex);
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }
             }
@@ -307,6 +338,17 @@ namespace CalamityOverhaul.Content.QuestLogs
                 hoveredOtherButton = true;
                 if (keyLeftPressState == KeyPressState.Pressed) {
                     NightMode = !NightMode;
+                    SoundEngine.PlaySound(SoundID.MenuTick);
+                }
+            }
+
+            //处理委托任务管理器按钮
+            Rectangle questMgrRect = GetQuestManagerButtonRect(panelRect);
+            if (questMgrRect.Contains(Main.MouseScreen.ToPoint())) {
+                player.mouseInterface = true;
+                hoveredOtherButton = true;
+                if (keyLeftPressState == KeyPressState.Pressed) {
+                    QuestManagerUI.Instance?.TogglePanel();
                     SoundEngine.PlaySound(SoundID.MenuTick);
                 }
             }
@@ -564,10 +606,60 @@ namespace CalamityOverhaul.Content.QuestLogs
                 Main.hoverItemName = NightMode ? NightModeText.Value : SunModeText.Value;
             }
 
+            //绘制委托任务管理器按钮
+            DrawQuestManagerButton(spriteBatch, panelRect);
+
             //如果任务检测被禁用，绘制禁止覆盖层
             var qlPlayer = Main.LocalPlayer.GetModPlayer<QLPlayer>();
             if (!qlPlayer.ShouldCheckQuestInCurrentWorld()) {
                 DrawDisabledOverlay(spriteBatch);
+            }
+        }
+
+        /// <summary>获取委托任务管理器按钮区域——紧跟在夜间模式按钮右侧</summary>
+        private Rectangle GetQuestManagerButtonRect(Rectangle panelRect) {
+            Rectangle nightRect = CurrentStyle.GetNightModeButtonRect(panelRect);
+            return new Rectangle(nightRect.Right + 10, nightRect.Y, 30, 30);
+        }
+
+        private void DrawQuestManagerButton(SpriteBatch spriteBatch, Rectangle panelRect) {
+            Texture2D pixel = VaultAsset.placeholder2.Value;
+            Rectangle buttonRect = GetQuestManagerButtonRect(panelRect);
+            Vector2 center = buttonRect.Center.ToVector2();
+            bool isHovered = buttonRect.Contains(Main.MouseScreen.ToPoint());
+
+            // 背景
+            Color bgColor = isHovered ? new Color(60, 120, 180) : new Color(30, 50, 70);
+            spriteBatch.Draw(pixel, buttonRect, bgColor * mainPanelAlpha);
+
+            // 边框
+            Color borderColor = isHovered ? new Color(140, 210, 255) : new Color(80, 140, 180);
+            int border = 2;
+            spriteBatch.Draw(pixel, new Rectangle(buttonRect.X, buttonRect.Y, buttonRect.Width, border), borderColor * mainPanelAlpha);
+            spriteBatch.Draw(pixel, new Rectangle(buttonRect.X, buttonRect.Bottom - border, buttonRect.Width, border), borderColor * mainPanelAlpha);
+            spriteBatch.Draw(pixel, new Rectangle(buttonRect.X, buttonRect.Y, border, buttonRect.Height), borderColor * mainPanelAlpha);
+            spriteBatch.Draw(pixel, new Rectangle(buttonRect.Right - border, buttonRect.Y, border, buttonRect.Height), borderColor * mainPanelAlpha);
+
+            // 图标：三横线（任务列表样式）
+            Color iconColor = isHovered ? Color.White : new Color(140, 210, 255);
+            float iconAlpha = mainPanelAlpha;
+            int lineW = 14, lineH = 2, gap = 5;
+            int startY = (int)center.Y - gap - lineH;
+            for (int i = 0; i < 3; i++) {
+                int lw = i == 2 ? lineW - 4 : lineW; // 第三条短一点
+                spriteBatch.Draw(pixel,
+                    new Rectangle((int)(center.X - lw / 2f), startY + i * (lineH + gap - 1), lw, lineH),
+                    iconColor * iconAlpha);
+            }
+            // 左侧小圆点（列表项标记）
+            for (int i = 0; i < 3; i++) {
+                spriteBatch.Draw(pixel,
+                    new Rectangle((int)(center.X - lineW / 2f - 4), startY + i * (lineH + gap - 1), 2, 2),
+                    iconColor * (iconAlpha * 0.7f));
+            }
+
+            if (isHovered) {
+                Main.hoverItemName = QuestManagerText.Value;
             }
         }
 
@@ -646,38 +738,46 @@ namespace CalamityOverhaul.Content.QuestLogs
 
         private void DrawMainCloseButton(SpriteBatch spriteBatch) {
             bool hovered = mainCloseButtonRect.Contains(Main.MouseScreen.ToPoint());
-            Color buttonColor = hovered ? new Color(255, 100, 100) : new Color(200, 80, 80);
-
             Texture2D pixel = VaultAsset.placeholder2.Value;
-            spriteBatch.Draw(pixel, mainCloseButtonRect, buttonColor * mainPanelAlpha);
 
-            //绘制X符号
-            string closeText = "×";
-            Vector2 textSize = FontAssets.MouseText.Value.MeasureString(closeText);
-            Vector2 textPos = new Vector2(
-                mainCloseButtonRect.X + mainCloseButtonRect.Width / 2,
-                mainCloseButtonRect.Y + mainCloseButtonRect.Height / 2
-            );
-            Utils.DrawBorderString(spriteBatch, closeText, textPos, Color.White * mainPanelAlpha, 1.2f, 0.5f, 0.5f);
+            //半透明底色
+            Color bgC = hovered ? new Color(80, 40, 40) * (mainPanelAlpha * 0.4f)
+                : new Color(10, 10, 10) * (mainPanelAlpha * 0.35f);
+            spriteBatch.Draw(pixel, mainCloseButtonRect, bgC);
+
+            //几何交叉线X
+            Color xColor = hovered ? new Color(255, 100, 100) * mainPanelAlpha
+                : new Color(180, 180, 180) * (mainPanelAlpha * 0.6f);
+            float cx = mainCloseButtonRect.X + mainCloseButtonRect.Width / 2f;
+            float cy = mainCloseButtonRect.Y + mainCloseButtonRect.Height / 2f;
+            float xSize = mainCloseButtonRect.Width * 0.22f;
+            spriteBatch.Draw(pixel, new Vector2(cx, cy), null, xColor,
+                MathHelper.PiOver4, new Vector2(0.5f), new Vector2(xSize * 2f, 1.5f), SpriteEffects.None, 0f);
+            spriteBatch.Draw(pixel, new Vector2(cx, cy), null, xColor,
+                -MathHelper.PiOver4, new Vector2(0.5f), new Vector2(xSize * 2f, 1.5f), SpriteEffects.None, 0f);
         }
 
         private void DrawCloseButton(SpriteBatch spriteBatch) {
             Rectangle closeButtonRect = CurrentStyle.GetCloseButtonRect(detailPanelRect);
 
             bool hovered = closeButtonRect.Contains(Main.MouseScreen.ToPoint());
-            Color buttonColor = hovered ? new Color(255, 100, 100) : new Color(200, 80, 80);
-
             Texture2D pixel = VaultAsset.placeholder2.Value;
-            spriteBatch.Draw(pixel, closeButtonRect, buttonColor * detailPanelAlpha);
 
-            //绘制X符号
-            string closeText = "×";
-            Vector2 textSize = FontAssets.MouseText.Value.MeasureString(closeText);
-            Vector2 textPos = new Vector2(
-                closeButtonRect.X + closeButtonRect.Width / 2,
-                closeButtonRect.Y + closeButtonRect.Height / 2
-            );
-            Utils.DrawBorderString(spriteBatch, closeText, textPos, Color.White * detailPanelAlpha, 1.2f, 0.5f, 0.5f);
+            //半透明底色
+            Color bgC = hovered ? new Color(80, 40, 40) * (detailPanelAlpha * 0.4f)
+                : new Color(10, 10, 10) * (detailPanelAlpha * 0.35f);
+            spriteBatch.Draw(pixel, closeButtonRect, bgC);
+
+            //几何交叉线X
+            Color xColor = hovered ? new Color(255, 100, 100) * detailPanelAlpha
+                : new Color(180, 180, 180) * (detailPanelAlpha * 0.6f);
+            float cx = closeButtonRect.X + closeButtonRect.Width / 2f;
+            float cy = closeButtonRect.Y + closeButtonRect.Height / 2f;
+            float xSize = closeButtonRect.Width * 0.22f;
+            spriteBatch.Draw(pixel, new Vector2(cx, cy), null, xColor,
+                MathHelper.PiOver4, new Vector2(0.5f), new Vector2(xSize * 2f, 1.5f), SpriteEffects.None, 0f);
+            spriteBatch.Draw(pixel, new Vector2(cx, cy), null, xColor,
+                -MathHelper.PiOver4, new Vector2(0.5f), new Vector2(xSize * 2f, 1.5f), SpriteEffects.None, 0f);
         }
 
         private Vector2 GetNodeScreenPos(Vector2 nodePos) {

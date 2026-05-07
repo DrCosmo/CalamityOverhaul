@@ -1,5 +1,4 @@
 ﻿using CalamityOverhaul.Common;
-using CalamityOverhaul.Content.RemakeItems;
 using InnoVault.GameContent.BaseEntity;
 using InnoVault.GameSystem;
 using System;
@@ -31,7 +30,7 @@ namespace CalamityOverhaul.Content.RangedModify.Core
         /// <summary>
         /// 目标物品对象
         /// </summary>
-        public virtual int TargetID => CWRItemOverride.GetCalItemID(Name[..^4]);
+        public virtual int TargetID => CWRUtils.GetCalItemID(Name[..^4]);
         /// <summary>
         /// 右手角度值
         /// </summary>
@@ -153,10 +152,6 @@ namespace CalamityOverhaul.Content.RangedModify.Core
         /// 是否正在右键开火
         /// </summary>
         protected bool onFireR;
-        /// <summary>
-        /// 屏幕位移模长
-        /// </summary>
-        protected float ScopeLeng;
         /// <summary>
         /// 弹药转化目标
         /// </summary>
@@ -329,20 +324,6 @@ namespace CalamityOverhaul.Content.RangedModify.Core
 
         public override bool? CanDamage() => CanMelee;
 
-        protected void ScopeSrecen() {
-            if (CWRKeySystem.ADS_Key.Old) {
-                ScopeLeng += 4f;
-                if (ScopeLeng > 40f) {
-                    ScopeLeng = 40f;
-                }
-                Main.SetCameraLerp(0.15f, 60);
-                Owner.CWR().OffsetScreenPos = ToMouse.UnitVector() * ScopeLeng;
-            }
-            else {
-                ScopeLeng = 0;
-            }
-        }
-
         private void UpdateSafeMouseInterfaceValue() {
             if (!CanFire) {//只有在玩家不进行开火尝试时才能更改空闲状态
                 if (Projectile.IsOwnedByLocalPlayer()) {
@@ -370,12 +351,6 @@ namespace CalamityOverhaul.Content.RangedModify.Core
             if (CanFire && _safeMouseInterfaceValue) {
                 SetWeaponOccupancyStatus();
                 CWRRef.UpdateRogueStealth(Owner);
-            }
-            if (Projectile.IsOwnedByLocalPlayer() && Item.CWR().Scope) {
-                ScopeSrecen();
-            }
-            else {
-                ScopeLeng = 0;
             }
             UpdateShootState();
             return true;

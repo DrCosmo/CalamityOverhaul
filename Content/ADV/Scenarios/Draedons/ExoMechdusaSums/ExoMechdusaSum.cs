@@ -1,7 +1,6 @@
 ﻿using CalamityOverhaul.Content.ADV.ADVChoices;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using CalamityOverhaul.OtherMods.InfernumMode;
 using System;
 using Terraria;
@@ -102,7 +101,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.ExoMechdusaSums
         protected override void OnScenarioComplete() {
             //标记已观看机甲嘉登的第一次对话场景
             if (Main.LocalPlayer.TryGetADVSave(out var save)) {
-                save.FristExoMechdusaSum = true;//标记已触发机甲嘉登场景
+                save.Get<DraedonADVData>().FristExoMechdusaSum = true;//标记已触发机甲嘉登场景
             }
             SimpleMode = false;
             DraedonEffect.IsActive = false;
@@ -120,7 +119,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.ExoMechdusaSums
             DialogueBoxBase.RegisterPortrait(DraedonName.Value + red, ADVAsset.Draedon2RedADV, silhouette: false);
             DialogueBoxBase.RegisterPortrait(DraedonName.Value + alt, ADVAsset.DraedonADV, silhouette: false);
 
-            if (Main.LocalPlayer.TryGetADVSave(out var save) && save.FristExoMechdusaSum) {
+            if (Main.LocalPlayer.TryGetADVSave(out var save) && save.Get<DraedonADVData>().FristExoMechdusaSum) {
                 SimpleMode = true;//如果是非第一次触发机甲嘉登场景，则启用简洁模式
             }
             //检查是否为简洁模式
@@ -184,7 +183,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.ExoMechdusaSums
             }
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
+        public override void Update(ADVSave save, Player player) {
             //兼容模式下，检测是否已召唤机甲来完成场景
             if (CompatibleMode && DraedonEffect.IsActive && CWRRef.HasExo()) {
                 //完成当前场景

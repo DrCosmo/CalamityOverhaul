@@ -1,6 +1,5 @@
-using CalamityOverhaul.Content.ADV.ADVQuestTracker;
+ï»¿using CalamityOverhaul.Content.ADV.ADVQuestTracker;
 using CalamityOverhaul.Content.Items.Melee;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using InnoVault.UIHandles;
 using Terraria;
 using Terraria.ModLoader;
@@ -8,7 +7,7 @@ using Terraria.ModLoader;
 namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.DoGQuest
 {
     /// <summary>
-    /// ÉñÃ÷ÍÌÊÉÕßÈÎÎñUI
+    /// ç¥æ˜åå™¬è€…ä»»åŠ¡UI
     /// </summary>
     internal class DoGQuestUI : BaseQuestAcceptUI
     {
@@ -16,45 +15,45 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.DoGQuest
         public static DoGQuestUI Instance => UIHandleLoader.GetUIHandleOfType<DoGQuestUI>();
 
         protected override void SetupLocalizedTexts() {
-            QuestTitle = this.GetLocalization(nameof(QuestTitle), () => "Î¯ÍĞ£ºÉñÃ÷ÍÌÊÉÕß");
-            QuestDesc = this.GetLocalization(nameof(QuestDesc), () => "Ê¹ÓÃ¿ÌĞÄÕß»÷É±ÉñÃ÷ÍÌÊÉÕß");
-            AcceptText = this.GetLocalization(nameof(AcceptText), () => "½ÓÊÜ");
-            DeclineText = this.GetLocalization(nameof(DeclineText), () => "¾Ü¾ø");
+            QuestTitle = this.GetLocalization(nameof(QuestTitle), () => "å§”æ‰˜ï¼šç¥æ˜åå™¬è€…");
+            QuestDesc = this.GetLocalization(nameof(QuestDesc), () => "ä½¿ç”¨åˆ»å¿ƒè€…å‡»æ€ç¥æ˜åå™¬è€…");
+            AcceptText = this.GetLocalization(nameof(AcceptText), () => "æ¥å—");
+            DeclineText = this.GetLocalization(nameof(DeclineText), () => "æ‹’ç»");
         }
 
         protected override bool ShouldShowQuest() {
-            if (!Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!Main.LocalPlayer.TryGetADVSave(out var save)) {
                 return false;
             }
 
-            //Èç¹ûÍæ¼ÒÒÑ¾­½ÓÊÜ/¾Ü¾ø/Íê³ÉÁËÈÎÎñ£¬¾Í²»ÔÙÏÔÊ¾UI
-            if (halibutPlayer.ADVSave.SupCalDoGQuestReward
-                || halibutPlayer.ADVSave.SupCalDoGQuestAccepted
-                || halibutPlayer.ADVSave.SupCalDoGQuestDeclined) {
+            //å¦‚æœç©å®¶å·²ç»æ¥å—/æ‹’ç»/å®Œæˆäº†ä»»åŠ¡ï¼Œå°±ä¸å†æ˜¾ç¤ºUI
+            if (save.Get<SupCalADVData>().SupCalDoGQuestReward
+                || save.Get<SupCalADVData>().SupCalDoGQuestAccepted
+                || save.Get<SupCalADVData>().SupCalDoGQuestDeclined) {
                 return false;
             }
 
-            //Ç°ÖÃÈÎÎñ±ØĞëÍê³É
-            if (!halibutPlayer.ADVSave.SupCalQuestReward) {
+            //å‰ç½®ä»»åŠ¡å¿…é¡»å®Œæˆ
+            if (!save.Get<SupCalADVData>().SupCalQuestReward) {
                 return false;
             }
 
             Item heldItem = Main.LocalPlayer.GetItem();
             return heldItem.type == ModContent.ItemType<Heartcarver>()
-                && halibutPlayer.ADVSave.SupCalQuestReward
-                && !halibutPlayer.ADVSave.SupCalDoGQuestReward
-                && !halibutPlayer.ADVSave.SupCalDoGQuestDeclined;
+                && save.Get<SupCalADVData>().SupCalQuestReward
+                && !save.Get<SupCalADVData>().SupCalDoGQuestReward
+                && !save.Get<SupCalADVData>().SupCalDoGQuestDeclined;
         }
 
         protected override void OnQuestAccepted() {
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.SupCalDoGQuestAccepted = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<SupCalADVData>().SupCalDoGQuestAccepted = true;
             }
         }
 
         protected override void OnQuestDeclined() {
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.SupCalDoGQuestDeclined = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<SupCalADVData>().SupCalDoGQuestDeclined = true;
             }
         }
     }

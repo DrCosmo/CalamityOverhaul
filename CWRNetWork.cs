@@ -1,14 +1,17 @@
 ﻿using CalamityOverhaul.Content;
-using CalamityOverhaul.Content.ADV;
-using CalamityOverhaul.Content.ADV.Common;
 using CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes;
 using CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes.Campsites;
 using CalamityOverhaul.Content.ADV.Scenarios.Draedons;
 using CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowers.SignalTower;
 using CalamityOverhaul.Content.ADV.Scenarios.Draedons.Tzeentch;
-using CalamityOverhaul.Content.Industrials.Modifys;
+using CalamityOverhaul.Content.ADV.Scenarios.SupCal.End.EternalBlazingNows;
+using CalamityOverhaul.Content.HackTimes;
+using CalamityOverhaul.Content.Items.Tools;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend.Resurrections;
+using CalamityOverhaul.Content.LegendWeapon.SHPCLegend.Cyberspaces;
+using CalamityOverhaul.Content.LegendWeapon.SHPCLegend.Cyberspaces.Banish;
+using CalamityOverhaul.Content.LegendWeapon.SHPCLegend.Cyberspaces.DomainFreeze;
 using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalDestroyer;
 using CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime;
 using CalamityOverhaul.Content.NPCs.Modifys;
@@ -22,7 +25,6 @@ namespace CalamityOverhaul
     {
         NPCbasicData,
         ProjectileDyeItemID,
-        KillTileEntity,
         TruffleSleep,
         GlobalSleep,
         CrabulonFeed,
@@ -44,6 +46,12 @@ namespace CalamityOverhaul
         ResurrectionRate,
         DespawnDestroyer,
         MachineEffect,
+        SirenMusicalBoxToggle,
+        CyberspaceStateSync,
+        CyberDomainFreezeStart,
+        CyberBanishStart,
+        CyberBossExecutionStart,
+        HackProtocolApply,
     }
 
     public static class CWRNetWork
@@ -56,9 +64,6 @@ namespace CalamityOverhaul
             }
             else if (type == CWRMessageType.ProjectileDyeItemID) {
                 CWRProjectile.HandleProjectileDyeItemID(reader, whoAmI);
-            }
-            else if (type == CWRMessageType.KillTileEntity) {
-                ModifyTurretLoader.HandlerNetKillTE(reader, whoAmI);
             }
             else if (type == CWRMessageType.TruffleSleep) {
                 ModifyTruffle.HandleNetwork(reader, whoAmI);
@@ -93,13 +98,33 @@ namespace CalamityOverhaul
             else if (type == CWRMessageType.DespawnDestroyer) {
                 DestroyerHeadAI.HandleDespawn();
             }
+            else if (type == CWRMessageType.SirenMusicalBoxToggle) {
+                SirenMusicalBoxTP.HandleTogglePacket(reader, whoAmI);
+            }
+            else if (type == CWRMessageType.EbnTag) {
+                EbnPlayer.HandleNetSync(reader, whoAmI);
+            }
+            else if (type == CWRMessageType.CyberspaceStateSync) {
+                CyberspacePlayer.HandleNetSync(reader, whoAmI);
+            }
+            else if (type == CWRMessageType.CyberDomainFreezeStart) {
+                CyberDomainFreeze.HandleNetStart(reader, whoAmI);
+            }
+            else if (type == CWRMessageType.CyberBanishStart) {
+                CyberBanish.HandleNetStart(reader, whoAmI);
+            }
+            else if (type == CWRMessageType.CyberBossExecutionStart) {
+                CyberBossExecution.HandleNetStart(reader, whoAmI);
+            }
+            else if (type == CWRMessageType.HackProtocolApply) {
+                HackTimeNetSync.HandleApplyPacket(reader, whoAmI);
+            }
 
             ModifyCrabulon.NetHandle(type, reader, whoAmI);
             HalibutPlayer.NetHandle(type, reader, whoAmI);
             DraedonEffect.NetHandle(type, reader, whoAmI);
             TzeentchEffect.NetHandle(type, reader, whoAmI);
             SignalTowerTargetManager.NetHandle(type, reader, whoAmI);
-            ADVSave.NetHandle(type, reader, whoAmI);
             OldDukeEffect.NetHandle(type, reader, whoAmI);
             MachineEffect.NetHandle(type, reader, whoAmI);
         }

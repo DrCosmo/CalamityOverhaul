@@ -30,7 +30,9 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices
             Brimstone,  //硫磺火风格
             Draedon,    //嘉登科技风格
             Tzeentch,   //奸奇魔法风格
-            Sulfsea     //硫磺海风格
+            Sulfsea,    //硫磺海风格
+            StarStream,  //星流风格
+            SHPC,   //SHPC
         }
 
         private readonly List<Choice> choices = new();
@@ -38,8 +40,6 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices
         private int selectedIndex = -1;
         private bool isSelecting = false;
 
-        //样式系统
-        private ChoiceBoxStyle currentStyleType = ChoiceBoxStyle.Default;
         private IChoiceBoxStyle currentStyle;
         private readonly Dictionary<ChoiceBoxStyle, IChoiceBoxStyle> styleInstances = new();
 
@@ -179,6 +179,8 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices
             inst.styleInstances[ChoiceBoxStyle.Draedon] = new DraedonChoiceBoxStyle();
             inst.styleInstances[ChoiceBoxStyle.Tzeentch] = new TzeentchChoiceBoxStyle();
             inst.styleInstances[ChoiceBoxStyle.Sulfsea] = new SulfseaChoiceBoxStyle();
+            inst.styleInstances[ChoiceBoxStyle.StarStream] = new StarStreamChoiceBoxStyle();
+            inst.styleInstances[ChoiceBoxStyle.SHPC] = new SHPCChoiceBoxStyle();
             inst.currentStyle = inst.styleInstances[ChoiceBoxStyle.Default];
         }
 
@@ -241,8 +243,6 @@ namespace CalamityOverhaul.Content.ADV.ADVChoices
                 inst.timedRemainingFrames = 0;
             }
 
-            //切换样式
-            inst.currentStyleType = style;
             if (inst.styleInstances.TryGetValue(style, out var styleInstance)) {
                 inst.currentStyle = styleInstance;
                 inst.currentStyle.Reset();

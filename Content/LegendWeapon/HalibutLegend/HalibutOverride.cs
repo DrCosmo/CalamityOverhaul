@@ -1,5 +1,5 @@
 ﻿using CalamityOverhaul.Content.LegendWeapon.HalibutLegend.DomainSkills;
-using CalamityOverhaul.Content.RemakeItems;
+using InnoVault.GameSystem;
 using System;
 using System.Collections.Generic;
 using Terraria;
@@ -9,13 +9,13 @@ using Terraria.ModLoader;
 
 namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
 {
-    internal class HalibutOverride : CWRItemOverride
+    internal class HalibutOverride : ItemOverride
     {
         #region Data
         /// <summary>
         /// 目标ID
         /// </summary>
-        public static int ID => CWRID.Item_HalibutCannon;
+        public static int ID => ModContent.ItemType<HalibutItem>();
         /// <summary>
         /// 目标ID
         /// </summary>
@@ -107,6 +107,8 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
             Item.height = 56;
             Item.useTime = 10;
             Item.useAnimation = 10;
+            Item.rare = CWRID.Rarity_HotPink > 0 ? CWRID.Rarity_HotPink : ItemRarityID.Purple;
+            Item.value = Item.buyPrice(0, 2, 50, 0);
             Item.useStyle = ItemUseStyleID.Shoot;
             Item.noMelee = true;
             Item.knockBack = 1f;
@@ -117,8 +119,6 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
             Item.useAmmo = AmmoID.Bullet;
             Item.CWR().LegendData = new HalibutData();
         }
-
-        public override bool? CanCWROverride() => true;
 
         public override bool? CanUseItem(Item item, Player player) {
             item.UseSound = SoundID.Item38 with { Volume = 0.6f };
@@ -173,8 +173,8 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
         /// <summary>
         /// 设置武器相对于精灵的原点偏移
         /// </summary>
-        private static Vector2 GetItemSpriteOrigin(int offsetX = -52, int offsetY = 4) {
-            return new Vector2(offsetX, offsetY);
+        private static Vector2 GetItemSpriteOrigin() {
+            return new Vector2(-46, 18);
         }
 
         /// <summary>
@@ -228,7 +228,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
 
             float swingPhase = (0.4f - progress) / 0.4f;
             float swingPower = (float)Math.Pow(swingPhase, 2);
-            return -0.16f * swingPower * playerDirection;
+            return -0.06f * swingPower * playerDirection;
         }
 
         /// <summary>
@@ -313,6 +313,8 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
             , Vector2 position, Vector2 velocity, int type, int damage, float knockback) {
             bool isBullet = false;
             bool shouldSkipShoot = false;
+
+            position += velocity.UnitVector() * 62;
 
             if (type == ProjectileID.Bullet) {
                 isBullet = true;

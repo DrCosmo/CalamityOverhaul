@@ -1,4 +1,4 @@
-using CalamityOverhaul.Content.Items.Melee;
+ï»¿using CalamityOverhaul.Content.Items.Melee;
 using CalamityOverhaul.Content.PRTTypes;
 using InnoVault.GameContent.BaseEntity;
 using InnoVault.PRT;
@@ -29,7 +29,6 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
         private Vector2 dashDirection;
         private float chargeProgress;
         private int phaseTimer;
-        private bool hasExploded;
         private float screenShakeIntensity;
         private int hitEnemyCount;
 
@@ -57,7 +56,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             SetHeld();
             phaseTimer++;
 
-            //½×¶ÎÇĞ»»
+            //é˜¶æ®µåˆ‡æ¢
             if (currentPhase == DashPhase.Charging && phaseTimer >= ChargeDuration) {
                 EnterDashPhase();
             }
@@ -68,7 +67,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 EnterRecoveryPhase();
             }
 
-            //Ö´ĞĞ¶ÔÓ¦½×¶ÎÂß¼­
+            //æ‰§è¡Œå¯¹åº”é˜¶æ®µé€»è¾‘
             switch (currentPhase) {
                 case DashPhase.Charging:
                     UpdateCharging();
@@ -87,50 +86,50 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             Projectile.rotation = dashDirection.ToRotation();
             SetDirection();
 
-            //ÆÁÄ»Õğ¶¯
+            //å±å¹•éœ‡åŠ¨
             if (screenShakeIntensity > 0) {
                 Owner.CWR().ScreenShakeValue = screenShakeIntensity;
                 screenShakeIntensity *= 0.9f;
             }
 
-            //³¬Ç¿¹âÕÕ
+            //è¶…å¼ºå…‰ç…§
             float lightIntensity = currentPhase == DashPhase.Dashing ? 2f : chargeProgress * 1.5f;
             Lighting.AddLight(Projectile.Center, new Vector3(1.5f, 1.2f, 0.5f) * lightIntensity);
         }
 
-        //ĞîÁ¦½×¶Î£¬»ıĞî»ÙÃğĞÔµÄÄÜÁ¿
+        //è“„åŠ›é˜¶æ®µï¼Œç§¯è“„æ¯ç­æ€§çš„èƒ½é‡
         private void UpdateCharging() {
             chargeProgress = CWRUtils.EaseOutCubic(phaseTimer / (float)ChargeDuration);
             dashDirection = Projectile.velocity.SafeNormalize(Vector2.Zero);
 
-            //³¤Ç¹ÔÚÍæ¼ÒÇ°·½ĞîÁ¦
+            //é•¿æªåœ¨ç©å®¶å‰æ–¹è“„åŠ›
             float chargeDistance = MathHelper.Lerp(50f, 80f, chargeProgress);
             Projectile.Center = Owner.MountedCenter + dashDirection * chargeDistance;
 
-            //Ç¿ÖÆ¼õËÙÍæ¼Ò
+            //å¼ºåˆ¶å‡é€Ÿç©å®¶
             Owner.velocity *= 0.7f;
 
-            //ÄÜÁ¿»·ÈÆĞ§¹û
+            //èƒ½é‡ç¯ç»•æ•ˆæœ
             SpawnChargeRings();
 
-            //ÄÜÁ¿Á£×ÓÏò³¤Ç¹»ã¾Û
+            //èƒ½é‡ç²’å­å‘é•¿æªæ±‡èš
             if (Main.rand.NextBool()) {
                 SpawnConvergingEnergy();
             }
 
-            //ĞîÁ¦ÒôĞ§Ñ­»·
+            //è“„åŠ›éŸ³æ•ˆå¾ªç¯
             if (phaseTimer % 10 == 0) {
                 SoundEngine.PlaySound(SoundID.DD2_EtherianPortalSpawnEnemy with { Volume = 0.4f * chargeProgress, Pitch = chargeProgress * 0.5f }, Projectile.Center);
             }
 
-            //ĞîÁ¦Íê³ÉÇ°µÄÔ¤¾¯
+            //è“„åŠ›å®Œæˆå‰çš„é¢„è­¦
             if (phaseTimer == ChargeDuration - 5) {
                 SoundEngine.PlaySound("CalamityMod/Sounds/Custom/Yharon/YharonRoarShort".GetSound() with { Volume = 0.8f, Pitch = -0.3f }, Owner.Center);
                 SpawnChargeCompleteEffect();
             }
         }
 
-        //½øÈëÍ»½ø½×¶Î£¬±¬·¢ĞÔ³å´Ì
+        //è¿›å…¥çªè¿›é˜¶æ®µï¼Œçˆ†å‘æ€§å†²åˆº
         private void EnterDashPhase() {
             currentPhase = DashPhase.Dashing;
             phaseTimer = 0;
@@ -139,16 +138,16 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             SoundEngine.PlaySound(SoundID.DD2_WyvernDiveDown with { Volume = 1f, Pitch = -0.2f }, Owner.Center);
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 0.8f, Pitch = 0.3f }, Owner.Center);
 
-            //Æô¶¯±¬·¢
+            //å¯åŠ¨çˆ†å‘
             SpawnDashStartExplosion();
             screenShakeIntensity = 15f;
         }
 
-        //»ÙÃğĞÔÍ»½ø
+        //æ¯ç­æ€§çªè¿›
         private void UpdateDashing() {
             float dashProgress = phaseTimer / (float)DashDuration;
 
-            //ÏÈ¼ÓËÙºó¼õËÙµÄÇúÏß
+            //å…ˆåŠ é€Ÿåå‡é€Ÿçš„æ›²çº¿
             float speedCurve;
             if (dashProgress < 0.3f) {
                 speedCurve = CWRUtils.EaseOutCubic(dashProgress / 0.3f);
@@ -164,68 +163,68 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 Owner.GivePlayerImmuneState(3, false);
             }
 
-            //³¤Ç¹±£³ÖÔÚÇ°·½
+            //é•¿æªä¿æŒåœ¨å‰æ–¹
             Projectile.Center = Owner.MountedCenter + dashDirection * 120f;
 
-            //»ªÀöµÄÍÏÎ²Ğ§¹û
+            //åä¸½çš„æ‹–å°¾æ•ˆæœ
             SpawnDashTrail(dashProgress);
 
-            //Ã¿¸ôÒ»¶ÎÊ±¼ä²¥·Å³å»÷ÒôĞ§
+            //æ¯éš”ä¸€æ®µæ—¶é—´æ’­æ”¾å†²å‡»éŸ³æ•ˆ
             if (phaseTimer % 5 == 0) {
                 SoundEngine.PlaySound(SoundID.DD2_BetsyWindAttack with { Volume = 0.5f, Pitch = 0.3f }, Projectile.Center);
             }
 
-            //³ÖĞøµÄĞ¡ĞÍ±¬Õ¨
+            //æŒç»­çš„å°å‹çˆ†ç‚¸
             if (phaseTimer % 3 == 0) {
                 SpawnDashMiniExplosion();
             }
         }
 
-        //½øÈë±¬Õ¨½×¶Î
+        //è¿›å…¥çˆ†ç‚¸é˜¶æ®µ
         private void EnterExplodePhase() {
             currentPhase = DashPhase.Exploding;
             phaseTimer = 0;
 
-            //Í£Ö¹ÒÆ¶¯
+            //åœæ­¢ç§»åŠ¨
             if (Projectile.IsOwnedByLocalPlayer()) {
                 Owner.velocity *= 0.2f;
             }
 
-            //ÖÕ¼«±¬Õ¨
+            //ç»ˆæçˆ†ç‚¸
             SpawnUltimateExplosion();
             screenShakeIntensity = 25f;
 
-            //ÒôĞ§×éºÏ
+            //éŸ³æ•ˆç»„åˆ
             SoundEngine.PlaySound("CalamityMod/Sounds/Custom/Yharon/YharonFireOrb".GetSound() with { Volume = 1f, Pitch = -0.4f }, Projectile.Center);
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with { Volume = 0.9f, Pitch = -0.2f }, Projectile.Center);
         }
 
-        //±¬Õ¨½×¶Î
+        //çˆ†ç‚¸é˜¶æ®µ
         private void UpdateExploding() {
             float explodeProgress = phaseTimer / (float)ExplodeDuration;
 
-            //³¤Ç¹ÔÚ±¬Õ¨ÖĞĞÄĞı×ª
+            //é•¿æªåœ¨çˆ†ç‚¸ä¸­å¿ƒæ—‹è½¬
             Projectile.rotation += 0.5f * (1f - explodeProgress);
             Projectile.Center = Owner.MountedCenter + dashDirection * MathHelper.Lerp(120f, 80f, explodeProgress);
 
-            //³ÖĞøµÄ±¬Õ¨Ğ§¹û
+            //æŒç»­çš„çˆ†ç‚¸æ•ˆæœ
             if (phaseTimer % 2 == 0) {
                 SpawnContinuousExplosion(explodeProgress);
             }
 
-            //¼õËÙÍæ¼Ò
+            //å‡é€Ÿç©å®¶
             if (Projectile.IsOwnedByLocalPlayer()) {
                 Owner.velocity *= 0.85f;
             }
         }
 
-        //½øÈë»Ö¸´½×¶Î
+        //è¿›å…¥æ¢å¤é˜¶æ®µ
         private void EnterRecoveryPhase() {
             currentPhase = DashPhase.Recovery;
             phaseTimer = 0;
         }
 
-        //»Ö¸´½×¶Î
+        //æ¢å¤é˜¶æ®µ
         private void UpdateRecovery() {
             float recoveryProgress = phaseTimer / (float)RecoveryDuration;
             float pullbackDistance = MathHelper.Lerp(80f, 45f, CWRUtils.EaseInQuad(recoveryProgress));
@@ -236,7 +235,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //ĞîÁ¦ÄÜÁ¿»·
+        //è“„åŠ›èƒ½é‡ç¯
         private void SpawnChargeRings() {
             if (phaseTimer % 3 != 0) return;
 
@@ -254,7 +253,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //ÄÜÁ¿»ã¾Û
+        //èƒ½é‡æ±‡èš
         private void SpawnConvergingEnergy() {
             Vector2 spawnPos = Projectile.Center + Main.rand.NextVector2Circular(200f * (1f - chargeProgress), 200f * (1f - chargeProgress));
             Vector2 velocity = (Projectile.Center - spawnPos).SafeNormalize(Vector2.Zero) * 8f * chargeProgress;
@@ -268,7 +267,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             Main.dust[dust].noGravity = true;
         }
 
-        //ĞîÁ¦Íê³ÉÌØĞ§
+        //è“„åŠ›å®Œæˆç‰¹æ•ˆ
         private void SpawnChargeCompleteEffect() {
             for (int i = 0; i < 80; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(15f, 15f);
@@ -279,7 +278,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 PRTLoader.AddParticle(complete);
             }
 
-            //³å»÷²¨
+            //å†²å‡»æ³¢
             for (int ring = 0; ring < 3; ring++) {
                 for (int i = 0; i < 24; i++) {
                     float angle = MathHelper.TwoPi * i / 24f;
@@ -292,7 +291,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //Í»½ø¿ªÊ¼±¬Õ¨
+        //çªè¿›å¼€å§‹çˆ†ç‚¸
         private void SpawnDashStartExplosion() {
             for (int i = 0; i < 120; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(25f, 25f);
@@ -303,7 +302,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 PRTLoader.AddParticle(explosion);
             }
 
-            //´ó·¶Î§»ğÑæ±¬·¢
+            //å¤§èŒƒå›´ç«ç„°çˆ†å‘
             for (int i = 0; i < 200; i++) {
                 int dust = Dust.NewDust(Owner.Center, 1, 1, DustID.Torch, 0, 0, 100, default, Main.rand.NextFloat(3f, 5f));
                 Main.dust[dust].velocity = Main.rand.NextVector2Circular(20f, 20f);
@@ -311,9 +310,9 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //Í»½øÍÏÎ²
+        //çªè¿›æ‹–å°¾
         private void SpawnDashTrail(float dashProgress) {
-            //ÁÒÑæÍÏÎ²
+            //çƒˆç„°æ‹–å°¾
             for (int i = 0; i < 6; i++) {
                 Vector2 trailPos = Projectile.Center + Main.rand.NextVector2Circular(40f, 40f) - dashDirection * i * 30f;
                 Vector2 trailVel = -dashDirection * Main.rand.NextFloat(5f, 15f);
@@ -324,7 +323,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 PRTLoader.AddParticle(trail);
             }
 
-            //½ğÉ«ÄÜÁ¿Á÷
+            //é‡‘è‰²èƒ½é‡æµ
             if (Main.rand.NextBool(2)) {
                 Vector2 energyPos = Projectile.Center + Main.rand.NextVector2Circular(50f, 50f);
                 int dust = Dust.NewDust(energyPos, 1, 1, DustID.GoldCoin, -dashDirection.X * 10f, -dashDirection.Y * 10f, 100, default, 3f);
@@ -332,7 +331,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 Main.dust[dust].fadeIn = 2f;
             }
 
-            //ÂİĞı»ğÑæ
+            //èºæ—‹ç«ç„°
             float spiralAngle = phaseTimer * 0.4f;
             for (int i = 0; i < 3; i++) {
                 float angle = spiralAngle + i * MathHelper.TwoPi / 3f;
@@ -343,7 +342,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //Í»½øĞ¡ĞÍ±¬Õ¨
+        //çªè¿›å°å‹çˆ†ç‚¸
         private void SpawnDashMiniExplosion() {
             for (int i = 0; i < 25; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(12f, 12f);
@@ -354,7 +353,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 PRTLoader.AddParticle(mini);
             }
 
-            //Éú³É¶îÍâ»ğÑæµ¯
+            //ç”Ÿæˆé¢å¤–ç«ç„°å¼¹
             if (Projectile.IsOwnedByLocalPlayer() && Main.rand.NextBool(3)) {
                 for (int i = 0; i < 4; i++) {
                     float angle = MathHelper.PiOver2 * i;
@@ -366,9 +365,9 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //ÖÕ¼«±¬Õ¨
+        //ç»ˆæçˆ†ç‚¸
         private void SpawnUltimateExplosion() {
-            //³¬´ó·¶Î§Á£×Ó±¬·¢
+            //è¶…å¤§èŒƒå›´ç²’å­çˆ†å‘
             for (int i = 0; i < 300; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(35f, 35f);
 
@@ -378,7 +377,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 PRTLoader.AddParticle(ultimate);
             }
 
-            //¶à²ã³å»÷²¨
+            //å¤šå±‚å†²å‡»æ³¢
             for (int ring = 0; ring < 8; ring++) {
                 int segments = 36;
                 for (int i = 0; i < segments; i++) {
@@ -392,7 +391,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 }
             }
 
-            //³¬´ó·¶Î§³¾°£
+            //è¶…å¤§èŒƒå›´å°˜åŸƒ
             for (int i = 0; i < 400; i++) {
                 int dustType = Main.rand.NextBool() ? DustID.Torch : DustID.FireworkFountain_Red;
                 int dust = Dust.NewDust(Projectile.Center, 1, 1, dustType, 0, 0, 100, default, Main.rand.NextFloat(4f, 7f));
@@ -400,7 +399,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 Main.dust[dust].noGravity = true;
             }
 
-            //Éú³É´óÁ¿»ğÑæµ¯
+            //ç”Ÿæˆå¤§é‡ç«ç„°å¼¹
             if (Projectile.IsOwnedByLocalPlayer()) {
                 for (int i = 0; i < 36; i++) {
                     float angle = MathHelper.TwoPi * i / 36f;
@@ -412,7 +411,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             }
         }
 
-        //³ÖĞø±¬Õ¨
+        //æŒç»­çˆ†ç‚¸
         private void SpawnContinuousExplosion(float progress) {
             for (int i = 0; i < 15; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(20f, 20f) * (1f - progress);
@@ -427,22 +426,22 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
         public override void OnHitNPC(NPC target, NPC.HitInfo hit, int damageDone) {
             hitEnemyCount++;
 
-            //Ç¿Á¦debuff
+            //å¼ºåŠ›debuff
             target.AddBuff(BuffID.OnFire3, 600);
             target.AddBuff(BuffID.Daybreak, 480);
             target.AddBuff(BuffID.Ichor, 360);
 
-            //Í»½ø½×¶ÎµÄ³¬Ç¿»÷ÍË
+            //çªè¿›é˜¶æ®µçš„è¶…å¼ºå‡»é€€
             if (currentPhase == DashPhase.Dashing) {
                 target.velocity += dashDirection * 35f;
 
-                //Ã¿ÃüÖĞ5¸öµĞÈËÉú³É±¬Õ¨
+                //æ¯å‘½ä¸­5ä¸ªæ•Œäººç”Ÿæˆçˆ†ç‚¸
                 if (hitEnemyCount % 5 == 0) {
                     SpawnHitExplosion(target.Center);
                 }
             }
 
-            //ÃüÖĞÁ£×Ó
+            //å‘½ä¸­ç²’å­
             for (int i = 0; i < 30; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(12f, 12f);
 
@@ -455,7 +454,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             SoundEngine.PlaySound(SoundID.DD2_MonkStaffSwing with { Volume = 0.6f, Pitch = 0.1f }, target.Center);
         }
 
-        //ÃüÖĞ±¬Õ¨
+        //å‘½ä¸­çˆ†ç‚¸
         private void SpawnHitExplosion(Vector2 position) {
             for (int i = 0; i < 80; i++) {
                 Vector2 vel = Main.rand.NextVector2Circular(18f, 18f);
@@ -484,7 +483,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             Vector2 origin = VaultUtils.GetOrig(texture, 4);
             SpriteEffects effects = Owner.direction > 0 ? SpriteEffects.None : SpriteEffects.FlipHorizontally;
 
-            //¸ù¾İ½×¶Î¼ÆËã·¢¹âÇ¿¶È
+            //æ ¹æ®é˜¶æ®µè®¡ç®—å‘å…‰å¼ºåº¦
             float glowIntensity = 0f;
             if (currentPhase == DashPhase.Charging) {
                 glowIntensity = chargeProgress * 1.5f;
@@ -496,7 +495,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                 glowIntensity = 1f - phaseTimer / (float)RecoveryDuration;
             }
 
-            //¶à²ã³¬Ç¿·¢¹â
+            //å¤šå±‚è¶…å¼ºå‘å…‰
             for (int i = 0; i < 5; i++) {
                 float layerScale = 0.75f + i * 0.08f;
                 float layerAlpha = (0.5f - i * 0.08f) * glowIntensity;
@@ -507,7 +506,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
                     , drawRotation, origin, Projectile.scale * layerScale, effects, 0);
             }
 
-            //Ö÷Ìå
+            //ä¸»ä½“
             Color drawColor = Projectile.GetAlpha(lightColor);
             if (currentPhase == DashPhase.Dashing) {
                 drawColor = Color.Lerp(drawColor, Color.White, 0.5f);
@@ -516,7 +515,7 @@ namespace CalamityOverhaul.Content.Projectiles.Weapons.Melee.DawnshatterAzurePro
             Main.EntitySpriteDraw(texture, drawPosition, texture.GetRectangle(Projectile.frame, 4), drawColor
                 , drawRotation, origin, Projectile.scale * 0.7f, effects, 0);
 
-            //¶îÍâÄÜÁ¿¹âÔÎ
+            //é¢å¤–èƒ½é‡å…‰æ™•
             if (glowIntensity > 0.5f) {
                 Color energyColor = new Color(255, 180, 60, 0) * glowIntensity * 0.8f;
                 Main.EntitySpriteDraw(texture, drawPosition, texture.GetRectangle(Projectile.frame, 4), energyColor

@@ -1,6 +1,5 @@
 ﻿using CalamityOverhaul.Content.ADV.Scenarios.Draedons.ExoMechdusaSums;
 using CalamityOverhaul.Content.Items.Placeable;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using CalamityOverhaul.Content.PRTTypes;
 using InnoVault.PRT;
 using InnoVault.TileProcessors;
@@ -43,8 +42,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         }
         public static LocalizedText RecipeCondition(out Func<bool> condition) {
             condition = new Func<bool>(() =>
-            Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)
-            && halibutPlayer.ADVSave.UseConstructionBlueprint);
+            Main.LocalPlayer.TryGetADVSave(out var save)
+            && save.Get<DraedonADVData>().UseConstructionBlueprint);
             return UseConstructionBlueprint;
         }
         public override void AddRecipes() {
@@ -380,7 +379,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         }
 
         [VaultLoaden(CWRConstant.Item + "Placeable/")]
-        public static Texture2D StarflowPlatedBlockAlt;//发现这个占位符纹理效果意外不错，于是便留着
+        public static Texture2D StarflowPlatedBlockAlt = null!;//发现这个占位符纹理效果意外不错，于是便留着
 
         /// <summary>
         /// 绘制地面不完整警告

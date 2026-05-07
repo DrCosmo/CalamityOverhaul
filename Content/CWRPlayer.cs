@@ -8,10 +8,9 @@ using CalamityOverhaul.Content.NPCs.Modifys.Crabulons;
 using CalamityOverhaul.Content.Projectiles.Others;
 using CalamityOverhaul.Content.RangedModify;
 using CalamityOverhaul.Content.RangedModify.Core;
-using CalamityOverhaul.Content.RemakeItems;
-using CalamityOverhaul.Content.UIs.OverhaulTheBible;
 using CalamityOverhaul.OtherMods.HighFPSSupport;
 using CalamityOverhaul.OtherMods.ImproveGame;
+using CalamityOverhaul.OtherMods.SubWorld;
 using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -40,10 +39,6 @@ namespace CalamityOverhaul.Content
         /// 应力缩放
         /// </summary>
         public float PressureIncrease;
-        /// <summary>
-        /// 装弹时间缩放
-        /// </summary>
-        public float KreloadTimeIncrease;
         /// <summary>
         /// 摄像头位置额外矫正值
         /// </summary>
@@ -124,14 +119,6 @@ namespace CalamityOverhaul.Content
         /// 如果该时间大于0，则玩家不能切换武器，这个值每帧会自动减1
         /// </summary>
         public int DontSwitchWeaponTime;
-        /// <summary>
-        /// 如果该时间大于0，则说明玩家正在换弹
-        /// </summary>
-        public int PlayerIsKreLoadTime;
-        /// <summary>
-        /// 玩家装弹时间完成比例
-        /// </summary>
-        public float ReloadingRatio;
         /// <summary>
         /// 不能拥有暗影克隆体的时间，这个值每帧会自动减1
         /// </summary>
@@ -226,7 +213,6 @@ namespace CalamityOverhaul.Content
             cwr.HasOverhaulTheBibleBook = HasOverhaulTheBibleBook;
             cwr.LoadMuzzleBrakeLevel = LoadMuzzleBrakeLevel;
             cwr.PressureIncrease = PressureIncrease;
-            cwr.KreloadTimeIncrease = KreloadTimeIncrease;
             cwr.OffsetScreenPos = OffsetScreenPos;
             cwr.ScreenShakeValue = ScreenShakeValue;
             cwr.ThermalGenerationActiveTime = ThermalGenerationActiveTime;
@@ -246,8 +232,6 @@ namespace CalamityOverhaul.Content
             cwr.SwingIndex = SwingIndex;
             cwr.ReceivingPlatformTime = ReceivingPlatformTime;
             cwr.DontSwitchWeaponTime = DontSwitchWeaponTime;
-            cwr.PlayerIsKreLoadTime = PlayerIsKreLoadTime;
-            cwr.ReloadingRatio = ReloadingRatio;
             cwr.DontHasSemberDarkMasterCloneTime = DontHasSemberDarkMasterCloneTime;
             cwr.SpecialDrawPositionOffset = SpecialDrawPositionOffset;
             cwr.PlayerPositionChange = PlayerPositionChange;
@@ -290,9 +274,7 @@ namespace CalamityOverhaul.Content
             OffsetScreenPos = Vector2.Zero;
             LoadMuzzleBrakeLevel = 0;
             PressureIncrease = 1;
-            KreloadTimeIncrease = 1;
             HeldStyle = -1;
-            ReloadingRatio = 0;
             IsUnsunghero = false;
             InFoodStallChair = false;
             HeldMurasamaBool = false;
@@ -337,7 +319,11 @@ namespace CalamityOverhaul.Content
             }
         }
 
-        public override void OnEnterWorld() {
+        private void Information() {
+            if (SubWorldRef.AnyActiveSubWorld()) {
+                return;//如果玩家处于子世界中，则不显示兼容性提示
+            }
+
             if (!VaultHook.CheckHookStatus(out int num)) {
                 string hookDownText1 = $"{num} " + CWRLocText.GetTextValue("Error_1");
                 VaultUtils.Text(hookDownText1, Color.Red);
@@ -353,15 +339,12 @@ namespace CalamityOverhaul.Content
                 SpwanTextProj.New(Player, () => VaultUtils.Text(improvGameText, Color.Red), 210);
                 CWRMod.Instance.Logger.Info(improvGameText);
             }
+        }
 
-            if (Player.name == "HoCha113") {
-                string text = CWRItemOverride.ByID.Count + CWRLocText.GetTextValue("OnEnterWorld_TextContent");
-                SpwanTextProj.New(Player, () => VaultUtils.Text(text, Color.GreenYellow), 240);
-            }
+        public override void OnEnterWorld() {
+            Information();
 
-            if (OverhaulTheBibleUI.Instance != null) {
-                OverhaulTheBibleUI.Instance.Active = false;
-            }
+            //进入世界时把 RAM 重置为满（基础值已在 LoadData 中读取）
 
             SpearOfLonginus.ZenithWorldAsset();
 
@@ -431,24 +414,13 @@ namespace CalamityOverhaul.Content
             }
         }
 
-        public void SetScope() {
-            Item heldItem = Player.GetItem();
-            if (heldItem.type != ItemID.None && heldItem.CWR().Scope) {
-                Player.scope = false;
-            }
-        }
-
         public override void PostUpdate() {
-            SetScope();
 
             if (DontUseItemTime > 0) {
                 DontUseItemTime--;
             }
             if (DontSwitchWeaponTime > 0) {
                 DontSwitchWeaponTime--;
-            }
-            if (PlayerIsKreLoadTime > 0) {
-                PlayerIsKreLoadTime--;
             }
             if (DontHasSemberDarkMasterCloneTime > 0) {
                 DontHasSemberDarkMasterCloneTime--;
@@ -648,14 +620,6 @@ namespace CalamityOverhaul.Content
         /// <returns>如果玩家没有手持<see cref="BaseGun"/>或者发生了其他非法情况，返回<see langword="false"/></returns>
         internal bool TryGetInds_BaseGun(out BaseGun baseGun) {
             return TryGetHeldProjInds(out baseGun);
-        }
-        /// <summary>
-        /// 获取玩家所手持的<see cref="BaseFeederGun"/>实例
-        /// </summary>
-        /// <param name="baseGun"></param>
-        /// <returns>如果玩家没有手持<see cref="BaseFeederGun"/>或者发生了其他非法情况，返回<see langword="false"/></returns>
-        internal bool TryGetInds_BaseFeederGun(out BaseFeederGun baseFeederGun) {
-            return TryGetHeldProjInds(out baseFeederGun);
         }
         /// <summary>
         /// 获取玩家所手持的<see cref="BaseBow"/>实例

@@ -2,8 +2,8 @@
 using CalamityOverhaul.Content.DamageModify;
 using CalamityOverhaul.Content.Items.Materials;
 using CalamityOverhaul.Content.Projectiles.Weapons.Tools;
-using CalamityOverhaul.Content.RemakeItems;
 using CalamityOverhaul.Content.UIs.SupertableUIs;
+using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System.Collections.Generic;
@@ -18,7 +18,7 @@ using Terraria.ModLoader;
 
 namespace CalamityOverhaul.Content.Items.Tools
 {
-    internal class ModifyInfinitePick : CWRItemOverride
+    internal class ModifyInfinitePick : ItemOverride
     {
         public override int TargetID => ModContent.ItemType<InfinitePick>();
         public override bool DrawingInfo => false;
@@ -86,7 +86,7 @@ namespace CalamityOverhaul.Content.Items.Tools
                 Item.useAnimation = 10;
             }
 
-            if (CWRKeySystem.InfinitePickSkillKey.JustPressed) {
+            if (CWRKeySystem.WeponSkill_Q.JustPressed) {
                 IsPick = !IsPick;
                 SoundEngine.PlaySound(!IsPick ? CWRSound.Pecharge : CWRSound.Peuncharge, player.Center);
                 TextureAssets.Item[Type] = IsPick ? Pickaxe : Hammer;
@@ -119,7 +119,7 @@ namespace CalamityOverhaul.Content.Items.Tools
                 }
             }
 
-            tooltips.InsertHotkeyBinding(CWRKeySystem.InfinitePickSkillKey, noneTip: CWRLocText.Instance.Notbound.Value);
+            tooltips.InsertHotkeyBinding(CWRKeySystem.WeponSkill_Q, noneTip: CWRLocText.Instance.Notbound.Value + $"[{CWRKeySystem.WeponSkill_Q.DisplayName}]");
         }
 
         public override bool PreDrawTooltipLine(DrawableTooltipLine line, ref int yOffset) {

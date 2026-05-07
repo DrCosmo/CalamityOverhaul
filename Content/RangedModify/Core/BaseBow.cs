@@ -101,10 +101,6 @@ namespace CalamityOverhaul.Content.RangedModify.Core
         /// </summary>
         public bool EnableCowboySpin = false;
         /// <summary>
-        /// 射弹特殊生成属性，用于决定射弹的特殊行为，默认值为<see cref="SpanTypesEnum.None"/>
-        /// </summary>
-        public SpanTypesEnum ShootSpanTypeValue = SpanTypesEnum.None;
-        /// <summary>
         /// 是否处于开火时间
         /// </summary>
         public override bool CanFire => DownLeft || DownRight && CanRightClick && !onFire && SafeMousetStart;
@@ -263,7 +259,7 @@ namespace CalamityOverhaul.Content.RangedModify.Core
 
         public virtual void PreInOwner() { }
 
-        internal int idleTimer;
+        internal int idleTimer = 0;
 
         public override void InOwner() {
             PreInOwner();
@@ -303,14 +299,12 @@ namespace CalamityOverhaul.Content.RangedModify.Core
         public virtual void BowShoot() {
             int proj = Projectile.NewProjectile(Source, Projectile.Center + FireOffsetPos, ShootVelocity + FireOffsetVector
                 , AmmoTypes, WeaponDamage, WeaponKnockback, Owner.whoAmI, 0);
-            Main.projectile[proj].CWR().SpanTypes = (byte)ShootSpanTypeValue;
             Main.projectile[proj].rotation = Main.projectile[proj].velocity.ToRotation() + MathHelper.PiOver2;
         }
 
         public virtual void BowShootR() {
             int proj = Projectile.NewProjectile(Source, Projectile.Center + FireOffsetPos, ShootVelocity + FireOffsetVector
                 , AmmoTypes, WeaponDamage, WeaponKnockback, Owner.whoAmI, 0);
-            Main.projectile[proj].CWR().SpanTypes = (byte)ShootSpanTypeValue;
             Main.projectile[proj].rotation = Main.projectile[proj].velocity.ToRotation() + MathHelper.PiOver2;
         }
 

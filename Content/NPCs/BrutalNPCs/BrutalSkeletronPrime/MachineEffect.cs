@@ -178,7 +178,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
         public static bool IsActive;
         public static int CekTimer = 0;
         [VaultLoaden(CWRConstant.NPC + "Meld")]
-        public static Asset<Texture2D> MeldAsset;
+        public static Asset<Texture2D> MeldAsset = null!;
 
         internal static void Send() {
             if (VaultUtils.isSinglePlayer) {
@@ -223,11 +223,6 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
             }
 
             if (!CWRServerConfig.Instance.BiologyOverhaul) {
-                return;
-            }
-
-            if (CWRWorld.MachineRebellion) {
-                IsActive = true;
                 return;
             }
 
@@ -291,7 +286,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
                 return;
             }
 
-            if (!CWRRef.GetBossRushActive() && !VaultUtils.isServer && !SirenMusicalSystem.HasActiveBox) {
+            if (!CWRRef.GetBossRushActive() && !VaultUtils.isServer && !Main.LocalPlayer.GetModPlayer<SirenMusicalBoxPlayer>().IsCursed) {
                 Main.newMusic = Main.musicBox2 = MusicLoader.GetMusicSlot("CalamityOverhaul/Assets/Sounds/Music/Metal");
             }
         }

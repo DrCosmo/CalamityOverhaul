@@ -39,15 +39,12 @@ namespace CalamityOverhaul.Content.UIs.OverhaulSettings
             //CWRWeapon组
             AddToggle("WeaponHandheldDisplay", () => config.WeaponHandheldDisplay, v => config.WeaponHandheldDisplay = v, false);
             AddToggle("EnableSwordLight", () => config.EnableSwordLight, v => config.EnableSwordLight = v, false);
-            AddToggle("ActivateGunRecoil", () => config.ActivateGunRecoil, v => config.ActivateGunRecoil = v, false);
-            AddToggle("MagazineSystem", () => config.MagazineSystem, v => config.MagazineSystem = v, false);
             AddToggle("EnableCasingsEntity", () => config.EnableCasingsEntity, v => config.EnableCasingsEntity = v, false);
             AddToggle("BowArrowDraw", () => config.BowArrowDraw, v => config.BowArrowDraw = v, false);
-            AddToggle("ShotgunFireForcedReloadInterruption", () => config.ShotgunFireForcedReloadInterruption, v => config.ShotgunFireForcedReloadInterruption = v, false);
             AddToggle("WeaponLazyRotationAngle", () => config.WeaponLazyRotationAngle, v => config.WeaponLazyRotationAngle = v, false);
             AddToggle("ScreenVibration", () => config.ScreenVibration, v => config.ScreenVibration = v, false);
             AddToggle("MurasamaSpaceFragmentationBool", () => config.MurasamaSpaceFragmentationBool, v => config.MurasamaSpaceFragmentationBool = v, false);
-            AddToggle("HalibutDomainConciseDisplay", () => config.HalibutDomainConciseDisplay, v => config.HalibutDomainConciseDisplay = v, false);
+            AddToggle("HalibutDomainConciseDisplay", () => config.DomainConciseDisplay, v => config.DomainConciseDisplay = v, false);
             AddToggle("LensEasing", () => config.LensEasing, v => config.LensEasing = v, false);
 
             //CWRUI组
@@ -70,15 +67,12 @@ namespace CalamityOverhaul.Content.UIs.OverhaulSettings
             //CWRWeapon组
             config.WeaponHandheldDisplay = true;
             config.EnableSwordLight = true;
-            config.ActivateGunRecoil = false;
-            config.MagazineSystem = true;
             config.EnableCasingsEntity = true;
             config.BowArrowDraw = true;
-            config.ShotgunFireForcedReloadInterruption = false;
             config.WeaponLazyRotationAngle = false;
             config.ScreenVibration = true;
             config.MurasamaSpaceFragmentationBool = true;
-            config.HalibutDomainConciseDisplay = false;
+            config.DomainConciseDisplay = false;
             config.LensEasing = true;
 
             //CWRUI组

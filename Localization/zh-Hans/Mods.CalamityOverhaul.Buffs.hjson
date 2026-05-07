@@ -1,4 +1,4 @@
-SoulBurning: {
+﻿SoulBurning: {
 	DisplayName: 灵魂火
 	Description: 来自地狱的火焰
 }
@@ -26,4 +26,9 @@ FrenziedMachineSoul: {
 FishoilBuff: {
 	DisplayName: 鱼油
 	Description: 你感觉自己的皮肤在变得油腻
+}
+
+HyperDisintegration: {
+	DisplayName: 超位崩解
+	Description: 让目标从内部崩解
 }

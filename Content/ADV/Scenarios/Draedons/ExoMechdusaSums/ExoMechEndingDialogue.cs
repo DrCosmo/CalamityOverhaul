@@ -13,9 +13,6 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.ExoMechdusaSums
     /// </summary>
     internal class ExoMechEndingDialogue : ADVScenarioBase, ILocalizedModType, IWorldInfo
     {
-        //允许重复播放（用于击杀尝试后重新播放正常结束）
-        public override bool CanRepeat => true;
-
         //角色名称
         public static LocalizedText DraedonName { get; private set; }
 
@@ -84,7 +81,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.ExoMechdusaSums
             DraedonEffect.Send();
             DeploySignaltowerScenario.SetTurnOn();
             if (Main.LocalPlayer.TryGetADVSave(out var save)) {
-                save.ExoMechEndingDialogue = true;//标记已观看结束对话
+                save.Get<DraedonADVData>().ExoMechEndingDialogue = true;//标记已观看结束对话
             }
         }
     }

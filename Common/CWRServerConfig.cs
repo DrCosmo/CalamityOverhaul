@@ -1,8 +1,6 @@
-﻿using CalamityOverhaul.Content.RangedModify.Core;
-using CalamityOverhaul.Content.UIs.OverhaulSettings;
+﻿using CalamityOverhaul.Content.UIs.OverhaulSettings;
 using System.ComponentModel;
 using Terraria;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
@@ -20,15 +18,6 @@ namespace CalamityOverhaul.Common
             internal const float MScaleOffset_MaxValue = 1f;
             internal const float M_RDCD_BarSize_MinValue = 0.5f;
             internal const float M_RDCD_BarSize_MaxValue = 2f;
-            public static int CartridgeUI_Offset_X;
-            internal const int CartridgeUI_Offset_X_MinValue = 0;
-            internal const int CartridgeUI_Offset_X_MaxValue = 1900;
-            public static int CartridgeUI_Offset_Y;
-            internal const int CartridgeUI_Offset_Y_MinValue = 0;
-            internal const int CartridgeUI_Offset_Y_MaxValue = 800;
-            public static float LoadingAA_VolumeValue;
-            internal const int LoadingAA_Volume_MinValue = 0;
-            internal const int LoadingAA_Volume_MaxValue = 800;
             internal const int MuraUIStyleMaxType = 5;
             internal const int MuraUIStyleMinType = 1;
             public static int MuraUIStyleValue;
@@ -39,10 +28,6 @@ namespace CalamityOverhaul.Common
             /// 旧的手持开关，用于对比检测手持是否改变设置
             /// </summary>
             internal static bool OldWeaponHandheldDisplay;
-            /// <summary>
-            /// 旧的弹匣开关，用于对比检测弹匣是否改变设置
-            /// </summary>
-            internal static bool OldMagazineSystem;
         }
 
         [Header("CWRSystem")]
@@ -68,24 +53,12 @@ namespace CalamityOverhaul.Common
         public bool EnableSwordLight { get; set; }
 
         [BackgroundColor(192, 54, 94, 255)]
-        [DefaultValue(false)]
-        public bool ActivateGunRecoil { get; set; }
-
-        [BackgroundColor(192, 54, 94, 255)]
-        [DefaultValue(true)]
-        public bool MagazineSystem { get; set; }
-
-        [BackgroundColor(192, 54, 94, 255)]
         [DefaultValue(true)]
         public bool EnableCasingsEntity { get; set; }
 
         [BackgroundColor(192, 54, 94, 255)]
         [DefaultValue(true)]
         public bool BowArrowDraw { get; set; }
-
-        [BackgroundColor(192, 54, 94, 255)]
-        [DefaultValue(false)]
-        public bool ShotgunFireForcedReloadInterruption { get; set; }
 
         [BackgroundColor(192, 54, 94, 255)]
         [DefaultValue(false)]
@@ -101,24 +74,7 @@ namespace CalamityOverhaul.Common
 
         [BackgroundColor(192, 54, 94, 255)]
         [DefaultValue(false)]
-        public bool HalibutDomainConciseDisplay { get; set; }//大比目鱼领域简洁显示
-
-        [BackgroundColor(192, 54, 94, 255)]
-        [SliderColor(224, 165, 56, 255)]
-        [Range(Data.LoadingAA_Volume_MinValue, Data.LoadingAA_Volume_MaxValue)]
-        [DefaultValue(1)]
-        public float LoadingAA_Volume {
-            get {
-                if (Data.LoadingAA_VolumeValue < Data.LoadingAA_Volume_MinValue) {
-                    Data.LoadingAA_VolumeValue = Data.LoadingAA_Volume_MinValue;
-                }
-                if (Data.LoadingAA_VolumeValue > Data.LoadingAA_Volume_MaxValue) {
-                    Data.LoadingAA_VolumeValue = Data.LoadingAA_Volume_MaxValue;
-                }
-                return Data.LoadingAA_VolumeValue;
-            }
-            set => Data.LoadingAA_VolumeValue = value;
-        }
+        public bool DomainConciseDisplay { get; set; }//领域简洁显示
 
         [BackgroundColor(192, 54, 94, 255)]
         [DefaultValue(true)]
@@ -188,48 +144,17 @@ namespace CalamityOverhaul.Common
 
         [BackgroundColor(45, 175, 225, 255)]
         [SliderColor(224, 165, 56, 255)]
-        [Range(Data.CartridgeUI_Offset_X_MinValue, Data.CartridgeUI_Offset_X_MaxValue)]
-        [DefaultValue(1)]
-        public int CartridgeUI_Offset_X_Value {//弹夹UI位置调节_X
-            get {
-                if (Data.CartridgeUI_Offset_X < Data.CartridgeUI_Offset_X_MinValue) {
-                    Data.CartridgeUI_Offset_X = Data.CartridgeUI_Offset_X_MinValue;
-                }
-                if (Data.CartridgeUI_Offset_X > Data.CartridgeUI_Offset_X_MaxValue) {
-                    Data.CartridgeUI_Offset_X = Data.CartridgeUI_Offset_X_MaxValue;
-                }
-                return Data.CartridgeUI_Offset_X;
-            }
-            set => Data.CartridgeUI_Offset_X = value;
-        }
-
-        [BackgroundColor(45, 175, 225, 255)]
-        [SliderColor(224, 165, 56, 255)]
-        [Range(Data.CartridgeUI_Offset_Y_MinValue, Data.CartridgeUI_Offset_Y_MaxValue)]
-        [DefaultValue(1)]
-        public int CartridgeUI_Offset_Y_Value {//弹夹UI位置调节_Y
-            get {
-                if (Data.CartridgeUI_Offset_Y < Data.CartridgeUI_Offset_Y_MinValue) {
-                    Data.CartridgeUI_Offset_Y = Data.CartridgeUI_Offset_Y_MinValue;
-                }
-                if (Data.CartridgeUI_Offset_Y > Data.CartridgeUI_Offset_Y_MaxValue) {
-                    Data.CartridgeUI_Offset_Y = Data.CartridgeUI_Offset_Y_MaxValue;
-                }
-                return Data.CartridgeUI_Offset_Y;
-            }
-            set => Data.CartridgeUI_Offset_Y = value;
-        }
-
-        [BackgroundColor(45, 175, 225, 255)]
-        [SliderColor(224, 165, 56, 255)]
         [Range(1f, 2f)]
         [DefaultValue(1)]
         public float DialogueBox_Scale_Value { get; set; }//对话框缩放比例
 
+        [BackgroundColor(45, 175, 225, 255)]
+        [DefaultValue(false)]
+        public bool SignalTowerDecryptionAutoPlay { get; set; }//信号塔破译傻瓜模式：开启后小游戏自动演示正确解答
+
         public override void OnLoaded() {
             Instance = this;
             Data.OldWeaponHandheldDisplay = WeaponHandheldDisplay;
-            Data.OldMagazineSystem = MagazineSystem;
         }
 
         public override void OnChanged() {
@@ -237,33 +162,6 @@ namespace CalamityOverhaul.Common
                 return;
             }
             WorldGenDensitySave.SyncFromConfig();
-            ChangedRangedProperty();
-        }
-
-        private void ChangedRangedProperty() {
-            if (Main.gameMenu || Main.projectile == null) {
-                return;
-            }
-
-            bool canSet = Data.OldMagazineSystem != MagazineSystem;
-            Data.OldMagazineSystem = MagazineSystem;
-
-            if (!canSet) {
-                return;
-            }
-
-            foreach (var proj in Main.ActiveProjectiles) {
-                if (proj.hostile || proj.ModProjectile == null) {
-                    continue;
-                }
-                if (proj.ModProjectile is BaseFeederGun gun) {
-                    Item item = Main.player[proj.owner].GetItem();
-                    if (item.type != ItemID.None) {
-                        item.CWR().InitializeMagazine();
-                    }
-                    gun.SetRangedProperty();
-                }
-            }
         }
 
         public override bool AcceptClientChanges(ModConfig pendingConfig, int whoAmI, ref NetworkText message) {

@@ -1,6 +1,5 @@
 ﻿using CalamityOverhaul.Common;
-using CalamityOverhaul.Content.ADV;
-using CalamityOverhaul.Content.ADV.Scenarios;
+using CalamityOverhaul.Content.ADV.Scenarios.Helen;
 using CalamityOverhaul.Content.Items.Tools;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend.DomainSkills;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend.Resurrections;
@@ -90,10 +89,6 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
         private const float BaseResurrectionRatePerEye = 0.02f;//单层基础复苏速度
         private const float GeometricFactor = 1.2f;//几何倍率（每更高一层的额外提高倍率）
         private const float CrashedEyeSideEffectRate = 0.0001f;//死机眼睛的极小副作用
-        #endregion
-
-        #region ADV场景数据
-        public ADVSave ADVSave { get; private set; } = new();
         #endregion
 
         #region 闪光皇后
@@ -514,12 +509,6 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
                 PlayerLifeMax = (int)MathHelper.Clamp(PlayerLifeMax, Player.statLifeMax2, int.MaxValue - 1);
             }
 
-            if (Player.whoAmI == Main.myPlayer) {//关于ADV场景的更新只在本地玩家上进行
-                foreach (var scenario in ADVScenarioBase.Instances) {
-                    scenario.Update(ADVSave, this);
-                }
-            }
-
             //克隆技能记录
             if (CloneFishActive) {
                 CloneFrameCounter++;
@@ -567,7 +556,9 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
             HasHalubut = Player.inventory.Any(i => i.Alives() && i.type == HalibutOverride.ID);
 
             if (HasHalubut) {//只要拥有大比目鱼，就标记已经捕获过
-                ADVSave.HasCaughtHalibut = true;
+                if (Player.TryGetADVSave(out var advSave)) {
+                    advSave.Get<HalibutADVData>().HasCaughtHalibut = true;
+                }
             }
 
             if (!HeldHalibut && Main.myPlayer == Player.whoAmI) {
@@ -600,13 +591,17 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
 
             YourLevelIsTooLow.TryAutoActivate(Player);
 
-            if (CWRKeySystem.Halibut_UIControl.JustPressed && HalibutUIHead.Instance != null && HalibutUIHead.Instance.Active) {
+            if (CWRKeySystem.Legend_UIControl.JustPressed && HalibutUIHead.Instance != null && HalibutUIHead.Instance.Active) {
                 SoundEngine.PlaySound(CWRSound.ButtonZero);
                 HalibutUIHead.Instance.Open = !HalibutUIHead.Instance.Open;
             }
 
             //海域领域激活检测，不要在服务器上访问按键
-            if (CWRKeySystem.Halibut_Domain.JustPressed) {
+            //骇客时间激活期间禁止使用领域技能以及切换领域状态
+            if (Content.HackTimes.HackTime.Active) {
+                //后续领域相关的 JustPressed 全部跳过
+            }
+            else if (CWRKeySystem.Legend_Domain.JustPressed) {
                 if (SeaDomainLayers > 0 || SeaDomainActive) {
                     SeaDomain.AltUse(Player);
                 }
@@ -619,7 +614,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
                 }
             }
             //既然总部认为我已经死了，那么就让你们看看，我死后，到底会发生什么事情
-            else if (CWRKeySystem.Halibut_Restart.JustPressed) {
+            else if (CWRKeySystem.Legend_Restart.JustPressed) {
                 if (SeaDomainLayers >= 5) {//大于等于五层领域后才能使用
                     RestartFish.AltUse(Player);
                 }
@@ -631,7 +626,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend
                 }
             }
             //领域传送
-            else if (CWRKeySystem.Halibut_Teleport.JustPressed) {
+            else if (CWRKeySystem.Legend_Teleport.JustPressed) {
                 if (SeaDomainActive) {
                     FishTeleport.AltUse(Player);
                 }

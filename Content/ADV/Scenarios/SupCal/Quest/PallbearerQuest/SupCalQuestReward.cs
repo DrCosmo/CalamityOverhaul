@@ -1,12 +1,10 @@
-﻿using CalamityOverhaul.Content.ADV.ADVQuestTracker;
-using CalamityOverhaul.Content.ADV.ADVRewardPopups;
+﻿using CalamityOverhaul.Content.ADV.ADVRewardPopups;
 using CalamityOverhaul.Content.ADV.Common;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
 using CalamityOverhaul.Content.Items.Melee;
 using CalamityOverhaul.Content.Items.Ranged;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
-using InnoVault.UIHandles;
 using System;
 using Terraria;
 using Terraria.Localization;
@@ -119,12 +117,12 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.PallbearerQuest
             }
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (!save.SupCalQuestReward) {
+        public override void Update(ADVSave save, Player player) {
+            if (!save.Get<SupCalADVData>().SupCalQuestReward) {
                 return;
             }
 
-            if (save.SupCalQuestRewardSceneComplete) {
+            if (save.Get<SupCalADVData>().SupCalQuestRewardSceneComplete) {
                 return;
             }
 
@@ -137,7 +135,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.PallbearerQuest
             }
 
             if (ScenarioManager.Start<SupCalQuestReward>()) {
-                save.SupCalQuestRewardSceneComplete = true;
+                save.Get<SupCalADVData>().SupCalQuestRewardSceneComplete = true;
                 Spawned = false;
             }
         }
@@ -163,16 +161,16 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.PallbearerQuest
         internal override float RequiredContribution => REQUIRED_CONTRIBUTION;
 
         public override bool IsQuestActive(Player player) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out var save)) {
                 return false;
             }
 
             //检查是否接受了任务
-            if (!halibutPlayer.ADVSave.SupCalQuestAccepted || halibutPlayer.ADVSave.SupCalQuestDeclined) {
+            if (!save.Get<SupCalADVData>().SupCalQuestAccepted || save.Get<SupCalADVData>().SupCalQuestDeclined) {
                 return false;
             }
 
-            if (halibutPlayer.ADVSave.SupCalQuestReward) {
+            if (save.Get<SupCalADVData>().SupCalQuestReward) {
                 return false;//任务已经完成
             }
 
@@ -180,41 +178,16 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.PallbearerQuest
         }
 
         public override void OnQuestCompleted(Player player, float contribution) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out var save)) {
                 return;
             }
 
             //标记任务完成
-            halibutPlayer.ADVSave.SupCalQuestReward = true;
+            save.Get<SupCalADVData>().SupCalQuestReward = true;
 
             //延迟触发奖励场景
             SupCalQuestReward.Spawned = true;
             SupCalQuestReward.RandomTimer = 60 * Main.rand.Next(3, 5);
-        }
-    }
-
-    /// <summary>
-    /// 扶柩者任务追踪UI，显示伤害贡献度
-    /// </summary>
-    internal class PallbearerQuestTrackerUI : BaseQuestTrackerUI
-    {
-        public override string LocalizationCategory => "UI";
-        public static PallbearerQuestTrackerUI Instance => UIHandleLoader.GetUIHandleOfType<PallbearerQuestTrackerUI>();
-
-        public override int TargetNPCType => CWRID.NPC_Providence;
-
-        protected override void SetupLocalizedTexts() {
-            QuestTitle = this.GetLocalization(nameof(QuestTitle), () => "委托：猎杀亵渎天神");
-            DamageContribution = this.GetLocalization(nameof(DamageContribution), () => "扶柩者伤害");
-            RequiredContribution = this.GetLocalization(nameof(RequiredContribution), () => "需求: 80%");
-        }
-
-        protected override (float current, float total, bool isActive) GetTrackingData() {
-            return BaseDamageTracker.GetDamageTrackingData();
-        }
-
-        protected override float GetRequiredContribution() {
-            return PallbearerQuestTracker.REQUIRED_CONTRIBUTION; //80%
         }
     }
 }

@@ -24,15 +24,11 @@ namespace CalamityOverhaul.Content.Items.Accessories.JusticeUnveileds
         }
 
         public override void ModifyTooltips(List<TooltipLine> tooltips) {
-            tooltips.InsertHotkeyBinding(CWRKeySystem.JusticeUnveiled, "UP", CWRLocText.Instance.Notbound.Value);
+            tooltips.InsertHotkeyBinding(CWRKeySystem.Accessory_Skills, "UP", CWRLocText.Instance.Notbound.Value + $"[{CWRKeySystem.Accessory_Skills.DisplayName}]");
         }
 
         public override void UpdateAccessory(Player player, bool hideVisual) {
             player.CWR().IsJusticeUnveiled = true;
-            //检测换弹
-            if (player.CWR().PlayerIsKreLoadTime > 0) {
-                OnLoaden = true;
-            }
         }
 
         public static bool SpwanBool(Player player, Projectile projectile, NPC target, NPC.HitInfo hit) {
@@ -62,7 +58,7 @@ namespace CalamityOverhaul.Content.Items.Accessories.JusticeUnveileds
             }
 
             Item item = player.GetItem();
-            if (item.type > ItemID.None && item.CWR().HasCartridgeHolder && item.CWR().AmmoCapacity <= 20) {
+            if (item.type > ItemID.None) {
                 if (OnLoaden) {
                     OnLoaden = false;
                     return true;

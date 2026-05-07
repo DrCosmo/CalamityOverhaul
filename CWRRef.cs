@@ -2,21 +2,17 @@
 using CalamityMod.Balancing;
 using CalamityMod.CalPlayer;
 using CalamityMod.CustomRecipes;
-using CalamityMod.DataStructures;
 using CalamityMod.Events;
 using CalamityMod.Graphics.Metaballs;
-using CalamityMod.Items.Weapons.Magic;
 using CalamityMod.NPCs;
 using CalamityMod.NPCs.ExoMechs;
 using CalamityMod.NPCs.SupremeCalamitas;
 using CalamityMod.Particles;
-using CalamityMod.Projectiles;
 using CalamityMod.UI;
 using CalamityMod.World;
 using CalamityOverhaul.Common;
 using CalamityOverhaul.Content.ADV;
 using CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.UI;
-using CalamityOverhaul.Content.RemakeItems;
 using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using System;
@@ -27,10 +23,8 @@ using Terraria.Audio;
 using Terraria.DataStructures;
 using Terraria.GameContent;
 using Terraria.GameContent.UI.BigProgressBar;
-using Terraria.ID;
 using Terraria.Localization;
 using Terraria.ModLoader;
-using Terraria.Utilities;
 using static CalamityOverhaul.Common.ModGanged;
 
 namespace CalamityOverhaul
@@ -391,6 +385,45 @@ namespace CalamityOverhaul
         [CWRJITEnabled]
         private static bool GetPlayerAdrenalineModeInner(Player player) => player.Calamity().adrenalineModeActive;
 
+        /// <summary>
+        /// 抓取玩家的怒气与肾上腺素相关字段快照，仅在Calamity安装时生效
+        /// </summary>
+        public static void SnapshotRippers(Player player, ref float rage, ref float adrenaline
+            , ref int rageGainCooldown, ref int rageCombatFrames, ref int adrenalinePauseTimer) {
+            if (!Has) return;
+            SnapshotRippersInner(player, ref rage, ref adrenaline
+                , ref rageGainCooldown, ref rageCombatFrames, ref adrenalinePauseTimer);
+        }
+        [CWRJITEnabled]
+        private static void SnapshotRippersInner(Player player, ref float rage, ref float adrenaline
+            , ref int rageGainCooldown, ref int rageCombatFrames, ref int adrenalinePauseTimer) {
+            CalamityPlayer cp = player.Calamity();
+            rage = cp.rage;
+            adrenaline = cp.adrenaline;
+            rageGainCooldown = cp.rageGainCooldown;
+            rageCombatFrames = cp.rageCombatFrames;
+            adrenalinePauseTimer = cp.adrenalinePauseTimer;
+        }
+
+        /// <summary>
+        /// 将怒气与肾上腺素相关字段还原为快照值，仅在Calamity安装时生效
+        /// </summary>
+        public static void RestoreRippers(Player player, float rage, float adrenaline
+            , int rageGainCooldown, int rageCombatFrames, int adrenalinePauseTimer) {
+            if (!Has) return;
+            RestoreRippersInner(player, rage, adrenaline, rageGainCooldown, rageCombatFrames, adrenalinePauseTimer);
+        }
+        [CWRJITEnabled]
+        private static void RestoreRippersInner(Player player, float rage, float adrenaline
+            , int rageGainCooldown, int rageCombatFrames, int adrenalinePauseTimer) {
+            CalamityPlayer cp = player.Calamity();
+            cp.rage = rage;
+            cp.adrenaline = adrenaline;
+            cp.rageGainCooldown = rageGainCooldown;
+            cp.rageCombatFrames = rageCombatFrames;
+            cp.adrenalinePauseTimer = adrenalinePauseTimer;
+        }
+
         public static void LargeFieryExplosion(Projectile projectile) {
             if (!Has) return;
             LargeFieryExplosionInner(projectile);
@@ -465,38 +498,6 @@ namespace CalamityOverhaul
             }
         }
 
-
-        public static int GetCurrentSeason() {
-            DateTime date = DateTime.Now;
-            int day = date.DayOfYear - Convert.ToInt32(DateTime.IsLeapYear(date.Year) && date.DayOfYear > 59);
-
-            if (day < 80 || day >= 355) {
-                return 0;
-            }
-
-            else if (day >= 80 && day < 172) {
-                return 1;
-            }
-
-            else if (day >= 172 && day < 266) {
-                return 2;
-            }
-
-            else {
-                return 3;
-            }
-        }
-        public static void SpawnMediumMistParticle(Vector2 smokePos, Vector2 smokeVel, bool Smoketype) {
-            if (!Has) return;
-            SpawnMediumMistParticleInner(smokePos, smokeVel, Smoketype);
-        }
-        [CWRJITEnabled]
-        private static void SpawnMediumMistParticleInner(Vector2 smokePos, Vector2 smokeVel, bool Smoketype) {
-            Particle smoke = new MediumMistParticle(smokePos, smokeVel, new Color(255, 110, 50), Color.OrangeRed
-                    , Smoketype ? Main.rand.NextFloat(0.4f, 0.75f) : Main.rand.NextFloat(1.5f, 2f), 220 - Main.rand.Next(50), 0.1f);
-            GeneralParticleHandler.SpawnParticle(smoke);
-        }
-
         public static void DrawAfterimagesCentered(Projectile proj, int mode, Color lightColor, int typeOneIncrement = 1, Texture2D texture = null, bool drawCentered = true) {
             if (!Has) {
                 Main.spriteBatch.Draw(TextureAssets.Projectile[proj.type].Value, proj.Center - Main.screenPosition
@@ -514,15 +515,6 @@ namespace CalamityOverhaul
         }
         [CWRJITEnabled]
         private static void HomeInOnNPCInner(Projectile projectile, bool ignoreTiles, float distanceRequired, float homingVelocity, float inertia) => CalamityUtils.HomeInOnNPC(projectile, ignoreTiles, distanceRequired, homingVelocity, inertia);
-
-        public static Projectile ProjectileBarrage(IEntitySource source, Vector2 originVec, Vector2 targetPos, bool fromRight, float xOffsetMin, float xOffsetMax
-            , float yOffsetMin, float yOffsetMax, float projSpeed, int projType, int damage, float knockback, int owner, bool clamped = false, float inaccuracyOffset = 5f)
-            => Has ? ProjectileBarrageInner(source, originVec, targetPos, fromRight, xOffsetMin, xOffsetMax, yOffsetMin, yOffsetMax, projSpeed, projType, damage, knockback, owner, clamped, inaccuracyOffset) : null;
-        [CWRJITEnabled]
-        private static Projectile ProjectileBarrageInner(IEntitySource source, Vector2 originVec, Vector2 targetPos, bool fromRight, float xOffsetMin, float xOffsetMax
-            , float yOffsetMin, float yOffsetMax, float projSpeed, int projType, int damage, float knockback, int owner, bool clamped, float inaccuracyOffset)
-            => CalamityUtils.ProjectileBarrage(source, originVec, targetPos, fromRight, xOffsetMin, xOffsetMax
-                , yOffsetMin, yOffsetMax, projSpeed, projType, damage, knockback, owner, clamped, inaccuracyOffset);
 
         public static void SetDraedonDefeatTimer(NPC npc, float value) {
             if (!Has) return;
@@ -548,8 +540,6 @@ namespace CalamityOverhaul
         [CWRJITEnabled]
         private static bool HasExoInner() => Draedon.ExoMechIsPresent;
 
-        public static int GetCalItemID(this string key) => CWRItemOverride.GetCalItemID(key);
-
         public static void SetAbleToSelectExoMech(Player player, bool value) {
             if (!Has) return;
             SetAbleToSelectExoMechInner(player, value);
@@ -566,20 +556,6 @@ namespace CalamityOverhaul
         [CWRJITEnabled]
         private static void SetProjtimesPiercedInner(Projectile projectile, int value) => projectile.Calamity().timesPierced = value;
 
-        public static void SetBrimstoneBullets(this Projectile projectile, bool value) {
-            if (!Has) return;
-            SetBrimstoneBulletsInner(projectile, value);
-        }
-        [CWRJITEnabled]
-        private static void SetBrimstoneBulletsInner(Projectile projectile, bool value) => projectile.Calamity().brimstoneBullets = value;
-
-        public static void SetDeepcoreBullet(this Projectile projectile, bool value) {
-            if (!Has) return;
-            SetDeepcoreBulletInner(projectile, value);
-        }
-        [CWRJITEnabled]
-        private static void SetDeepcoreBulletInner(Projectile projectile, bool value) => projectile.Calamity().deepcoreBullet = value;
-
         public static void SetAllProjectilesHome(this Projectile projectile, bool value) {
             if (!Has) return;
             SetAllProjectilesHomeInner(projectile, value);
@@ -587,65 +563,7 @@ namespace CalamityOverhaul
         [CWRJITEnabled]
         private static void SetAllProjectilesHomeInner(Projectile projectile, bool value) => projectile.Calamity().conditionalHomingRange = (value ? 450 : 0);
 
-        public static void SetBetterLifeBullet1(this Projectile projectile, bool value) {
-            if (!Has) return;
-            SetBetterLifeBullet1Inner(projectile, value);
-        }
-        [CWRJITEnabled]
-        private static void SetBetterLifeBullet1Inner(Projectile projectile, bool value) => projectile.Calamity().betterLifeBullet1 = value;
-
-        public static void SetBetterLifeBullet2(this Projectile projectile, bool value) {
-            if (!Has) return;
-            SetBetterLifeBullet2Inner(projectile, value);
-        }
-        [CWRJITEnabled]
-        private static void SetBetterLifeBullet2Inner(Projectile projectile, bool value) => projectile.Calamity().betterLifeBullet2 = value;
-
-        public static Vector2 GetCoinTossVelocity(Player player) => Has ? GetCoinTossVelocityInner(player) : Vector2.Zero;
-        [CWRJITEnabled]
-        private static Vector2 GetCoinTossVelocityInner(Player player) => player.GetCoinTossVelocity();
-
-        public static bool GetAlchFlask(this Player player) => Has && GetAlchFlaskInner(player);
-        [CWRJITEnabled]
-        private static bool GetAlchFlaskInner(Player player) => player.Calamity().alchFlask;
-
-        public static bool GetSpiritOrigin(this Player player) => Has && GetSpiritOriginInner(player);
-        [CWRJITEnabled]
-        private static bool GetSpiritOriginInner(Player player) => player.Calamity().spiritOrigin;
-
-        public static void SetProjCGP(int proj) {
-            if (!Has) return;
-            SetProjCGPInner(proj);
-        }
-        [CWRJITEnabled]
-        private static void SetProjCGPInner(int proj) {
-            CalamityGlobalProjectile cgp = Main.projectile[proj].Calamity();
-            cgp.supercritHits = -1;
-            cgp.appliesSomaShred = true;
-        }
-
-        public static void Spawn_Effect_1(Vector2 spawnPos, Vector2 vel) {
-            if (!Has) return;
-            Spawn_Effect_1Inner(spawnPos, vel);
-        }
-        [CWRJITEnabled]
-        private static void Spawn_Effect_1Inner(Vector2 spawnPos, Vector2 vel) {
-            Particle spark2 = new LineParticle(spawnPos, vel, false, Main.rand.Next(15, 25 + 1), Main.rand.NextFloat(1.5f, 2f), Main.rand.NextBool() ? Color.MediumOrchid : Color.DarkViolet);
-            GeneralParticleHandler.SpawnParticle(spark2);
-        }
-
         public static void SetDownedCalamitas(bool value) => SetDownedProp(downedCalamitasProp, value);
-
-        public static void SetDownedBoomerDuke(bool value) => SetDownedProp(downedBoomerDukeProp, value);
-
-        public static bool GetSupCalPermafrost(NPC npc) => Has && GetSupCalPermafrostInner(npc);
-        [CWRJITEnabled]
-        private static bool GetSupCalPermafrostInner(NPC npc) {
-            if (npc.ModNPC is SupremeCalamitas supCal) {
-                return supCal.permafrost;
-            }
-            return false;
-        }
 
         public static SoundStyle GetSound(this string path) {
             if (ModContent.HasAsset(path)) {
@@ -656,15 +574,82 @@ namespace CalamityOverhaul
 
         public static bool GetDownedThanatos() => GetDownedProp(downedThanatosProp);
 
-        public static void SetSupCalPermafrost(NPC npc, bool value) {
-            if (!Has) return;
-            SetSupCalPermafrostInner(npc, value);
+        //将所有灾厄Boss击杀标志批量写入emit回调（key为短键名，value为当前标志值）
+        internal static void BulkCopyCalamityFlags(Action<string, bool> emit) {
+            if (DownedBossSystemType is null) return;
+            emit("ds", GetDownedProp(downedDesertScourgeProp));
+            emit("clam", GetDownedProp(downedCLAMProp));
+            emit("crab", GetDownedProp(downedCrabulonProp));
+            emit("hm", GetDownedProp(downedHiveMindProp));
+            emit("perf", GetDownedProp(downedPerforatorProp));
+            emit("sg", GetDownedProp(downedSlimeGodProp));
+            emit("cryo", GetDownedProp(downedCryogenProp));
+            emit("brim", GetDownedProp(downedBrimstoneElementalProp));
+            emit("aq", GetDownedProp(downedAquaticScourgeProp));
+            emit("crag", GetDownedProp(downedCragmawMireProp));
+            emit("cc", GetDownedProp(downedCalamitasCloneProp));
+            emit("gss", GetDownedProp(downedGSSProp));
+            emit("lev", GetDownedProp(downedLeviathanProp));
+            emit("aa", GetDownedProp(downedAstrumAureusProp));
+            emit("pb", GetDownedProp(downedPlaguebringerProp));
+            emit("rav", GetDownedProp(downedRavagerProp));
+            emit("ade", GetDownedProp(downedAstrumDeusProp));
+            emit("grd", GetDownedProp(downedGuardiansProp));
+            emit("df", GetDownedProp(downedDragonfollyProp));
+            emit("prov", GetDownedProp(downedProvidenceProp));
+            emit("cv", GetDownedProp(downedCeaselessVoidProp));
+            emit("sw", GetDownedProp(downedStormWeaverProp));
+            emit("sig", GetDownedProp(downedSignusProp));
+            emit("pol", GetDownedProp(downedPolterghastProp));
+            emit("maul", GetDownedProp(downedMaulerProp));
+            emit("nuke", GetDownedProp(downedNuclearTerrorProp));
+            emit("bd", GetDownedProp(downedBoomerDukeProp));
+            emit("dog", GetDownedProp(downedDoGProp));
+            emit("yha", GetDownedProp(downedYharonProp));
+            emit("exo", GetDownedProp(downedExoMechsProp));
+            emit("scal", GetDownedProp(downedCalamitasProp));
+            emit("pw", GetDownedProp(downedPrimordialWyrmProp));
+            emit("br", GetDownedProp(downedBossRushProp));
+            emit("than", GetDownedProp(downedThanatosProp));
         }
-        [CWRJITEnabled]
-        private static void SetSupCalPermafrostInner(NPC npc, bool value) {
-            if (npc.ModNPC is SupremeCalamitas supCal) {
-                supCal.permafrost = value;
-            }
+
+        //将快照中值为true的灾厄Boss标志以OR方式写回（只补true，不抹除已有的true）
+        internal static void BulkRestoreCalamityFlagsOr(Func<string, bool> read) {
+            if (DownedBossSystemType is null) return;
+            if (read("ds")) SetDownedProp(downedDesertScourgeProp, true);
+            if (read("clam")) SetDownedProp(downedCLAMProp, true);
+            if (read("crab")) SetDownedProp(downedCrabulonProp, true);
+            if (read("hm")) SetDownedProp(downedHiveMindProp, true);
+            if (read("perf")) SetDownedProp(downedPerforatorProp, true);
+            if (read("sg")) SetDownedProp(downedSlimeGodProp, true);
+            if (read("cryo")) SetDownedProp(downedCryogenProp, true);
+            if (read("brim")) SetDownedProp(downedBrimstoneElementalProp, true);
+            if (read("aq")) SetDownedProp(downedAquaticScourgeProp, true);
+            if (read("crag")) SetDownedProp(downedCragmawMireProp, true);
+            if (read("cc")) SetDownedProp(downedCalamitasCloneProp, true);
+            if (read("gss")) SetDownedProp(downedGSSProp, true);
+            if (read("lev")) SetDownedProp(downedLeviathanProp, true);
+            if (read("aa")) SetDownedProp(downedAstrumAureusProp, true);
+            if (read("pb")) SetDownedProp(downedPlaguebringerProp, true);
+            if (read("rav")) SetDownedProp(downedRavagerProp, true);
+            if (read("ade")) SetDownedProp(downedAstrumDeusProp, true);
+            if (read("grd")) SetDownedProp(downedGuardiansProp, true);
+            if (read("df")) SetDownedProp(downedDragonfollyProp, true);
+            if (read("prov")) SetDownedProp(downedProvidenceProp, true);
+            if (read("cv")) SetDownedProp(downedCeaselessVoidProp, true);
+            if (read("sw")) SetDownedProp(downedStormWeaverProp, true);
+            if (read("sig")) SetDownedProp(downedSignusProp, true);
+            if (read("pol")) SetDownedProp(downedPolterghastProp, true);
+            if (read("maul")) SetDownedProp(downedMaulerProp, true);
+            if (read("nuke")) SetDownedProp(downedNuclearTerrorProp, true);
+            if (read("bd")) SetDownedProp(downedBoomerDukeProp, true);
+            if (read("dog")) SetDownedProp(downedDoGProp, true);
+            if (read("yha")) SetDownedProp(downedYharonProp, true);
+            if (read("exo")) SetDownedProp(downedExoMechsProp, true);
+            if (read("scal")) SetDownedProp(downedCalamitasProp, true);
+            if (read("pw")) SetDownedProp(downedPrimordialWyrmProp, true);
+            if (read("br")) SetDownedProp(downedBossRushProp, true);
+            if (read("than")) SetDownedProp(downedThanatosProp, true);
         }
 
         public static int GetSupCalGiveUpCounter(NPC npc) => Has ? GetSupCalGiveUpCounterInner(npc) : 0;
@@ -697,41 +682,14 @@ namespace CalamityOverhaul
         public static Type GetItem_SHPC_Type() => FindCalamityType("CalamityMod.Items.Weapons.Magic.SHPC");
         public static Type GetNPC_WITCH_Type() => FindCalamityType("CalamityMod.NPCs.TownNPCs.BrimstoneWitch");
         public static Type GetNPC_SupCal_Type() => FindCalamityType("CalamityMod.NPCs.SupremeCalamitas.SupremeCalamitas");
-        public static Type GetTEBaseTurret_Type() => FindCalamityType("CalamityMod.TileEntities.TEBaseTurret");
-
-        /// <summary>
-        /// 设置SHPC的装填魂魄类型
-        /// </summary>
-        public static void SetSHPCStoredSoulType(Item item, int soulType) {
-            if (!Has) return;
-            SetSHPCStoredSoulTypeInner(item, soulType);
-        }
-        [CWRJITEnabled]
-        private static void SetSHPCStoredSoulTypeInner(Item item, int soulType) {
-            if (item.ModItem is SHPC shpc) {
-                shpc.storedSoulType = soulType;
-            }
-        }
-
-        /// <summary>
-        /// 获取SHPC的装填魂魄类型
-        /// </summary>
-        public static int GetSHPCStoredSoulType(Item item) => Has ? GetSHPCStoredSoulTypeInner(item) : ItemID.SoulofLight;
-        [CWRJITEnabled]
-        private static int GetSHPCStoredSoulTypeInner(Item item) {
-            if (item.ModItem is SHPC shpc) {
-                return shpc.storedSoulType;
-            }
-            return ItemID.SoulofLight;
-        }
 
         public static bool GetEarlyHardmodeProgressionReworkBool() => Has && GetEarlyHardmodeProgressionReworkBoolInner();
         [CWRJITEnabled]
         private static bool GetEarlyHardmodeProgressionReworkBoolInner() => CalamityServerConfig.Instance.EarlyHardmodeProgressionRework;
 
-        public static bool GetAfterimages() => Has && GetAfterimagesInner();
+        public static float GetNPCDR(NPC npc) => Has ? GetNPCDRInner(npc) : 0f;
         [CWRJITEnabled]
-        private static bool GetAfterimagesInner() => CalamityClientConfig.Instance.Afterimages;
+        private static float GetNPCDRInner(NPC npc) => npc.Calamity().DR;
 
         public static int GetProjectileDamage(NPC npc, int projType) {
             int num = npc.defDamage / 2;//暂时使用这个，原来的方法在某些情况下会返回1或者0
@@ -761,16 +719,6 @@ namespace CalamityOverhaul
         }
         [CWRJITEnabled]
         private static void SetProjStealthStrikeInner(Projectile projectile, bool value) => projectile.Calamity().stealthStrike = value;
-
-        public static void HorsemansBladeOnHit(Player player, int targetIdx, int damage, float knockback
-            , int extraUpdateAmt = 0, int type = ProjectileID.FlamingJack) {
-            if (!Has) return;
-            HorsemansBladeOnHitInner(player, targetIdx, damage, knockback, extraUpdateAmt, type);
-        }
-        [CWRJITEnabled]
-        private static void HorsemansBladeOnHitInner(Player player, int targetIdx, int damage, float knockback
-            , int extraUpdateAmt, int type)
-            => CalamityPlayer.HorsemansBladeOnHit(player, targetIdx, damage, knockback, extraUpdateAmt, type);
 
         public static bool GetProjStealthStrike(this Projectile projectile) => Has && GetProjStealthStrikeInner(projectile);
         [CWRJITEnabled]
@@ -920,35 +868,6 @@ namespace CalamityOverhaul
         }
         [CWRJITEnabled]
         private static LocalizedText ConstructRecipeConditionInner(int tier, out Func<bool> condition) => ArsenalTierGatedRecipe.ConstructRecipeCondition(tier, out condition);
-
-        public static void DrawStarTrail(Projectile projectile, Color outer, Color inner, float auraHeight = 10f) {
-            if (!Has) return;
-            DrawStarTrailInner(projectile, outer, inner, auraHeight);
-        }
-        [CWRJITEnabled]
-        private static void DrawStarTrailInner(Projectile projectile, Color outer, Color inner, float auraHeight) => CalamityUtils.DrawStarTrail(projectile, outer, inner, auraHeight);
-
-        public static void CosmicFireEffect(Projectile Projectile) {
-            if (!Has) return;
-            CosmicFireEffectInner(Projectile);
-        }
-        [CWRJITEnabled]
-        private static void CosmicFireEffectInner(Projectile Projectile) {
-            StreamGougeMetaball.SpawnParticle(Projectile.Center + VaultUtils.RandVr(13), Projectile.velocity, Main.rand.NextFloat(11.3f, 21.5f));
-        }
-
-        public static Projectile ProjectileRain(IEntitySource source, Vector2 targetPos, float xLimit
-            , float xVariance, float yLimitLower, float yLimitUpper, float projSpeed, int projType, int damage, float knockback, int owner)
-            => Has ? ProjectileRainInner(source, targetPos, xLimit, xVariance, yLimitLower, yLimitUpper, projSpeed, projType, damage, knockback, owner) : null;
-        [CWRJITEnabled]
-        private static Projectile ProjectileRainInner(IEntitySource source, Vector2 targetPos, float xLimit
-            , float xVariance, float yLimitLower, float yLimitUpper, float projSpeed, int projType, int damage, float knockback, int owner)
-            => CalamityUtils.ProjectileRain(source, targetPos, xLimit, xVariance, yLimitLower
-                , yLimitUpper, projSpeed, projType, damage, knockback, owner);
-
-        public static List<Vector2> BezierCurveGetPoints(int count, params Vector2[] pos) => Has ? BezierCurveGetPointsInner(count, pos) : new List<Vector2>();
-        [CWRJITEnabled]
-        private static List<Vector2> BezierCurveGetPointsInner(int count, Vector2[] pos) => new BezierCurve(pos).GetPoints(count);
 
         #region 炼铸系统包装器
         /// <summary>
@@ -1156,15 +1075,6 @@ namespace CalamityOverhaul
                 CWRUtils.LogFailedLoad("BossHealthBarManager_Draw_Method", "CalamityMod.BossHealthBarManager");
             }
 
-            calamityUtils_GetReworkedReforge_Method = typeof(CalamityUtils)
-                .GetMethod("GetReworkedReforge", BindingFlags.Static | BindingFlags.NonPublic);
-            if (calamityUtils_GetReworkedReforge_Method != null) {
-                VaultHook.Add(calamityUtils_GetReworkedReforge_Method, OnGetReworkedReforgeHook);
-            }
-            else {
-                CWRUtils.LogFailedLoad("calamityUtils_GetReworkedReforge_Method", "CalamityUtils.GetReworkedReforge");
-            }
-
             MethodInfo methodInfo = typeof(CalamityUtils).GetMethod("BroadcastLocalizedText", BindingFlags.Static | BindingFlags.Public);
             if (methodInfo != null) {
                 VaultHook.Add(methodInfo, OnDisplayLocalizedTextHook);
@@ -1199,14 +1109,6 @@ namespace CalamityOverhaul
                 ui.Draw(spriteBatch, x, y);
                 y -= BossHealthBarManager.BossHPUI.VerticalOffsetPerBar;
             }
-        }
-
-        [CWRJITEnabled]
-        internal static int OnGetReworkedReforgeHook(On_GetReworkedReforge_Dalegate orig
-            , Item item, UnifiedRandom rand, int currentPrefix) {
-            int reset = orig.Invoke(item, rand, currentPrefix);
-            reset = OnCalamityReforgeEvent.HandleCalamityReforgeModificationDueToMissingItemLoader(item, rand, currentPrefix);
-            return reset;
         }
 
         [CWRJITEnabled]

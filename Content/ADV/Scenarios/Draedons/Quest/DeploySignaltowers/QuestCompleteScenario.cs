@@ -3,7 +3,6 @@ using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
 using CalamityOverhaul.Content.ADV.Scenarios.Draedons.PQCDs;
 using CalamityOverhaul.Content.ADV.Scenarios.Draedons.Tzeentch;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using System;
 using Terraria;
 using Terraria.Localization;
@@ -64,8 +63,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
             DraedonEffect.Send();
 
             //标记任务完成保存
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.DeploySignaltowerQuestCompleted = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<DraedonADVData>().DeploySignaltowerQuestCompleted = true;
             }
             DSTPlayer.HasDeploySignaltowerQuestByWorld = false;
             //开启与变节者的后续对话

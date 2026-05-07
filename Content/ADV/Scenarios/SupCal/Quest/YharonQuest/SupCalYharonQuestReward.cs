@@ -1,12 +1,11 @@
-﻿using CalamityOverhaul.Content.ADV.ADVQuestTracker;
-using CalamityOverhaul.Content.ADV.ADVRewardPopups;
+﻿using CalamityOverhaul.Content.ADV.ADVRewardPopups;
 using CalamityOverhaul.Content.ADV.Common;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
+using CalamityOverhaul.Content.ADV.Scenarios.Helen.Gifts;
 using CalamityOverhaul.Content.Items.Accessories;
 using CalamityOverhaul.Content.Items.Melee;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
-using InnoVault.UIHandles;
 using System;
 using Terraria;
 using Terraria.Localization;
@@ -121,17 +120,18 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.YharonQuest
             }
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (!save.SupCalYharonQuestReward) {
+        public override void Update(ADVSave save, Player player) {
+            if (!save.Get<SupCalADVData>().SupCalYharonQuestReward) {
                 return;
             }
 
-            if (save.SupCalYharonQuestRewardSceneComplete) {
+            if (save.Get<SupCalADVData>().SupCalYharonQuestRewardSceneComplete) {
                 return;
             }
 
             //如果玩家拿着大比目鱼，则必须先获得过比目鱼小姐给的礼物才能触发，避免这两个场景冲突
-            if (halibutPlayer.HeldHalibut && !save.YharonGift) {
+            var halibutPlayer = player.GetOverride<HalibutPlayer>();
+            if (halibutPlayer.HeldHalibut && !save.Get<BossGiftADVData>().YharonGift) {
                 return;
             }
 
@@ -144,7 +144,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.YharonQuest
             }
 
             if (ScenarioManager.Start<SupCalYharonQuestReward>()) {
-                save.SupCalYharonQuestRewardSceneComplete = true;
+                save.Get<SupCalADVData>().SupCalYharonQuestRewardSceneComplete = true;
                 Spawned = false;
             }
         }
@@ -170,17 +170,17 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.YharonQuest
         internal override float RequiredContribution => REQUIRED_CONTRIBUTION;
 
         public override bool IsQuestActive(Player player) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out var save)) {
                 return false;
             }
 
             //检查是否接受了任务
-            if (!halibutPlayer.ADVSave.SupCalYharonQuestAccepted || halibutPlayer.ADVSave.SupCalYharonQuestDeclined) {
+            if (!save.Get<SupCalADVData>().SupCalYharonQuestAccepted || save.Get<SupCalADVData>().SupCalYharonQuestDeclined) {
                 return false;
             }
 
             //检查是否已完成
-            if (halibutPlayer.ADVSave.SupCalYharonQuestReward) {
+            if (save.Get<SupCalADVData>().SupCalYharonQuestReward) {
                 return false;
             }
 
@@ -188,41 +188,16 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.SupCal.Quest.YharonQuest
         }
 
         public override void OnQuestCompleted(Player player, float contribution) {
-            if (!player.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!player.TryGetADVSave(out var save)) {
                 return;
             }
 
             //标记任务完成
-            halibutPlayer.ADVSave.SupCalYharonQuestReward = true;
+            save.Get<SupCalADVData>().SupCalYharonQuestReward = true;
 
             //延迟触发奖励场景
             SupCalYharonQuestReward.Spawned = true;
             SupCalYharonQuestReward.RandomTimer = 60 * Main.rand.Next(3, 5);
-        }
-    }
-
-    /// <summary>
-    /// 鬼面刀任务追踪UI，显示伤害贡献度
-    /// </summary>
-    internal class YharonQuestTrackerUI : BaseQuestTrackerUI
-    {
-        public override string LocalizationCategory => "UI";
-        public static YharonQuestTrackerUI Instance => UIHandleLoader.GetUIHandleOfType<YharonQuestTrackerUI>();
-
-        public override int TargetNPCType => CWRID.NPC_Yharon;
-
-        protected override void SetupLocalizedTexts() {
-            QuestTitle = this.GetLocalization(nameof(QuestTitle), () => "委托：猎杀焚世龙");
-            DamageContribution = this.GetLocalization(nameof(DamageContribution), () => "鬼面刀伤害");
-            RequiredContribution = this.GetLocalization(nameof(RequiredContribution), () => "需求: 75%");
-        }
-
-        protected override (float current, float total, bool isActive) GetTrackingData() {
-            return BaseDamageTracker.GetDamageTrackingData();
-        }
-
-        protected override float GetRequiredContribution() {
-            return YharonQuestTracker.REQUIRED_CONTRIBUTION; //75%
         }
     }
 }

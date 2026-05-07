@@ -1,0 +1,53 @@
+﻿using CalamityOverhaul.Content.HackTimes.Scannables;
+using CalamityOverhaul.Content.PRTTypes;
+using InnoVault.PRT;
+using System;
+using Terraria;
+
+namespace CalamityOverhaul.Content.HackTimes.Protocols
+{
+    /// <summary>
+    /// 突触焚毁：对目标神经系统造成持续热伤害
+    /// </summary>
+    internal class SynapseBurn : QuickHackDef
+    {
+        public override void SetDefaults() {
+            UploadTime = 90;
+            RamCost = 3;
+            Category = QuickHackCategory.Lethal;
+        }
+
+        public override int GetDuration() => 60 * 5; //5秒持续
+
+        public override bool OnApply(IHackTarget target, Player caster) {
+            if (target is not NpcScannable s) return false;
+            NPC npc = Main.npc[s.NpcIndex];
+            //初始神经脉冲爆发
+            for (int i = 0; i < 8; i++) {
+                Vector2 vel = Main.rand.NextVector2CircularEdge(4f, 4f);
+                PRTLoader.AddParticle(new PRT_Spark(npc.Center, vel, false, 25, 1.2f,
+                    new Color(255, 120, 20)));
+            }
+            return true;
+        }
+
+        public override bool OnTick(IHackTarget target, int elapsed) {
+            if (target is not NpcScannable s) return true;
+            NPC npc = Main.npc[s.NpcIndex];
+            //每15帧造成一次伤害，保底5点加0.1%最大血量（5秒共20次）
+            if (elapsed % 15 == 0) {
+                int dmg = Math.Max(5, (int)(npc.lifeMax * 0.001f));
+                npc.SimpleStrikeNPC(dmg, 0, false, 0f, null, false, 0f, true);
+            }
+            //持续焚烧粒子
+            if (elapsed % 3 == 0) {
+                Vector2 pos = npc.Center + Main.rand.NextVector2Circular(
+                    npc.width * 0.3f, npc.height * 0.3f);
+                Vector2 vel = new(Main.rand.NextFloat(-1f, 1f), Main.rand.NextFloat(-2f, -0.5f));
+                Color c = Color.Lerp(new Color(255, 80, 0), new Color(255, 200, 50), Main.rand.NextFloat());
+                PRTLoader.AddParticle(new PRT_Spark(pos, vel, false, 20, 0.8f, c));
+            }
+            return true;
+        }
+    }
+}

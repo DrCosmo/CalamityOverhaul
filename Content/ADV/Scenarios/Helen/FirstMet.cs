@@ -1,7 +1,6 @@
 ﻿using CalamityOverhaul.Content.ADV.ADVRewardPopups;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
-using CalamityOverhaul.Content.ADV.Scenarios.SupCal.End.EternalBlazingNows;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using CalamityOverhaul.Content.LegendWeapon.HalibutLegend.UI;
 using System;
@@ -110,26 +109,19 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen
             });
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {//第一次手持大比目鱼时触发对话
-            if (!halibutPlayer.HeldHalibut) {
-                return;
-            }
+        protected override ScenarioPolicy ConfigurePolicy() => new() {
+            IsCompleted = save => save.Get<HalibutADVData>().FirstMet,
+            MarkCompleted = save => save.Get<HalibutADVData>().FirstMet = true,
+            CanTrigger = (save, player) => player.GetOverride<HalibutPlayer>().HeldHalibut,
+            BlockedBy = ScenarioBlockers.Boss
+                      | ScenarioBlockers.ActiveScenario
+                      | ScenarioBlockers.Cutscene,
+        };
 
-            if (save.FirstMet) {
-                return;
-            }
-
-            if (EbnEffect.IsActive) {
-                return;//避免在不合适的时候触发
-            }
-
-            //避免在不合适的时候触发
-            if (CWRWorld.HasBoss) {
-                return;
-            }
-
-            if (ScenarioManager.Start<FirstMet>()) {
-                save.FirstMet = true;
+        protected override void OnScenarioComplete() {
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<HalibutADVData>().FirstMet = true;
+                save.Get<HalibutADVData>().PostFirstMetIsComplete = true;
             }
         }
 

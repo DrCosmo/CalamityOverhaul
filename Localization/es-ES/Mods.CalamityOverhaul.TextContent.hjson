@@ -1,4 +1,4 @@
-﻿CWRLocText: {
+CWRLocText: {
 	// TemperatureText: Combustion Temperature
 	// EnergyShortage: Energy Shortage
 	// ChargingStation_Text1: Put in charge items
@@ -14,7 +14,6 @@
 	// KreloadTimeAddText: "Ammunition reloading time increased "
 	// KreloadTimeLessenText: "Ammunition reloading time is reduced "
 	DeathModeItem: Death Mode Item
-	// DropInMachineRebellion: Dropped by the Mech Trio EX
 	DontUseMagicConch: You're being watched by a powerful creature...
 	OnlyZenith: Solo en el mundo de Zenith
 	Event_TungstenRiot_Name: Revuelta de tungsteno
@@ -29,115 +28,6 @@
 	Drop_GlodDragonDrop_RuleText: Caído tras la segunda derrota del dragón de la jungla
 	Murasama_Text_Lang_0: Prueba:
 	Murasama_Text_Lang_End: Completada
-	Murasama_TextDictionary_Content_0:
-		'''
-		Recluta, demuéstrame tu valía.
-		Ese pegajoso gordo azul, los restos de la sirena del desierto, 
-		el cangrejo zombi en la cueva de setas.
-		Elimina a uno de ellos, este es tu primer paso.
-		'''
-	Murasama_TextDictionary_Content_1:
-		'''
-		Con la luna llena, vamos a explotar esa gran esfera ocular que vuela por los aires, 
-		¡deja al dios falso completamente ciego!
-		La arena tiembla, veamos qué hay abajo, y luego acaba con esa gran ostra.
-		'''
-	Murasama_TextDictionary_Content_2:
-		'''
-		El cuerpo del dios falso mancha la tierra sagrada de Terra, 
-		herejías brotan en el fin del mundo, aberraciones recorren el continente.
-		¡Libera el continente corrompido! ¡Corta ese cerebro del dios falso y aplasta ese gusano morado!
-		Quiero ver tu cuchillo danzar en el aire, ¡por la sagrada Terra!
-		'''
-	Murasama_TextDictionary_Content_3:
-		'''
-		La tierra corrompida sigue temblando como un corazón, los parásitos de carne aún están activos, 
-		los tumores corrompidos todavía piensan, ¡expúlsalos completamente!
-		La maldición en la puerta de la mazmorras se ha aflojado, 
-		siento la energía psíquica agitarse en las profundidades, mezclada con gritos, lamentos y susurros.
-		'''
-	Murasama_TextDictionary_Content_4:
-		'''
-		Se cuenta una leyenda en el reino de los slimes, tienen un dios extraño caído, 
-		y ahora está debilitado, es la oportunidad perfecta para expulsarlo al subespacio.
-		'''
-	Murasama_TextDictionary_Content_5:
-		'''
-		En la prisión de la barrera de hielo, hay un poderoso psíquico encerrado, 
-		libéralo, él será de gran ayuda para recuperar Terra.
-		El hijo del mar de azufre bloquea nuestra búsqueda de los tesoros del abismo, termina con su devoración y deambular.
-		Extraño las llamas de la forja en los acantilados de azufre, ve a conocer al guardián allí.
-		'''
-	Murasama_TextDictionary_Content_6:
-		'''
-		Esa bruja que se sumergió en el caos, tiene una hermana clon distorsionada, 
-		mata a esa aberración, ofrenda sangre y fuego a la hoja.
-		Cantos encantadores llegan desde la orilla, son los parientes de la sirena, 
-		¡cortemos la cabeza de la sirena y establezcamos un logro en el mar!
-		Los estúpidos lagartos solo adoran estas piedras obstinadas, 
-		dejemos que se conviertan en polvo y destruyamos su fe, ¡nosotros somos a quienes deben adorar!
-		'''
-	Murasama_TextDictionary_Content_7:
-		'''
-		Cuerpos entrelazados de carne, almas vengativas de antiguos campos de batalla, 
-		un golem de destrucción incesante, destruye todo, y nosotros lo destruimos a él.
-		En la jungla, un antiguo fracaso de alguien aún deambula, como un fracaso, debe ser como un montón de chatarra.
-		El antiguo dragón estelar ha caído, lo que queda es apenas un gusano, terminemos con la era de los dragones estelares.
-		'''
-	Murasama_TextDictionary_Content_8:
-		'''
-		Esa torpe imitación de la herejía del culto mecánico, 
-		estúpidos clones, deambulan por la jungla, elimínalos.
-		En el subsuelo ha surgido otro sol, 
-		parece que quiere llevar esta llama sagrada a la superficie a través de la tierra sagrada,
-		¡expulsa a sus apóstoles, Terra solo permite una fe de llama!
-		'''
-	Murasama_TextDictionary_Content_9:
-		'''
-		Ese dios desgraciado que sobrevive chupando la energía térmica de las estrellas, 
-		su fuego hereje necesita ser extinguido por completo.
-		Un insecto tormentoso que se alimenta de dragones voladores en los bordes del cielo, 
-		tiene un buen caparazón de armadura.
-		Quizás sea una buena forma de obtener materia oscura 
-		en las fisuras dimensionales selladas de las mazmorras.
-		Un apóstol hereje del subespacio, lleva una rara distorsión del vacío, 
-		¡es una buena oportunidad para entender la esencia del subespacio!
-		'''
-	Murasama_TextDictionary_Content_10:
-		'''
-		Esa arrogante serpiente cósmica se mueve tras el telón del mundo, 
-		¡termina con su ambición!
-		La criatura más antigua que acecha en el mar de azufre despierta con la tormenta de energía psíquica, 
-		¡que se convierta en parte de nuestra gloria!
-		'''
-	Murasama_TextDictionary_Content_11:
-		'''
-		El dragón de la jungla, el último descendiente de los dragones de oro de Terra, 
-		es muy diferente a otras aberraciones, merece nuestro respeto.
-		Sin embargo, ahora debemos hacer que muera de nuevo, despojándolo de su esencia de oro.
-		Estos materiales se utilizarán para forjar una armadura de calidad incomparable.
-		'''
-	Murasama_TextDictionary_Content_12:
-		'''
-		Esa herejía del culto mecánico, cree que sus titanes de flujo estelar son superiores al poder de los dioses.
-		Esta creencia es absurda, ¡devuelvamos esos titanes a su estado natural — un montón de chatarra!
-		La bruja que solía tener un gran talento psíquico, 
-		debería haber sido un gran apoyo para proteger la sagrada Terra, pero se ha perdido en el caos.
-		Por lo tanto, solo podemos expulsarla, apuñalando su pecho, 
-		dejando que el fuego de la lealtad consuma su alma en descomposición.
-		Esta guerra será registrada en la historia de Terra, y nuestro viaje comenzará aquí, recorriendo la galaxia.
-		'''
-	Murasama_TextDictionary_Content_13:
-		'''
-		Nuestra senda de conquista es ya imparable, rompe la armadura del dragón de las sombras, busca el objeto del fin.
-		¡Luchemos a fondo con esas aberraciones! ¡Luchar, esa es la batalla necesaria! ¡Luchar, esa es la batalla correcta!
-		'''
-	Murasama_TextDictionary_Content_14:
-		'''
-		¡Buen trabajo, recluta, las aberraciones de este mundo han sido barridas por nosotros!
-		Nuestro viaje ha alcanzado la cima, ni siquiera el tirano que una vez dominó Terra se compara con nosotros.
-		Ahora, extiende tus brazos y abraza este mundo que la victoria te ha traído.
-		'''
 	Murasama_No_legend_Content_1: La funda de la espada se desbloqueará tras la caída del dragón
 	Murasama_No_legend_Content_2: Recluta, reconozco tu habilidad, ahora, vamos a destrozar a esos aberrantes
 	Murasama_No_legend_Content_3: "[c/fff08c:Se vuelve más fuerte a medida que avanza el viaje]"
@@ -146,99 +36,12 @@
 	SHPC_No_legend_Content_2: ¡Listo para atacar!
 	SHPC_No_legend_Content_3: "[c/fff08c:Se vuelve más fuerte a medida que avanza el viaje]"
 	SHPC_No_legend_Content_4: "[c/00707d:El brillo legendario se ha apagado...]"
-	SHPC_TextDictionary_Content_0:
-		'''
-		Amigo, la tarea de restaurar la civilización
-		finalmente ha caído en nuestras manos. Es una empresa gloriosa...
-		Nuestro primer objetivo es un enorme polímero de gel azul.
-		Hazlo estallar desde adentro.
-		'''
-	SHPC_TextDictionary_Content_1:
-		'''
-		Necesitamos eliminar a ese ojo gigante; proviene de un organismo poderoso.
-		Necesito diseccionarlo para ver cómo logra la antigravedad.
-		'''
-	SHPC_TextDictionary_Content_2:
-		'''
-		Ya sea el gusano gigante en la corrupción
-		o el cerebro dominando la carne carmesí, son excelentes muestras bioquímicas.
-		Extrae sus núcleos; quiero estudiar esta aterradora invasividad ecológica.
-		'''
-	SHPC_TextDictionary_Content_3:
-		'''
-		¿El gel realmente ha derivado en un dios?
-		Siento que es solo una sucia agregación de demasiadas impurezas.
-		Vamos a someterlo a una separación de purificación completa
-		para ver qué queda de este supuesto dios.
-		'''
-	SHPC_TextDictionary_Content_4:
-		'''
-		Un muro de carne que cruza el Inframundo; es un sello de la antigua era.
-		Necesitamos suficiente potencia de fuego para perforar esta barrera orgánica.
-		Este será nuestro acto de apertura para la nueva era.
-		'''
-	SHPC_TextDictionary_Content_5:
-		'''
-		En las profundidades de la Selva, han florecido unos extraños bulbos.
-		Necesitamos investigar y recolectar datos experimentales.
-		El clon de esa bruja también deambula por ahí.
-		Aunque es solo una torpe imitación de nigromancia,
-		es suficiente para probar el rendimiento de nuestras armas.
-		Destruye esa falsificación.
-		'''
-	SHPC_TextDictionary_Content_6:
-		'''
-		El antiguo robot en lo profundo del Templo espera una recarga para activarse.
-		Hagámosle una visita y, de paso,
-		hagamos ingeniería inversa a esa tecnología antigua.
-		'''
-	SHPC_TextDictionary_Content_7:
-		'''
-		Esos fanáticos en la entrada de la Mazmorra celebran un antiguo ritual,
-		intentando bloquear información del exterior.
-		Interrúmpelos. Sus hechizos supersticiosos no detendrán nuestra tecnología.
-		Necesito esas coordenadas estelares ocultas.
-		'''
-	SHPC_TextDictionary_Content_8:
-		'''
-		Los secretos del lado oscuro de la luna nos serán revelados.
-		El mundo volverá a su estado original.
-		'''
-	SHPC_TextDictionary_Content_9:
-		'''
-		El dios parásito en el núcleo del planeta nos ha notado.
-		Ve al Inframundo; necesito conocimientos sobre el uso de energía térmica.
-		Los espíritus de la Mazmorra se han reunido en un simbionte masivo.
-		Esto es demasiado interesante, debemos ir a verlo ahora mismo.
-		'''
-	SHPC_TextDictionary_Content_10:
-		'''
-		Se confirma que no es vida basada en carbono.
-		Puede rasgar la membrana espacial solo con su cuerpo.
-		Devora dioses, pero no somos dioses;
-		imagino que tal vez nos invite a tomar el té.
-		'''
-	SHPC_TextDictionary_Content_11:
-		'''
-		El último Sangre de Dragón del mundo. ¡Guau, esto es genial!
-		Llévame a verlo, quiero obtener sus plumas.
-		'''
-	SHPC_TextDictionary_Content_12:
-		'''
-		Es hora de visitar a mi creador.
-		O a esa bruja; su existencia me perturba.
-		'''
-	SHPC_TextDictionary_Content_13:
-		'''
-		¡Una gran contienda! Enemigos que una vez derrotamos se han unido,
-		preparándose para lanzar un asalto total contra nosotros.
-		Prepárate, necesitamos una victoria perfecta.
-		'''
-	SHPC_TextDictionary_Content_14: Protocolo HMOI-0001 Desbloqueado
+	SHPC_TextDictionary_Content_16: Protocolo HMOI-0001 Desbloqueado
 	Halibut_No_legend_Content_1: Desbloquear después de la caída del dragón
 	Halibut_No_legend_Content_2: Hermano, he estado aquí todo el tiempo
 	Halibut_No_legend_Content_3: "[c/fff08c:Me vuelvo más fuerte a medida que avanza el viaje]"
 	Halibut_No_legend_Content_4: "[c/00707d:El brillo de la leyenda se ha apagado...]"
+	// Legend_QuestManager_Hint: Press [{KEY}] to open the quest list
 	Halibut_TextDictionary_Content_0: Amigo, vamos a desafiar a esa enorme criatura terrestre pegajosa
 	Halibut_TextDictionary_Content_1: Hay un gran ojo mirándonos, eso es muy grosero, necesitamos enseñarle una lección
 	Halibut_TextDictionary_Content_2: En los lugares llenos de vida no solo hay abismos, también hay junglas, amigo, necesitamos visitar a la reina de las abejas
@@ -333,13 +136,6 @@
 	OverhaulTheBibleUI_Text3: Mago Vigilante
 	OverhaulTheBibleUI_Text4: Invocador Vigilante
 	OverhaulTheBibleUI_Text5: Ladrón Vigilante
-	CartridgeHolderUI_Text1: Contenido del cargador
-	CartridgeHolderUI_Text2: Restante
-	CartridgeHolderUI_Text3: Vacío
-	CartridgeHolderUI_Text4: Hacer clic derecho para vaciar
-	CartridgeHolderUI_Text5: Left click to fill all, right click to fill one
-	CartridgeHolderUI_Text6: The Weapon Cannot Use This Ammo!
-	CartridgeHolderUI_Text7: The Magazine Is Full!
 	// ArrowHolderUI_Text0: Left Click On The Marked Arrow
 	// ArrowHolderUI_Text1: Right Click Untag
 	SupertableUI_Text4: Cerrar la supervisión de colocación
@@ -378,6 +174,7 @@
 	IconUI_Text7: Ver registro
 	IconUI_Text8: Mod Wiki
 	// IconUI_Text9: Musician
+	// IconUI_ExtraText: Extra
 	SPU_Text0: En proceso
 	SPU_Text1: Realizando síntesis final
 	SPU_Text2: Obtenido por síntesis:
@@ -401,21 +198,7 @@
 		'''
 	Config_1: Usuario
 	Config_2: Se ha modificado la configuración del servidor
-	CWRGun_KL_Text: Presiona la tecla [KL] para recargar
-	CWRGun_Scope_Text: Presiona [Scope] para mirar a través del visor
-	CWRGun_Recoil_Text: "[Retroceso]"
-	CWRGun_MustCA_Text: Disparar siempre consume munición
-	CWRGun_Recoil_Level_0: Ninguno
-	CWRGun_Recoil_Level_1: Débil
-	CWRGun_Recoil_Level_2: Moderadamente débil
-	CWRGun_Recoil_Level_3: Normal
-	CWRGun_Recoil_Level_4: Fuerte
-	CWRGun_Recoil_Level_5: Loco
-	CWRGun_Recoil_Level_6: Ridículo
 	// SkeletronPrime_Text: Don't try to kill me with this stupid thing! Die, organism!
-	// MachineRebellion_SpawnInfo: Use the Garden remote control at night
-	// MachineRebellion_DespawnMessage: Use the Garden remote control at night
-	// MachineRebellion_DisplayName: Machine Rebellion
 	// Notbound: "[Unbound keys]"
 	/* DisableMotionInterpolationMessage:
 		'''

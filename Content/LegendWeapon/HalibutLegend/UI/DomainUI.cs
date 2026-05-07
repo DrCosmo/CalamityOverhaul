@@ -188,7 +188,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend.UI
         ///<summary>
         ///是否应该显示面板
         ///</summary>
-        public static bool ShouldShow => HalibutUIPanel.Instance.Sengs >= 1f;
+        public static bool ShouldShow => HalibutUIPanel.Instance.OpenProgress >= 1f;
 
         /// <summary>
         /// 逻辑更新，用于处理不应受帧率影响的动画和状态更新
@@ -1046,11 +1046,11 @@ namespace CalamityOverhaul.Content.LegendWeapon.HalibutLegend.UI
                 var lt = EyeLayerDescriptions[layer];
                 if (lt != null) {
                     string value = lt.Value;
-                    value = value.Replace("[Halibut_Domain]", CWRKeySystem.Halibut_Domain.ToTooltipString(CWRLocText.Instance.Notbound.Value));
-                    value = value.Replace("[Halibut_Restart]", CWRKeySystem.Halibut_Restart.ToTooltipString(CWRLocText.Instance.Notbound.Value));
+                    value = value.Replace("[Halibut_Domain]", CWRKeySystem.Legend_Domain.ToTooltipString(CWRLocText.Instance.Notbound.Value));
+                    value = value.Replace("[Halibut_Restart]", CWRKeySystem.Legend_Restart.ToTooltipString(CWRLocText.Instance.Notbound.Value));
                     value = value.Replace("[Halibut_Clone]", CWRKeySystem.Halibut_Clone.ToTooltipString(CWRLocText.Instance.Notbound.Value));
                     value = value.Replace("[Halibut_Superposition]", CWRKeySystem.Halibut_Superposition.ToTooltipString(CWRLocText.Instance.Notbound.Value));
-                    value = value.Replace("[Halibut_Teleport]", CWRKeySystem.Halibut_Teleport.ToTooltipString(CWRLocText.Instance.Notbound.Value));
+                    value = value.Replace("[Halibut_Teleport]", CWRKeySystem.Legend_Teleport.ToTooltipString(CWRLocText.Instance.Notbound.Value));
                     value = value.Replace("[Line]", "______________");
                     return value;
                 }

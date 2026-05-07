@@ -51,11 +51,11 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
         private bool hasPlayedModeSound;
 
         //难度调整参数
-        private int LaserStormFireRate => Context.IsMachineRebellion ? 3 : (Context.IsDeathMode ? 4 : 5);
-        private int LaserStormDuration => Context.IsMachineRebellion ? 120 : (Context.IsDeathMode ? 100 : 80);
-        private float LaserSpeed => Context.IsMachineRebellion ? 18f : (Context.IsDeathMode ? 16f : 14f);
-        private int CrossBeamCount => Context.IsMachineRebellion ? 8 : (Context.IsDeathMode ? 6 : 5);
-        private int MatrixPointCount => Context.IsMachineRebellion ? 8 : (Context.IsDeathMode ? 6 : 5);
+        private int LaserStormFireRate => Context.IsDeathMode ? 6 : 8;
+        private int LaserStormDuration => Context.IsDeathMode ? 90 : 75;
+        private float LaserSpeed => Context.IsDeathMode ? 16f : 14f;
+        private int CrossBeamCount => Context.IsDeathMode ? 5 : 4;
+        private int MatrixPointCount => Context.IsDeathMode ? 5 : 4;
 
         public override void OnEnter(TwinsStateContext context) {
             base.OnEnter(context);
@@ -170,7 +170,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
                         npc.Center,
                         shootDir * LaserSpeed,
                         ProjectileID.DeathLaser,
-                        30,
+                        22,
                         0f,
                         Main.myPlayer
                     );
@@ -182,7 +182,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
                             npc.Center,
                             toPlayer * (LaserSpeed * 0.8f),
                             ModContent.ProjectileType<DeadLaser>(),
-                            45,
+                            34,
                             0f,
                             Main.myPlayer
                         );
@@ -274,7 +274,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
                             npc.Center,
                             beamDir * LaserSpeed,
                             ModContent.ProjectileType<DeadLaser>(),
-                            40,
+                            32,
                             0f,
                             Main.myPlayer
                         );
@@ -311,7 +311,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
         /// 追踪激光模式 - 持续追踪玩家发射激光
         /// </summary>
         private void ExecuteHomingLaser(NPC npc, Player player) {
-            int homingDuration = Context.IsMachineRebellion ? 150 : (Context.IsDeathMode ? 120 : 100);
+            int homingDuration = Context.IsDeathMode ? 120 : 100;
 
             if (!hasPlayedModeSound) {
                 hasPlayedModeSound = true;
@@ -329,7 +329,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
             FaceTarget(npc, player.Center);
 
             //持续发射激光
-            int fireRate = Context.IsMachineRebellion ? 8 : (Context.IsDeathMode ? 10 : 12);
+            int fireRate = Context.IsDeathMode ? 13 : 15;
             if (modeTimer % fireRate == 0) {
                 if (!VaultUtils.isClient) {
                     Vector2 toPlayer = GetDirectionToTarget(Context);
@@ -339,7 +339,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
                         npc.Center,
                         toPlayer * LaserSpeed,
                         ProjectileID.DeathLaser,
-                        28,
+                        22,
                         0f,
                         Main.myPlayer
                     );
@@ -351,14 +351,14 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
             }
 
             //间歇性发射强力激光
-            if (modeTimer % 30 == 0 && !VaultUtils.isClient) {
+            if (modeTimer % 35 == 0 && !VaultUtils.isClient) {
                 Vector2 toPlayer = GetDirectionToTarget(Context);
                 Projectile.NewProjectile(
                     npc.GetSource_FromAI(),
                     npc.Center,
                     toPlayer * (LaserSpeed * 0.8f),
                     ModContent.ProjectileType<DeadLaser>(),
-                    42,
+                    34,
                     0f,
                     Main.myPlayer
                 );
@@ -496,7 +496,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Re
                                 pointPos,
                                 toCenter * (LaserSpeed * speedMult),
                                 j == 0 ? ModContent.ProjectileType<DeadLaser>() : ProjectileID.DeathLaser,
-                                j == 0 ? 40 : 32,
+                                j == 0 ? 32 : 24,
                                 0f,
                                 Main.myPlayer
                             );

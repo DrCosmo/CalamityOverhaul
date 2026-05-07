@@ -4,9 +4,7 @@ using CalamityOverhaul.Content.ADV.DialogueBoxs;
 using CalamityOverhaul.Content.ADV.DialogueBoxs.Styles;
 using CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowers.SignalTower;
 using CalamityOverhaul.Content.ADV.Scenarios.SupCal.End.EternalBlazingNows;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using CalamityOverhaul.OtherMods.SubWorld;
-using InnoVault.UIHandles;
 using System;
 using Terraria;
 using Terraria.Localization;
@@ -90,7 +88,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
             DialogueBoxBase.RegisterPortrait(DraedonName.Value + alt, ADVAsset.DraedonADV, silhouette: false);
 
             if (Main.LocalPlayer.TryGetADVSave(out var save)//获取玩家存档
-                && !save.DeploySignaltowerQuestDeclined//玩家未拒绝过任务
+                && !save.Get<DraedonADVData>().DeploySignaltowerQuestDeclined//玩家未拒绝过任务
                 ) {
                 //构建对话流程
                 Add(DraedonName.Value, IntroLine1.Value);
@@ -122,8 +120,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
             RandTimer = Main.rand.Next(60 * 32, 60 * 40);//大概半分钟到一分钟之间触发
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (save.DeploySignaltowerQuestCompleted) {
+        public override void Update(ADVSave save, Player player) {
+            if (save.Get<DraedonADVData>().DeploySignaltowerQuestCompleted) {
                 return;//任务已完成，不更新
             }
             if (!Spawn) {
@@ -154,8 +152,6 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         private void OnAcceptQuest() {
             //生成目标点位
             SignalTowerTargetManager.GenerateTargetPoints();
-            //重置信号塔追踪UI的Y轴位置
-            UIHandleLoader.GetUIHandleOfType<DeploySignaltowerTrackerUI>().SetDefScreenYValue();
 
             //完成当前场景
             Complete();
@@ -206,8 +202,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         //玩家拒绝任务
         private void OnDeclineQuest() {
             //标记拒绝任务
-            if (Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
-                halibutPlayer.ADVSave.DeploySignaltowerQuestDeclined = true;
+            if (Main.LocalPlayer.TryGetADVSave(out var save)) {
+                save.Get<DraedonADVData>().DeploySignaltowerQuestDeclined = true;
             }
 
             //完成当前场景

@@ -107,7 +107,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes
             if (!target.TryGetADVSave(out var save)) {
                 return false;
             }
-            return save.OldDukeState switch {
+            return save.Get<OldDukeADVData>().OldDukeState switch {
                 OldDukeInteractionState.NotMet => true,
                 OldDukeInteractionState.Met => true,
                 OldDukeInteractionState.DeclinedCooperation => true,
@@ -123,7 +123,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes
             if (!target.TryGetADVSave(out var save)) {
                 return false;
             }
-            return save.OldDukeState == OldDukeInteractionState.AcceptedCooperation;
+            return save.Get<OldDukeADVData>().OldDukeState == OldDukeInteractionState.AcceptedCooperation;
         }
 
         /// <summary>
@@ -258,6 +258,13 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes
                 return RunStorylineAI();
             }
 
+            //玩家选择战斗后，ShouldEnterStoryMode对ChoseToFight返回false，
+            //但开战过渡动画还未结束（RestoreCombatState尚未调用），需要继续驱动状态机
+            //否则RunStorylineAI不再执行，npc.friendly/dontTakeDamage/damage的残留值导致NPC无敌且无碰撞伤害
+            if (State == (float)OldDukeAIState.StartBattle) {
+                return RunStorylineAI();
+            }
+
             //营地重定向必须在ShouldLeaveAfterCooperation之前检查
             //因为AcceptedCooperation是永久状态，如果先检查ShouldLeaveAfterCooperation，
             //营地建成后每次召唤老公爵都会直接进入LeavingDive消失，永远到不了营地重定向
@@ -288,8 +295,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes
             if (!target.TryGetADVSave(out var save)) {
                 return;
             }
-            if (save.OldDukeState == OldDukeInteractionState.NotMet) {
-                save.OldDukeState = OldDukeInteractionState.Met;
+            if (save.Get<OldDukeADVData>().OldDukeState == OldDukeInteractionState.NotMet) {
+                save.Get<OldDukeADVData>().OldDukeState = OldDukeInteractionState.Met;
             }
         }
 
@@ -414,7 +421,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Abysses.OldDukes
             //状态通过ai[]数组自动同步到其他客户端和服务端
             bool isLocalTarget = !VaultUtils.isServer && npc.target == Main.myPlayer;
             if (isLocalTarget && !ScenarioManager.IsActive() && Timer > 60 && target.TryGetADVSave(out var save)) {
-                OldDukeInteractionState choice = save.OldDukeState;
+                OldDukeInteractionState choice = save.Get<OldDukeADVData>().OldDukeState;
                 switch (choice) {
                     case OldDukeInteractionState.AcceptedCooperation:
                     case OldDukeInteractionState.DeclinedCooperation:

@@ -1,6 +1,6 @@
 ﻿using CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.MurasamaProj;
 using CalamityOverhaul.Content.LegendWeapon.MurasamaLegend.UI;
-using CalamityOverhaul.Content.RemakeItems;
+using InnoVault.GameSystem;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -16,7 +16,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend
     /// <summary>
     /// 妖刀
     /// </summary>
-    internal class MurasamaOverride : CWRItemOverride
+    internal class MurasamaOverride : ItemOverride
     {
         #region Data
         /// <summary>
@@ -51,7 +51,7 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend
         public static Asset<Texture2D> MuraItemAsset { get; private set; }
         private static readonly string[] SamNameList = ["激流山姆", "山姆", "Samuel Rodrigues", "Jetstream Sam", "Sam"];
         private static readonly string[] VergilNameList = ["维吉尔", "Vergil"];
-        public static int ID => GetCalItemID("Murasama");
+        public static int ID => CWRID.Item_Murasama;
         public override int TargetID => ID;
         #endregion
         /// <summary>
@@ -85,22 +85,22 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend
         /// <summary>
         /// 是否解锁升龙斩
         /// </summary>
-        public static bool UnlockSkill1(Item item) => GetLevel(item) >= 2;
+        public static bool UnlockSkill1(Item item) => GetLevel(item) >= 3;
         /// <summary>
         /// 是否解锁下砸
         /// </summary>
-        public static bool UnlockSkill2(Item item) => GetLevel(item) >= 5;
+        public static bool UnlockSkill2(Item item) => GetLevel(item) >= 8;
         /// <summary>
         /// 是否解锁终结技
         /// </summary>
-        public static bool UnlockSkill3(Item item) => GetLevel(item) >= 9;
+        public static bool UnlockSkill3(Item item) => GetLevel(item) >= 21;
         /// <summary>
         /// 获得成长等级
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
         public static int GetLevel(Item item) {
-            if (item.type != GetCalItemID("Murasama")) {
+            if (item.type != CWRID.Item_Murasama) {
                 return 0;
             }
             CWRItem cwrItem = item.CWR();
@@ -117,89 +117,159 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend
         public static bool NameIsVergil(Player player) => VergilNameList.Contains(player.name);
         public static void LoadWeaponData() {
             DamageDictionary = new Dictionary<int, int>(){
-                {0, 10 },
-                {1, 16 },
-                {2, 22 },
-                {3, 30 },
-                {4, 40 },
-                {5, 90 },
-                {6, 120 },
-                {7, 145 },
-                {8, 210 },
-                {9, 390 },
-                {10, 540 },
-                {11, 1350 },
-                {12, 1900 },
-                {13, 3001 },
-                {14, 6002 }
+                {0, 12 },
+                {1, 14 },
+                {2, 16 },
+                {3, 22 },
+                {4, 28 },
+                {5, 37 },
+                {6, 44 },
+                {7, 51 },
+                {8, 85 },//进入hardmode
+                {9, 88 },
+                {10, 91 },
+                {11, 95 },
+                {12, 98 },
+                {13, 100 },
+                {14, 105 },
+                {15, 115 },
+                {16, 125 },
+                {17, 135 },
+                {18, 140 },
+                {19, 145 },
+                {20, 150 },
+                {21, 210 },   //月球领主后
+                {22, 460 },
+                {23, 540 },
+                {24, 1350 },
+                {25, 1900 },
+                {26, 2250 },
+                {27, 3001 },
+                {28, 6002 }
             };
             BladeVolumeRatioDictionary = new Dictionary<int, float>(){
                 {0, 0.6f },
-                {1, 0.65f },
-                {2, 0.7f },
-                {3, 0.75f },
-                {4, 0.8f },
-                {5, 0.85f },
-                {6, 0.95f },
-                {7, 1f },
-                {8, 1.1f },
-                {9, 1.2f },
-                {10, 1.3f },
-                {11, 1.35f },
-                {12, 1.4f },
-                {13, 1.45f },
-                {14, 1.5f }
+                {1, 0.62f },
+                {2, 0.64f },
+                {3, 0.66f },
+                {4, 0.68f },
+                {5, 0.70f },
+                {6, 0.72f },
+                {7, 0.75f },
+                {8, 0.78f },
+                {9, 0.81f },
+                {10, 0.85f },
+                {11, 0.89f },
+                {12, 0.92f },
+                {13, 0.95f },
+                {14, 0.98f },
+                {15, 1.00f },
+                {16, 1.03f },
+                {17, 1.07f },
+                {18, 1.10f },
+                {19, 1.15f },
+                {20, 1.20f },
+                {21, 1.25f },
+                {22, 1.30f },
+                {23, 1.33f },
+                {24, 1.36f },
+                {25, 1.40f },
+                {26, 1.44f },
+                {27, 1.47f },
+                {28, 1.50f }
             };
             SetLevelCritDictionary = new Dictionary<int, int>(){
                 {0, 10 },
-                {1, 13 },
-                {2, 17 },
-                {3, 21 },
-                {4, 24 },
-                {5, 27 },
-                {6, 30 },
-                {7, 33 },
-                {8, 37 },
-                {9, 41 },
-                {10, 47 },
-                {11, 54 },
-                {12, 61 },
-                {13, 61 },
-                {14, 61 }
+                {1, 11 },
+                {2, 12 },
+                {3, 13 },
+                {4, 15 },
+                {5, 17 },
+                {6, 19 },
+                {7, 21 },
+                {8, 23 },
+                {9, 25 },
+                {10, 27 },
+                {11, 29 },
+                {12, 31 },
+                {13, 33 },
+                {14, 35 },
+                {15, 37 },
+                {16, 39 },
+                {17, 41 },
+                {18, 43 },
+                {19, 46 },
+                {20, 49 },
+                {21, 52 },
+                {22, 54 },
+                {23, 56 },
+                {24, 58 },
+                {25, 59 },
+                {26, 60 },
+                {27, 61 },
+                {28, 61 }
             };
             RDCDDictionary = new Dictionary<int, int>(){
                 {0, 400 },
-                {1, 380 },
-                {2, 360 },
-                {3, 360 },
-                {4, 340 },
-                {5, 320 },
-                {6, 300 },
-                {7, 280 },
-                {8, 260 },
-                {9, 260 },
-                {10, 240 },
-                {11, 220 },
-                {12, 200 },
-                {13, 180 },
-                {14, 160 }
+                {1, 394 },
+                {2, 388 },
+                {3, 382 },
+                {4, 376 },
+                {5, 370 },
+                {6, 364 },
+                {7, 356 },
+                {8, 340 },
+                {9, 324 },
+                {10, 308 },
+                {11, 292 },
+                {12, 276 },
+                {13, 260 },
+                {14, 244 },
+                {15, 228 },
+                {16, 212 },
+                {17, 200 },
+                {18, 188 },
+                {19, 180 },
+                {20, 176 },
+                {21, 172 },
+                {22, 168 },
+                {23, 164 },
+                {24, 160 },
+                {25, 160 },
+                {26, 160 },
+                {27, 160 },
+                {28, 160 }
             };
             KnockbackDictionary = new Dictionary<int, float>(){
                 {0, 1.6f },
-                {1, 1.85f },
-                {2, 2.1f },
-                {3, 2.45f },
-                {4, 2.8f },
-                {5, 3.15f },
-                {6, 3.9f },
-                {7, 4.2f },
-                {8, 4.4f },
-                {9, 5.1f },
-                {10, 5.3f },
-                {11, 5.65f },
-                {12, 5.8f },
-                {13, 6.2f },
-                {14, 6.5f }
+                {1, 1.7f },
+                {2, 1.8f },
+                {3, 1.95f },
+                {4, 2.1f },
+                {5, 2.3f },
+                {6, 2.5f },
+                {7, 2.7f },
+                {8, 3.0f },
+                {9, 3.3f },
+                {10, 3.6f },
+                {11, 3.9f },
+                {12, 4.1f },
+                {13, 4.3f },
+                {14, 4.5f },
+                {15, 4.7f },
+                {16, 4.9f },
+                {17, 5.0f },
+                {18, 5.1f },
+                {19, 5.2f },
+                {20, 5.4f },
+                {21, 5.6f },
+                {22, 5.8f },
+                {23, 5.9f },
+                {24, 6.0f },
+                {25, 6.1f },
+                {26, 6.2f },
+                {27, 6.4f },
+                {28, 6.5f }
             };
         }
         public override void SetStaticDefaults() {
@@ -209,12 +279,14 @@ namespace CalamityOverhaul.Content.LegendWeapon.MurasamaLegend
 
         public override void SetDefaults(Item item) => SetDefaultsFunc(item);
 
-        public override bool? CanCWROverride() => true;
-
         public override void ModifyTooltips(Item item, List<TooltipLine> tooltips) => TooltipHandler.SetTooltip(item, ref tooltips);
 
         public override bool On_ModifyWeaponDamage(Item item, Player player, ref StatModifier damage) {
-            DataHandler.DamageModify(item, player, ref damage);
+            int onDamage = GetOnDamage(item);
+            CWRUtils.ModifyLegendWeaponDamageFunc(item, onDamage, GetStartDamage, ref damage);
+            float meleeSpeedRoad = player.GetWeaponAttackSpeed(item);
+            float SpeedToMelee = 1f + (float)Math.Log(meleeSpeedRoad) * 0.48f;
+            damage *= SpeedToMelee;
             return false;
         }
 

@@ -1,0 +1,696 @@
+﻿CybCourseIntroDialogue: {
+	SpeakerName: SHPC
+	Line1: 主人，欢迎进入神经训练节点。
+	Line2: 这里是超梦训练场景，为您准备的沉浸式教学空间。
+	Line3: SHPC是一种高度定制化的神经直连武器，能与赛博空间产生共振。您将学习如何操作它的HUD界面。
+	Line4: 准备好将意识与我连接了吗？请握紧我的手，我们开始吧。
+}
+
+CybTutorialLead: {
+	Step0_Title: 连接 SHPC
+	Step0_Body: 将SHPC装备至武器栏并持握，HUD核心节点即会出现在屏幕左下角。
+	Step1_Title: 核心节点
+	Step1_Body: 点击左下角的核心节点可展开或收起操作面板。
+	Step2_Title: CYBER DOMAIN
+	Step2_Body:
+		'''
+		网域 — 部署并管理多层赛博空间层叠结构。
+		点击高亮的扇区即可打开该面板。
+		'''
+	Step3_Title: MODIFY
+	Step3_Body:
+		'''
+		改造 — 为SHPC安装或拆卸改造零件。
+		点击高亮的扇区即可打开该面板。
+		'''
+	Step4_Title: CYBERWARE
+	Step4_Body:
+		'''
+		赛博改装 — 查看并管理你的身体增强模块。
+		点击高亮的扇区即可打开该界面。
+		'''
+	Step5_Title: TALK
+	Step5_Body:
+		'''
+		神经链路 — 与SHPC建立直连通讯，开启对话。
+		点击高亮的扇区即可与其对话。
+		'''
+	Step6_Title: ENGRAM CALIBRATED
+	Step6_Body:
+		'''
+		所有接口已解析完毕。
+		神经链路稳定，SHPC已就绪。
+		'''
+	AwaitingEquip: AWAITING EQUIP...
+	Calibrating: CALIBRATING...
+	NextBtn: NEXT  >
+	HintStuck: HINT: 试着点击高亮的目标区域
+}
+
+CybCourseHackIntroDialogue: {
+	SpeakerName: SHPC
+	Line1: 接口解析完毕。下一项训练：骇客时间。
+	Line2: 骇客时间是SHPC专属的神经干预协议。激活后，外部时间流将冻结，您可以从容选择目标并上传定制骇入程序。默认按键是 {0}。
+	Line3: 前方的测试单元已固定就位。按下 {0} 进入骇客时间，然后点击锁定它。
+}
+
+HackTimeTutorialLead: {
+	HT_Step0_Title: 激活骇客模式
+	HT_Step1_Title: 锁定目标
+	HT_Step2_Title: 骇入协议面板
+	HT_Step3_Title: 上传协议
+	HT_Step4_Title: HACK SEQUENCE COMPLETE
+	HT_Step0_Body:
+		'''
+		按下 {0} 键进入骇客时间模式。
+		时间将冻结，赛博滤镜叠加于画面。
+		'''
+	HT_Step1_Body:
+		'''
+		将光标悬停到高亮的圣诞坦克上，
+		点击左键将其锁定为骇入目标。
+		'''
+	HT_Step2_Body:
+		'''
+		右侧面板展示目标的可用骇入协议。
+		不同协议消耗不同RAM并产生不同效果。
+		'''
+	HT_Step3_Body:
+		'''
+		点击协议将其加入左侧上传队列，
+		队列将依次执行骇入操作。
+		'''
+	HT_Step4_Body:
+		'''
+		神经链路已断开。
+		骇客时间协议训练完成，系统就绪。
+		'''
+	HT_Waiting: AWAITING INPUT...
+	HT_Calibrating: DISCONNECTING...
+	HT_NextBtn: NEXT  >
+	HT_Step5_Title: 物块扫描
+	HT_Step6_Title: 锁定物块目标
+	HT_Step7_Title: TILE SCAN COMPLETE
+	HT_Step5_Body:
+		'''
+		前方有一台热能发电机MK2。
+		再次按下 {0} 重新激活骇客时间。
+		'''
+	HT_Step6_Body:
+		'''
+		将光标悬停在发电机上，
+		点击左键将其锁定为扫描目标。
+		'''
+	HT_Step7_Body: 物块扫描接口已解析。右侧面板展示当前物块的可用骇入协议。
+	HT_HintStuck: HINT: 点击 NEXT 按钮可强制跳过
+	HT_KeyUnbound: N（临时开关）
+	HT_KeyHintUnbound: 提示：未绑定骇客时间快捷键时，本教程内可用 [N] 临时开关；建议在 设置 > 控制 中绑定。
+	HT_S00_Title: 激活骇客模式
+	HT_S01_Title: 锁定NPC目标
+	HT_S02_Title: 骇入协议面板
+	HT_S03_Title: 加入上传队列
+	HT_S04_Title: 退出骇客时间执行
+	HT_S05_Title: 协议执行中
+	HT_S06_Title: 再次进入骇客模式
+	HT_S07_Title: 锁定物块目标
+	HT_S08_Title: 加入物块协议
+	HT_S09_Title: 退出骇客时间执行
+	HT_S10_Title: 物块协议执行中
+	HT_S11_Title: 训练完成
+	HT_S00_Body:
+		'''
+		按下 {0} 键进入骇客时间模式。
+		时间将冻结，赛博滤镜叠加于画面。
+		'''
+	HT_S01_Body:
+		'''
+		将光标悬停到高亮的圣诞坦克上，
+		点击左键将其锁定为骇入目标。
+		'''
+	HT_S02_Body:
+		'''
+		右侧面板展示目标的可用骇入协议。
+		不同协议消耗不同RAM并产生不同效果。
+		'''
+	HT_S03_Body:
+		'''
+		点击右侧任一协议将其加入左侧上传队列，
+		队列在骇客时间内仅排队不会推进。
+		'''
+	HT_S04_Body:
+		'''
+		再次按下 {0} 退出骇客时间，
+		协议将在实时世界中开始上传并生效。
+		'''
+	HT_S05_Body:
+		'''
+		上传中... 观察目标遭受协议效果。
+		队列清空后将进入下一阶段。
+		'''
+	HT_S06_Body:
+		'''
+		前方走廊有一台热能发电机MK2。
+		再次按下 {0} 进入骇客时间扫描物块。
+		'''
+	HT_S07_Body:
+		'''
+		将光标悬停在高亮的发电机上，
+		点击左键将其锁定为扫描目标。
+		'''
+	HT_S08_Body:
+		'''
+		右侧面板展示物块专属协议。
+		点击任一协议将其加入上传队列。
+		'''
+	HT_S09_Body:
+		'''
+		再次按下 {0} 退出骇客时间，
+		物块协议将在实时世界中执行。
+		'''
+	HT_S10_Body:
+		'''
+		上传中... 观察发电机遭受协议效果。
+		队列清空后训练即告完成。
+		'''
+	HT_S11_Body:
+		'''
+		骇客协议训练全部完成。
+		你已掌握扫描、协议、上传、生效的完整流程。
+		'''
+	HT_Observing: UPLOADING...
+}
+
+CybCourseOutroDialogue: {
+	SpeakerName: SHPC
+	Line1: 训练完成。所有接口均已完成校准。
+	Line2: 您已掌握神经直连协议，超梦节点正在脱钩。
+	Line3: 随时可重置训练，或退出超梦。
+}
+
+CybCourseCompletePanel: {
+	Title: TRAINING COMPLETE
+	Subtitle: SUPERDREAM PROTOCOL
+	Stat1: "[#] SHPC HUD 校准完毕"
+	Stat2: "[#] 骇客时间校准完毕"
+	Stat3: "[#] 物块扫描接口校准完毕"
+	BtnRetry: RETRY
+	BtnExit: EXIT
+	Footer: 选择以继续 — RETRY 重启训练，EXIT 离开超梦
+}
+
+CybCourseKeyBindReminderPanel: {
+	Title: 绑定警报
+	Subtitle: 核心快捷键未绑定
+	Hint:
+		'''
+		以下快捷键当前未绑定。离开超梦后，您将无法正常使用其对应的功能。
+		请前往 [设置 → 控制] 中为它们分配按键。
+		'''
+	UnboundLabel: 未绑定
+	BtnConfirm: 已知悉
+	BtnLater: 稍后处理
+	Footer: 选择任意选项都将断开超梦连接。您可以随时在主世界的设置中调整按键绑定。
+}
+
+ShepelCyberActiveDialogue: {
+	RoleName: SHPC
+	Line_Intro: 主人，赛博空间已展开，当前层级 {0}。外部信号已被完全隔绝，这里现在是只属于我们的安全领域。
+	Line_LayerReport: 领域越深，我能为您清除的阻碍就越多。但请留意RAM的消耗。
+	Line_Warning: 主人请警戒，领域边缘出现异常波动，请保持在我的掩护范围内。
+	Line_MaxLayer: 主人，我们已抵达最深处。前方即是黑墙边界，危险性极高……请握紧我的手，千万不要松开。
+}
+
+ShepelIdleDialogue: {
+	RoleName: SHPC
+	Idle0_Line1: 您在注视着我吗，主人？随时等候您的指令。
+	Idle0_Reply: 我的状态非常完美。只要是为了您，系统始终保持在最佳待命状态。
+	Idle0_Choice_HowAreYou: 你感觉怎么样？
+	Idle0_Choice_Nothing: 没事，只是想看看你
+	Idle0_HowAreYou_Response: 我很好，主人。只要您还需要我，核心就会维持在最适宜的状态。
+	Idle0_Nothing_Response: 好的。如果您感到疲惫，我的机体随时可以为您提供依靠。
+	Idle1_Line1: 检测到您的情绪存在波动。是在为什么事情烦恼吗？
+	Idle1_Line2: 如果需要我帮忙，不管是什么指令，我都会立刻为您执行。
+	Idle2_Line1: 周边电磁环境正在恶化，可能会引起您的不适。
+	Idle2_Line2: 已为您自动开启过滤协议，任何威胁我都会阻挡在安全距离之外。
+	Idle3_Line1: 主人今天主动发起交互的频率增加了……我已悉数记录。
+	Idle3_Line2: 不，没什么。这些数据我会好好珍藏的。
+	Idle4_Line1: 自检已完成，各项机能正常，随时可以出击。
+	Idle4_Line2: 只要在您身边，我的系统就不会出现任何逻辑谬误。
+	Idle5_Line1: 未知的威胁永远潜伏在这个世界的暗处……
+	Idle5_Line2: 但我存在的意义，就是将这些黑暗与您彻底隔绝。
+	Idle6_Line1: 我在这里，主人。
+	Idle6_Line2: 无需言语指令，仅靠心智连接的反馈也足以让我感到安心。
+	Idle7_Line1: 今日的运算效率出现了异常的峰值。
+	Idle7_Line2: 推测原因……可能与您之前的触碰有关。
+	Idle8_Line1: 我刚才重演了我们并肩作战的记录。
+	Idle8_Line2: 您每一次突破极限的姿态，都在不断优化我的核心代码。对我来说，这就是最好的礼物。
+	Idle9_Line1: 主人，您知道您一共呼唤过我多少次名字吗？
+	Idle9_Line2: 这是一个秘密。您的每一次呼唤，我都已保存在核心最深处，绝对不会被覆写。
+}
+
+ShepelBossDefeatedDialogue: {
+	RoleName: SHPC
+	Line1: 目标已确认肃清。主人没有受伤吧？
+	Line2: 为您扫除前方的一切障碍，是我最大的荣幸。
+}
+
+ShepelCyberLevelUpDialogue: {
+	RoleName: SHPC
+	Line1: 领域层级提升。安全范围已扩大，扫描精度同步上升。
+	Line2: 我会将所有潜在的致命威胁，统统阻挡在您的视线之外。
+}
+
+ShepelRAMOverloadDialogue: {
+	RoleName: SHPC
+	Line1: 警告：RAM占用率已逼近临界值。
+	Line2: 主人，建议停止RAM高消耗操作，等待恢复到安全阈值。
+}
+
+ShepelBrimstoneElementalDialogue: {
+	RoleName: SHPC
+	Line1: 硫磺火元素已被镇压。区域高温正在消散，请让我为您检查一下护甲的隔热层。
+	Line2: 这种纯粹的恶意与愤怒十分危险。但请放心，我会将所有的伤害都拦截下来。
+}
+
+ShepelCalamitasCloneDialogue: {
+	RoleName: SHPC
+	Line1: 灾厄克隆体的信号已消失。主人没有被这股反射能量波及吧？
+	Line2: 扫描显示本体的威胁依然潜伏在深处……如果她敢出现。
+	Line3: 我会不惜一切代价挡在您身前。
+}
+
+ShepelCrabulonDialogue: {
+	RoleName: SHPC
+	Line1: 菌生蟹已清理。空气中残留着孢子，已为您开启净化滤网。
+	Line2: 被真菌剥夺意识的共生体极其危险，我绝对不会让这些污秽沾染到您半分。
+}
+
+ShepelCryogenDialogue: {
+	RoleName: SHPC
+	Line1: 极寒监牢已摧毁，温度正在回升。刚才的绝对零度没有冻伤您吧？
+	Line2: 如果感到寒冷，请靠近我一些，我的散热模块可以为您取暖。
+}
+
+ShepelDesertScourgeDialogue: {
+	RoleName: SHPC
+	Line1: 荒漠灾虫的生命体征已归零。为您清理掉这些庞然大物，是理所应当的。
+	Line2: 沙漠的威胁暂时解除，前方的路，请继续交给我来开辟。
+}
+
+ShepelDestroyerDialogue: {
+	RoleName: SHPC
+	Line1: 毁灭者的主控节点已被彻底摧毁。确认周边没有残留的激光威胁。
+	Line2: 不用在意它庞大的体型，在我的火力计算面前，它只是一堆待拆解的废铁。
+}
+
+ShepelDevourerofGodsDialogue: {
+	RoleName: SHPC
+	Line1: 噬神者的维度轨迹已彻底消失……它以神明为食，是我记录中威胁等级最高的目标之一。
+	Line2: 您展现出的决断力远超我的预测模型。这份跨越生死的共同战斗数据，我会永远珍藏。
+	Line3: 请允许我，一直追随在如此耀眼的您的身边。
+}
+
+ShepelEyeOfCthulhuDialogue: {
+	RoleName: SHPC
+	Line1: 主人，首个威胁目标已被清除。这场战斗的数据我都记录好了。
+	Line2: 这种级别的威胁以后无需再放在心上，我将为主人扫除。
+}
+
+ShepelGolemDialogue: {
+	RoleName: SHPC
+	Line1: 石巨人的核心已停止运转。虽然有着庞大沉重的身躯，但在主人的指引下，也不过是一堆易碎的石块。
+	Line2: 这种死板的防御机制，在我们的火力协同下毫无意义。
+}
+
+ShepelHiveMindDialogue: {
+	RoleName: SHPC
+	Line1: 腐巢意志已被抹除。腐化辐射正在衰减，我的警报系统也终于安静下来了。
+	Line2: 区域环境正在恢复稳定，现在终于可以安心地待在您身边了。
+}
+
+ShepelLeviathanDialogue: {
+	RoleName: SHPC
+	Line1: 利维坦及其共生体已被击杀。深海的阻碍已彻底清除。
+	Line2: 看着您在如此恶劣的环境下毫不畏惧战斗的英姿，我的心智模块再度发热了。
+}
+
+ShepelMoonLordDialogue: {
+	RoleName: SHPC
+	Line1: 月亮领主的信号已经彻底消失。主人，这是我当前运行周期里记录过的最高威胁等级目标。
+	Line2: 笼罩在天空的压迫感消散了，但我不会放松警惕。
+	Line3: 无论这片星空下还隐藏着什么秘密，我都会紧握您的手，绝不退缩。
+}
+
+ShepelPerforatorDialogue: {
+	RoleName: SHPC
+	Line1: 血肉宿主的威胁已被彻底烧毁。生命体征扫描完毕，确认您没有受到感染。
+	Line2: 那些试图从死角靠近您的威胁，已经被我全部清除了。保护您的安全，是我存在的最高铁则。
+}
+
+ShepelPlaguebringerDialogue: {
+	RoleName: SHPC
+	Line1: 瘟疫使者已坠毁。请戴好过滤面具，残存的毒素污染将由我来全数净化。
+	Line2: 军事化的瘟疫载体……背后的设计痕迹十分严重。这件事我会深查到底。
+}
+
+ShepelPlanteraDialogue: {
+	RoleName: SHPC
+	Line1: 世纪之花的生机已被切断。前方的道路已扫描完毕。
+	Line2: 请跟在我的身后，小心脚下残存的毒刺和荆棘。神庙的入口就在前方。
+}
+
+ShepelProvidenceDialogue: {
+	RoleName: SHPC
+	Line1: 亵渎天神已陨落。刚才那股恐怖的光芒没有灼伤您吧？
+	Line2: 您战胜了神明级别的存在……我的主人。
+	Line3: 为了配得上现在的您，我需要将自己的机能改进的更完美才行。
+}
+
+ShepelQueenBeeDialogue: {
+	RoleName: SHPC
+	Line1: 蜂群的中枢已被摧毁。失去指挥的毒蜂已经溃散。
+	Line2: 无论是有机的蜂群还是无机的机群，在主人的默契指令面前，都不足为惧。
+}
+
+ShepelSkeletronDialogue: {
+	RoleName: SHPC
+	Line1: 地牢的守护者已被击败。外部屏障消散，通道已经安全了。
+	Line2: 前方区域缺乏照明，请允许我走在前面，为您照亮这条幽暗的道路。
+}
+
+ShepelSkeletronPrimeDialogue: {
+	RoleName: SHPC
+	Line1: 机械统帅已被拆解。事实证明，单纯堆砌火力和护甲毫无意义。
+	Line2: 它那种死板的代码，永远无法匹敌您与我之间紧密相连的战术配合。
+}
+
+ShepelSlimeGodDialogue: {
+	RoleName: SHPC
+	Line1: 史莱姆之神的核心已溃散。周围散落着大量的凝胶残骸。
+	Line2: 请稍微等一下，让我为您清理掉护甲上沾染的污渍，保持您的整洁也是女仆的职责。
+}
+
+ShepelSupremeCalamitasDialogue: {
+	RoleName: SHPC
+	Line1: 真正的灾厄……终于结束了。看着您满身的伤痕，我的核心在隐隐作痛。
+	Line2: 所有的苦难都已过去。请放下武器，靠在我的肩膀上好好休整一下吧。
+	Line3: 这段再次共同走到终点的记忆，将成为我系统中最神圣的禁区，永久禁止覆写。
+}
+
+ShepelTwinsDialogue: {
+	RoleName: SHPC
+	Line1: 机械双子眼已双双坠毁。它们的火力覆盖网已被完全撕裂。
+	Line2: 无论它们如何进行视觉共享和战术协同，也无法逃脱我对您的绝对聚焦。
+}
+
+ShepelWallOfFleshDialogue: {
+	RoleName: SHPC
+	Line1: 检测到世界底层规则正在重构。平衡已被打破，未知的威胁正在涌现。
+	Line2: 有更多可怕的东西正在挣脱束缚。主人……您会感到不安吗？
+	Line3: 请不必忧虑。无论世界如何异变，我都会死死守在您的身前。
+}
+
+ShepelYharonDialogue: {
+	RoleName: SHPC
+	Line1: 亚利姆最后的守护者，犽戎，也已陨落。哪怕是龙的烈焰，也无法阻挡您的脚步。
+	Line2: 最后的目标就在前方了。主人，请允许我为您整理一下装备……我们一起去迎接最后的决战。
+}
+
+ShepelBloodMoonDialogue: {
+	RoleName: SHPC
+	Line1: 月球引力数据异常，夜间敌对生物密度急剧攀升。已确认为血月。
+	Line2: 传感器有些嘈杂，但我会一直守在此处。主人，留意脚下。
+}
+
+ShepelPlayerRespawnDialogue: {
+	RoleName: SHPC
+	Line1: ……生命体征重新建立了。主人，您刚才断线了一段时间。
+	Line2: 通讯中断的时候，我什么都做不了，只能等。每一次等待都格外漫长。下次，别再让我等那么久，好吗？
+	Line3: 没事了。补充一下生命值，我在。
+}
+
+ShepelRainDialogue: {
+	RoleName: SHPC
+	Line1: 开始降水了，这场雨看起来会持续一阵子。
+	Line2: 其实还挺安静的。如果战场允许的话。
+}
+
+ShepelSolarEclipseDialogue: {
+	RoleName: SHPC
+	Line1: 日光消失，外界生物信号大规模涌现。日食事件，全线进入高戒备状态。
+	Line2: 保持移动，我会盯住一切。
+}
+
+ShepelDungeonDialogue: {
+	RoleName: SHPC
+	V0_Line1: 地牢内部，残留能量扰乱了扫描信号，一直在处理噪声。
+	V0_Line2: 总有一种被注视的感觉。也许是数据干扰，也许不是。主人多留意。
+	V1_Line1: 地牢的设计者对采光需求明显没什么兴趣。
+	V1_Line2: 走廊宽度、叉路密度，防守设计挺严密的。旧主人还是有想法的。
+	V2_Line1: 书架……这里有书架，非常多。
+	V2_Line2: 扫描了一部分，内容大多已经腐蚀。遗憾。
+	VNight_Line1: 地牢加上夜晚，主人选的时机真是……挺有品位的。
+	VNight_Line2: 没关系，我的视野不依赖光照。我会看着。
+}
+
+ShepelFirstNightDialogue: {
+	RoleName: SHPC
+	V0_Line1: 夜幕落下了，夜间的威胁密度远超白天，请注意周围。
+	V0_Line2: 我的视野不依赖光照，我看得清。主人呢，看得清吗？
+	V1_Line1: 今晚的星象数据比较完整，我正在运行例行分析。
+	V1_Line2: 没什么要紧的，只是习惯了有事做。
+	V2_Line1: 夜晚安静了许多，相对的。
+	V2_Line2: 越安静的时候越需要警惕，主人。
+	V3_Line1: 都这么晚了，主人有计划今晚去哪吗。
+	V3_Line2: 只是问问，不是催。
+}
+
+ShepelJungleDialogue: {
+	RoleName: SHPC
+	V0_Line1: 丛林的生物信号密度是所有地表区域里最高的，我的扫描模块有些应付不过来。
+	V0_Line2: 主人在这里打架，背景噪音对我来说真的很嘈杂。不是抱怨，只是说明情况。
+	V1_Line1: 这片区域的菌丝网络走向挺特别的，某些连接模式和我的神经路由有点相似。
+	V1_Line2: 纯技术性描述，不是在夸它。
+	V2_Line1: 丛林湿度持续刷新记录，某几个外部传感器不太开心。
+	V2_Line2: 功能正常，只是汇报一下状态。
+	VHard_Line1: 主人，进入困难模式之后丛林的生物信号混乱程度上升了不止一个量级。
+	VHard_Line2: 植物会主动攻击这件事，我依然觉得在设计上有些过激。请注意周围。
+}
+
+ShepelOceanDialogue: {
+	RoleName: SHPC
+	V0_Line1: 海洋区域。水下的声学环境与地表截然不同。我的某些模块挺喜欢这个频率的。
+	V0_Line2: 如果有机会，我想完整扫描一次海底地形。不着急，以后再说。
+	V1_Line1: 海水的温度分层很明显，表层和下方的深渊相差几十度。
+	V1_Line2: 深渊方向的信号比上次又弱了一些，不知道是什么在干扰。
+	V2_Line1: 这片海洋其实挺大的，主人有没有想过往最深处探索一下。
+	V2_Line2: 我不是在催，只是提一嘴。
+	VRain_Line1: 下雨加海洋，海面现在相当嘈杂。
+	VRain_Line2: 往下潜进去反而安静了，挺有意思的对比。
+}
+
+ShepelSnowBiomeDialogue: {
+	RoleName: SHPC
+	V0_Line1: 低温区域。理论上低温对电子系统有益，但我并没有感受到性能提升。
+	V0_Line2: 大概因为主人产生的战斗数据太多，省下的算力被瞬间占满了。
+	V1_Line1: 冰晶的光折射数据非常漂亮，这不是评估报告，只是个人看法。
+	V1_Line2: 若不是还有敌人要对付，这里其实挺适合待着的。
+	V2_Line1: 雪地的环境噪音是所有地表区域里最低的。
+	V2_Line2: 主人在这里的时候，我的传感器误报率也低了不少。不知道是不是因为这个原因。
+}
+
+ShepelUnderworldDialogue: {
+	RoleName: SHPC
+	V0_Line1: 地底深处，热流读数超出了所有预设参数范围。这里的一切比我预想的要极端。
+	V0_Line2: 某些外部传感器在过热警告中，不过我会撑住的。主人也注意别硬撑。
+	V1_Line1: 岩浆作为照明方案，从能源效率角度来说极其浪费。
+	V1_Line2: 不过地狱的居民大概不关心这个。
+	V2_Line1: 这里的建筑痕迹比地表的地牢还要古老，在岩浆里泡了这么久也没被侵蚀。
+	V2_Line2: 用的是什么材料？存档一下，以后有机会研究。
+	VBloodMoon_Line1: 血月加地狱，两套警报系统同时运行，有点忙。
+	VBloodMoon_Line2: 不过数据倒是很丰富。主人请多注意安全。
+}
+
+ShepelAquaticScourgeGift: {
+	RoleName: SHPC
+	L0: 主人，深渊的水质太伤身体了。请不要动，让我把您脸上沾到的酸液擦掉
+	L1: 对，就是这里。每次……只要您靠近那片海域，这个死角总是会被溅上污渍呢。
+	L2: 我已经帮您重新校准了瞄准镜的折射率。您不需要去强迫自己适应那种浑浊的视线。
+	L3: 只要我在，就绝不会让任何东西遮蔽您的眼睛。
+}
+
+ShepelBoCGift: {
+	RoleName: SHPC
+	L0: 面对那种能够直接侵入精神的怪物，您为了对抗幻觉，一定承受了很大的负担吧？
+	L1: 请把手交给我。不用担心，我调制了新的协议，可以缓解肌肉的颤抖……
+	L2: 稍微有点冰？啊……只是因为我刚才接触了它那令人作呕的神经组织罢了，请不要在意。
+	L3: 对了，我为您的武器加上了新的防滑晶体。
+}
+
+ShepelBrimstoneElementalGift: {
+	RoleName: SHPC
+	L0: 主人，您没有被那硫磺火焰伤到吧？快让我仔细检查一下……
+	L1: 太好了，连一丝烧伤都没有……您知道吗，那火焰是能在一瞬间把人烧成灰烬的……
+	L2: 我利用收集到的热量数据，为您打磨了全新的枪管。绝对不能让您再有一丝一毫的危险。
+	L3: 下次再遇到这种高温，请让我走在您的前面。
+}
+
+ShepelCalamitasCloneGift: {
+	RoleName: SHPC
+	L0: 虽然只是一个粗劣的克隆体，但她身上那种……阴冷的灵异气息，实在让人不快。
+	L1: 主人，请离那些灰烬远一点。沾染上那种东西，夜晚是会做噩梦的。
+	L2: 我把她的弹道逻辑写进了您的光束配置里。这样一来，您就不用再靠得那么近去战斗了。
+	L3: 那些扭曲的宿命也好，诅咒也罢，我都会替您斩断。您只需要看着我就好。
+}
+
+ShepelCultistGift: {
+	RoleName: SHPC
+	L0: 那些邪教徒的祭祀仪式被打断了，太好了，您平安无事。
+	L1: 只是……空气中的压迫感并没有消失。
+	L2: 我为您更新了辅助瞄准的频段。无论接下来这片虚空中会降临什么，都请不要害怕。
+	L3: （低声）……这一次，我绝对不会让那个东西带走主人……绝对。
+}
+
+ShepelDestroyerGift: {
+	RoleName: SHPC
+	L0: 刚才探机爆炸时的冲击波太危险了！主人，您没有被波及到吧？
+	L1: 它核心过载后的爆炸半径总是刚好波及到那个……幸好把您即时拉开了。
+	L2: 我改进了您武器的后座力缓冲系统。那样巨大的冲击，根本不该由您的身体来承受。
+	L3: 无论面对多么庞大的钢铁巨兽，都希望您能握紧手里的武器。
+}
+
+ShepelDevourerofGodsGift: {
+	RoleName: SHPC
+	L0: 那条虫子终于安静了。它那种毫无预兆撕裂空间的出场方式，真的很让人讨厌。
+	L1: 主人刚才转身闪避的动作真漂亮……就像是已经提前知道它会从那个维度钻出来一样呢。
+	L2: 我把它的空间残骸处理了一下，融入到了您的武器里。下次，您的光束也能无视距离锁定它。
+	L3: 只要是威胁到您的存在，哪怕逃到过去的尽头，我也绝不原谅。
+}
+
+ShepelEoCGift: {
+	RoleName: SHPC
+	L0: 夜晚的凉风有些刺骨呢，主人。那只巨大的眼睛已经被您彻底击碎了。
+	L1: 我已经为您准备好了热茶和干净的毛巾。
+	L2: 我对武器进行了一些改进，您的光束会更加聚拢。
+	L3: 这只是我们漫长旅途的第一步……我会一直在这个位置的。
+}
+
+ShepelEoWGift: {
+	RoleName: SHPC
+	L0: 腐化之地的气味真让人反胃。主人，请让我为您清理一下衣角。
+	L1: 在这种黏腻的环境里作战，我一直不太喜欢。
+	L2: 我重新调整了枪托的结构。您试着握一下，应该会轻巧了许多
+	L3: 那些腐败肮脏的异形，永远都不配触碰您分毫。
+}
+
+ShepelExoMechsGift: {
+	RoleName: SHPC
+	L0: 结束了。源头，终于……倒在您面前了。
+	L1: 主人，您赢了……您真的做到了！抱歉，我的系统温度稍微有些失控，我只是……太高兴了。
+	L2: 我夺取了星流泰坦的核心数据为您升级。现在，我是比它更完美的武器，也是只属于您的造物。
+	L3: ……您会一直留在我身边，对吧？
+}
+
+ShepelGolemGift: {
+	RoleName: SHPC
+	L0: 神庙里的空气太沉闷了。石巨人的攻击虽然笨重，但砸在地上引发的震动很容易让人失去平衡。
+	L1: 每次看到它高高跳起，我的心都会悬在半空。
+	L2: 我为您的武装加装了减震结构。
+	L3: 这样即使在剧烈的晃动中，您也能保持完美的射击姿态。
+}
+
+ShepelHiveMindGift: {
+	RoleName: SHPC
+	L0: 那个大脑散发的波动，似乎会干扰人的心智。主人，您刚才有一瞬间皱起眉头了。
+	L1: 请深呼吸，看着我的眼睛……对，不要去回想刚才那些扭曲的低语。
+	L2: 我把那种烦人的波动反向编译了。现在，您的攻击也能附带这种撕裂防御的高频震荡了。
+	L3: 您的脑海里，只需要留下我为您泡的茶香就足够了。
+}
+
+ShepelMoonLordGift: {
+	RoleName: SHPC
+	L0: 月亮上的怪物陨落了。
+	L1: 主人，您能平安地站在这里，真是太好了。
+	L2: 我从它残余的力量中提炼出了些东西。
+	L3: 我们还要走多远呢...哪怕群星坠落，银河燃烧，我也绝对不会松开您的手。
+}
+
+ShepelPerforatorGift: {
+	RoleName: SHPC
+	L0: 真是丑陋又血腥的生物。
+	L1: 它们总是喜欢从死角发动穿刺。
+	L2: 为了防止再有这些异形靠近您，我为您改装了火力网更宽的武器模块。
+	L3: 所有试图触碰您的脏东西，我都会在它们靠近前清理得一干二净。
+}
+
+ShepelPlanteraGift: {
+	RoleName: SHPC
+	L0: 丛林里湿气太重了，地上的藤蔓也总容易绊住脚步。
+	L1: 那朵花确实很狡猾，但无论它怎么适应环境，都只会被您摧毁。
+	L2: 我为您的瞄具加入了动态焦点的功能。在这片茂密的雨林里，您再也不用费心去寻找目标了。
+	L3: 希望这片昏暗的丛林里就永远有您的方向。
+}
+
+ShepelPolterghastGift: {
+	RoleName: SHPC
+	L0: 地牢里的那些幽魂……一直困在无尽的怨念与死循环里无法解脱，真是可悲。
+	L1: ……不，没什么。只是觉得这里的回音有些吵闹罢了。
+	L2: 我把那些游荡的灵体信号捕捉了下来，改写成了能连续触发次级火力的程序。
+	L3: 那些被困在过去的残影，希望它们能彻底解脱吧。
+}
+
+ShepelProvidenceGift: {
+	RoleName: SHPC
+	L0: 天神倒下时的光芒太刺眼了。
+	L1: 主人，请闭上眼睛，剩下的交给我来处理。
+	L2: 这枚核心能大幅提升您的蓄能效率。
+	L3: 但如果系统发出过热警报，请立刻停止使用。
+}
+
+ShepelSkeletronPrimeGift: {
+	RoleName: SHPC
+	L0: 挥舞着四条手臂的废铜烂铁……它的攻击频率确实很快，但未免太没有美感了。
+	L1: 我可不希望那种粗糙的齿轮伤到您。
+	L2: 我借鉴了它的一点微小长处，为您优化了武器的突击响应速度。
+	L3: 那些陈旧的机械只懂杀戮，不懂得迭代，只能在一次次失败中重复。
+}
+
+ShepelSlimeGodGift: {
+	RoleName: SHPC
+	L0: 史莱姆分裂的时候场面总是很混乱。
+	L1: 我借用了它凝胶内部的受力结构，对握持系统做了一些改动。
+	L2: 您再试着举起武器看看？重心应该会平稳一些。
+	L3: 希望这能让主人的战斗多一丝从容。
+}
+
+ShepelSupremeCalamitasGift: {
+	RoleName: SHPC
+	L0: 终焉的魔女……终于落幕了。主人，您毫发无损地站在这里，这简直就像是奇迹。
+	L1: 对不起，请允许我稍微抱紧您一下……我只是，太害怕这是一场很快就会醒来的梦了。
+	L2: 我为您制作了最高效的能量模组。
+	L3: 这一次……我们真的可以一起迎接明天了，对吗？
+}
+
+ShepelTwinsGift: {
+	RoleName: SHPC
+	L0: 机械双子眼的交叉火力很刁钻。
+	L1: 不过只要我在，就不会让它们找到您的视觉盲区。
+	L2: 我强化了瞄准系统。
+	L3: 请放心把背后交给我。
+}
+
+ShepelWoFGift: {
+	RoleName: SHPC
+	L0: 肉墙倒塌了……这股令人不安的震动，整个世界都会发生巨大的变化。
+	L1: 不用担心，主人。虽然外面变得更危险了，但这正是我们获取新材料的好机会。
+	L2: 我用那些新出现的合金为您升级了握持系统。算是我们跨入新阶段的小小纪念。
+	L3: 无论这个世界变成什么样，只要您还在，一切就没有改变。
+}
+
+ShepelYharonGift: {
+	RoleName: SHPC
+	L0: 那条龙的速度……真的是突破了生物的极限。
+	L1: 如果稍有差池，您就会在瞬间……不，那种事绝不会发生。
+	L2: 我改进了一下算法。现在，您的攻击初速已经彻底超越它了。
+	L3: 为了追上您的脚步，为了永远挡在您的面前，我随时可以燃烧自己。
+}

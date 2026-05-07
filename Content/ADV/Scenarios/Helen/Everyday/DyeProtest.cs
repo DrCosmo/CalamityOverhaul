@@ -19,18 +19,18 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Helen.Everyday
             AddLineFromKey("R1", "L2");
         }
 
-        public override void Update(ADVSave save, HalibutPlayer halibutPlayer) {
-            if (!halibutPlayer.HeldHalibut) {
-                return;//必须持有比目鱼才能触发
-            }
-            if (save.DyeProtest) {
-                return;
-            }
-            Item item = halibutPlayer.Player.GetItem();
-            if (item.type == HalibutOverride.ID && item.CWR().DyeItemID > ItemID.None) {
-                StartScenario();
-                save.DyeProtest = true;
-            }
-        }
+        protected override ScenarioPolicy ConfigurePolicy() => new() {
+            IsCompleted = save => save.Get<HalibutADVData>().DyeProtest,
+            MarkCompleted = save => save.Get<HalibutADVData>().DyeProtest = true,
+            CanTrigger = (save, player) => {
+                var halibutPlayer = player.GetOverride<HalibutPlayer>();
+                if (!halibutPlayer.HeldHalibut) {
+                    return false;
+                }
+                Item item = player.GetItem();
+                return item.type == HalibutOverride.ID && item.CWR().DyeItemID > ItemID.None;
+            },
+            BlockedBy = ScenarioBlockers.Boss | ScenarioBlockers.ActiveScenario,
+        };
     }
 }

@@ -9,6 +9,10 @@ namespace CalamityOverhaul.Content.ADV
         public static IList<Texture2D> SupCalsADV = null;
         [VaultLoaden(CWRConstant.ADV + "SupCal/SupCal")]
         public static Texture2D SupCalADV = null;
+        [VaultLoaden(CWRConstant.ADV + "SupCal/")]
+        public static Texture2D Lain = null;
+        [VaultLoaden(CWRConstant.ADV + "SupCal/")]
+        public static Texture2D Lain_smile = null;
         [VaultLoaden(CWRConstant.ADV + "SupCal/SupCal_closeEyes")]
         public static Texture2D SupCal_closeEyesADV = null;
         [VaultLoaden(CWRConstant.ADV + "SupCal/SupCal_smile")]
@@ -57,9 +61,47 @@ namespace CalamityOverhaul.Content.ADV
         public static Texture2D Draedon2RedADV = null;
         [VaultLoaden(CWRConstant.ADV + "Draedon/Tzeentch")]
         public static Texture2D Tzeentch = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D Apollia = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D Apollia_Calmnessl = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D Apollia_Feel = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D Apollia_Rage = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D Apollia_Worry = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D ApolliaIcon = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D ApolliaActor = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D ApolliaActor_Jump = null;
+        [VaultLoaden(CWRConstant.ADV + "Draedon/")]
+        public static Texture2D Artis = null;
         [VaultLoaden(CWRConstant.ADV)]
         public static Texture2D FUJI = null;
         [VaultLoaden(CWRConstant.ADV + "Abysse/")]
         public static Texture2D Floatsland = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Blank = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Happy = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Pain = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Sad = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Serious = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Shocked = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Sleep = null;
+        [VaultLoaden(CWRConstant.ADV + "Shepel/")]
+        public static Texture2D Shepel_Smirk = null;
+        [VaultLoaden(CWRConstant.ADV + "VoidColony/")]
+        public static Texture2D Glitchwraith = null;
     }
 }

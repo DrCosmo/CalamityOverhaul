@@ -1,0 +1,134 @@
+﻿using CalamityOverhaul.Content.LegendWeapon.SHPCLegend.Cyberspaces.Banish;
+using Microsoft.Xna.Framework.Graphics;
+using System;
+using Terraria;
+using Terraria.GameContent;
+using Terraria.ModLoader;
+
+namespace CalamityOverhaul.Content.LegendWeapon.SHPCLegend.Cyberspaces.DomainFreeze
+{
+    /// <summary>
+    /// 赛博领域冻结NPC绘制拦截器
+    /// <br/>在PreDraw中切换SpriteBatch到Immediate模式并应用冻结故障+六角覆盖着色器
+    /// <br/>让原版绘制逻辑在着色器生效状态下执行，PostDraw中恢复
+    /// </summary>
+    internal class CyberDomainFreezeGlobalNPC : GlobalNPC
+    {
+        private static bool _shaderActive;
+
+        public override bool PreDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
+            if (!ShouldApplyEffect(npc)) return true;
+
+            Effect shader = CyberDomainFreezeAssets.CyberFreezeEntity;
+            if (shader == null) return true;
+
+            float progress = CyberDomainFreeze.GetNPCFreezeProgress(npc.whoAmI);
+            if (progress < 0f) return true;
+
+            Texture2D tex = TextureAssets.Npc[npc.type].Value;
+
+            float seed = CyberDomainFreeze.GetNPCSeed(npc.whoAmI);
+
+            shader.Parameters["texelSize"]?.SetValue(new Vector2(1f / tex.Width, 1f / tex.Height));
+            shader.Parameters["uTime"]?.SetValue(Main.GlobalTimeWrappedHourly);
+            shader.Parameters["progress"]?.SetValue(progress);
+            shader.Parameters["intensity"]?.SetValue(Cyberspace.Intensity);
+            shader.Parameters["seed"]?.SetValue(seed);
+
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.AlphaBlend,
+                Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer,
+                null, Main.GameViewMatrix.TransformationMatrix);
+            shader.CurrentTechnique.Passes[0].Apply();
+
+            _shaderActive = true;
+            return true;
+        }
+
+        public override void PostDraw(NPC npc, SpriteBatch spriteBatch, Vector2 screenPos, Color drawColor) {
+            bool wasFrozen = _shaderActive;
+            if (_shaderActive) {
+                _shaderActive = false;
+
+                spriteBatch.End();
+                spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                    Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer,
+                    null, Main.GameViewMatrix.TransformationMatrix);
+            }
+
+            // 绘制六角能量罩覆盖层
+            if (wasFrozen) {
+                float progress = CyberDomainFreeze.GetNPCFreezeProgress(npc.whoAmI);
+                float seed = CyberDomainFreeze.GetNPCSeed(npc.whoAmI);
+                DrawCageOverlay(spriteBatch, npc.Center, screenPos, progress, seed, npc.width, npc.height);
+            }
+        }
+
+        /// <summary>
+        /// 在被冻结实体周围绘制六角能量罩覆盖层（NPC和弹幕共用）
+        /// </summary>
+        internal static void DrawCageOverlay(SpriteBatch spriteBatch, Vector2 worldCenter, Vector2 screenPos,
+            float progress, float seed, int entityWidth, int entityHeight) {
+            Effect cageShader = CyberDomainFreezeAssets.CyberFreezeCage;
+            if (cageShader == null || progress < 0f) return;
+
+            float cageRadius = Math.Max(entityWidth, entityHeight) * 0.5f + 20f;
+            float quadSize = cageRadius * 2.4f;
+
+            // 形成进度: 前30帧 (0.5秒) 从0到1
+            float formProgress = Math.Min(progress * (CyberDomainFreeze.DefaultFreezeDuration / 30f), 1f);
+
+            cageShader.Parameters["uTime"]?.SetValue(Main.GlobalTimeWrappedHourly);
+            cageShader.Parameters["progress"]?.SetValue(progress);
+            cageShader.Parameters["formProgress"]?.SetValue(formProgress);
+            cageShader.Parameters["seed"]?.SetValue(seed);
+
+            Vector2 drawPos = worldCenter - screenPos;
+            Texture2D canvas = CWRAsset.Placeholder_White.Value;
+
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Immediate, BlendState.Additive,
+                SamplerState.LinearClamp, DepthStencilState.None, RasterizerState.CullNone,
+                null, Main.GameViewMatrix.TransformationMatrix);
+            cageShader.CurrentTechnique.Passes[0].Apply();
+
+            spriteBatch.Draw(canvas, drawPos, null, Color.White,
+                0f, canvas.Size() * 0.5f, new Vector2(quadSize, quadSize),
+                SpriteEffects.None, 0f);
+
+            spriteBatch.End();
+            spriteBatch.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                Main.DefaultSamplerState, DepthStencilState.None, Main.Rasterizer,
+                null, Main.GameViewMatrix.TransformationMatrix);
+        }
+
+        public static bool? PreAIByOverNPC(NPC npc) {
+            if (!CyberDomainFreeze.IsNPCFrozen(npc.whoAmI)) return null;
+
+            // 获取冻结位置快照
+            for (int i = 0; i < CyberDomainFreeze.FrozenNPCs.Count; i++) {
+                if (CyberDomainFreeze.FrozenNPCs[i].EntityIndex == npc.whoAmI) {
+                    npc.Center = CyberDomainFreeze.FrozenNPCs[i].FreezePosition;
+                    break;
+                }
+            }
+
+            npc.velocity = Vector2.Zero;
+            npc.frameCounter = 0;
+            npc.timeLeft++;
+            return false;
+        }
+
+        public override bool PreAI(NPC npc) {
+            //写在这里提醒自己，这个钩子的优先级不够高，导致可能无法很好的处理停滞效果等ai修改拦截，目前已经在PreAIByOverNPC函数中处理，由TimeFreezeEntities调用
+            return true;
+        }
+
+        private static bool ShouldApplyEffect(NPC npc) {
+            if (!CyberDomainFreeze.IsNPCFrozen(npc.whoAmI)) return false;
+            // 正在被放逐的NPC由放逐着色器处理，不叠加冻结着色器
+            if (CyberBanish.IsBanishing(npc.whoAmI)) return false;
+            return true;
+        }
+    }
+}

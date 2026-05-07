@@ -1,4 +1,4 @@
-using InnoVault.PRT;
+ï»¿using InnoVault.PRT;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using Terraria;
@@ -6,7 +6,7 @@ using Terraria;
 namespace CalamityOverhaul.Content.PRTTypes
 {
     /// <summary>
-    /// Ù¤ÂíÉäÏß³å»÷Á£×Ó
+    /// ä¼½é©¬å°„çº¿å†²å‡»ç²’å­
     /// </summary>
     internal class PRT_GammaImpact : BasePRT
     {
@@ -18,7 +18,7 @@ namespace CalamityOverhaul.Content.PRTTypes
         private bool affectedByGravity;
         public int inOwner = -1;
 
-        //¶¯»­²ÎÊı
+        //åŠ¨ç”»å‚æ•°
         private const int FrameColumns = 4;
         private const int FrameRows = 2;
         private const int TotalFrames = 8;
@@ -48,37 +48,37 @@ namespace CalamityOverhaul.Content.PRTTypes
 
         public override void SetProperty() {
             PRTDrawMode = PRTDrawModeEnum.AdditiveBlend;
-            ai[0] = Main.rand.Next(TotalFrames); //Ëæ»úÆğÊ¼Ö¡
+            ai[0] = Main.rand.Next(TotalFrames); //éšæœºèµ·å§‹å¸§
         }
 
         public override void AI() {
-            //¸üĞÂ¶¯»­Ö¡
+            //æ›´æ–°åŠ¨ç”»å¸§
             ai[0] += animationSpeed;
             if (ai[0] >= TotalFrames) {
                 ai[0] = 0;
             }
 
-            //Ğı×ª
+            //æ—‹è½¬
             Rotation = Velocity.ToRotation();
 
-            //ËÙ¶ÈË¥¼õ
+            //é€Ÿåº¦è¡°å‡
             Velocity *= 0.95f;
 
-            //ÖØÁ¦Ó°Ïì
+            //é‡åŠ›å½±å“
             if (affectedByGravity && Velocity.Length() < 12f) {
                 Velocity.X *= 0.94f;
                 Velocity.Y += 0.25f;
             }
 
-            //Ëõ·Å±ä»¯
+            //ç¼©æ”¾å˜åŒ–
             float lifeProgress = LifetimeCompletion;
             Scale = initialScale * (float)Math.Sin(lifeProgress * MathHelper.Pi);
 
-            //ÑÕÉ«½¥±äºÍµ­³ö
+            //é¢œè‰²æ¸å˜ï¼šå‘æ·±é›è“æ¶ˆæ•£
             float fadeProgress = (float)Math.Pow(lifeProgress, 2);
-            Color = Color.Lerp(initialColor, Color.Transparent, fadeProgress);
+            Color = Color.Lerp(initialColor, new Color(50, 30, 120, 0), fadeProgress);
 
-            //Ìí¼ÓÁÁ¶ÈÂö³å
+            //æ·»åŠ äº®åº¦è„‰å†²
             float pulse = (float)Math.Sin(Time * 0.3f) * 0.3f + 0.7f;
             Opacity = (1f - fadeProgress) * pulse;
 
@@ -90,12 +90,12 @@ namespace CalamityOverhaul.Content.PRTTypes
         public override bool PreDraw(SpriteBatch spriteBatch) {
             Texture2D texture = PRTLoader.PRT_IDToTexture[ID];
 
-            //¼ÆËãµ±Ç°Ö¡
+            //è®¡ç®—å½“å‰å¸§
             int currentFrame = (int)ai[0];
             int frameX = currentFrame % FrameColumns;
             int frameY = currentFrame / FrameColumns;
 
-            //¼ÆËãÖ¡µÄÔ´¾ØĞÎ
+            //è®¡ç®—å¸§çš„æºçŸ©å½¢
             int frameWidth = texture.Width / FrameColumns;
             int frameHeight = texture.Height / FrameRows;
             Rectangle sourceRect = new Rectangle(
@@ -108,7 +108,7 @@ namespace CalamityOverhaul.Content.PRTTypes
             Vector2 origin = new Vector2(frameWidth, frameHeight) * 0.5f;
             Vector2 drawPosition = Position - Main.screenPosition;
 
-            //»æÖÆ·¢¹â²ã
+            //ç»˜åˆ¶å‘å…‰å±‚
             spriteBatch.Draw(
                 texture,
                 drawPosition,
@@ -121,7 +121,7 @@ namespace CalamityOverhaul.Content.PRTTypes
                 0f
             );
 
-            //»æÖÆÖ÷Ìå
+            //ç»˜åˆ¶ä¸»ä½“
             spriteBatch.Draw(
                 texture,
                 drawPosition,

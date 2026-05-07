@@ -1,48 +1,47 @@
-using CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowers.SignalTower;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
+ï»¿using CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowers.SignalTower;
 using Terraria;
 using Terraria.ModLoader;
 
 namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowers
 {
     /// <summary>
-    /// ĞÅºÅËş´î½¨¼ì²âÏµÍ³
+    /// ä¿¡å·å¡”æ­å»ºæ£€æµ‹ç³»ç»Ÿ
     /// </summary>
     internal class DeploySignaltowerCheck : ModSystem
     {
         /// <summary>
-        /// ÊÀ½çÉÏÒÑ´î½¨µÄĞÅºÅËşÊıÁ¿(ÔÚÄ¿±êµãÎ»ÄÚµÄ)
+        /// ä¸–ç•Œä¸Šå·²æ­å»ºçš„ä¿¡å·å¡”æ•°é‡(åœ¨ç›®æ ‡ç‚¹ä½å†…çš„)
         /// </summary>
         public static int DeployedTowerCount { get; private set; }
 
         /// <summary>
-        /// Ä¿±êĞÅºÅËşÊıÁ¿
+        /// ç›®æ ‡ä¿¡å·å¡”æ•°é‡
         /// </summary>
         public const int TargetTowerCount = 10;
 
         /// <summary>
-        /// ³õ´Î´î½¨³¡¾°´¥·¢¼ì²â¼ÆÊ±Æ÷
+        /// åˆæ¬¡æ­å»ºåœºæ™¯è§¦å‘æ£€æµ‹è®¡æ—¶å™¨
         /// </summary>
         private int scenarioCheckTimer;
 
         /// <summary>
-        /// ÈÎÎñÍê³É³¡¾°´¥·¢¼ÆÊ±Æ÷
+        /// ä»»åŠ¡å®Œæˆåœºæ™¯è§¦å‘è®¡æ—¶å™¨
         /// </summary>
         private int questCompleteCheckTimer;
 
         public override void PostUpdateEverything() {
-            //Í³¼ÆÊÀ½çÉÏµÄĞÅºÅËşÊıÁ¿
+            //ç»Ÿè®¡ä¸–ç•Œä¸Šçš„ä¿¡å·å¡”æ•°é‡
             UpdateTowerCount();
 
-            //¼ì²âÊÇ·ñ´¥·¢³õ´Î´î½¨³¡¾°
+            //æ£€æµ‹æ˜¯å¦è§¦å‘åˆæ¬¡æ­å»ºåœºæ™¯
             CheckFirstTowerScenario();
 
-            //¼ì²âÈÎÎñÍê³É
+            //æ£€æµ‹ä»»åŠ¡å®Œæˆ
             CheckQuestComplete();
         }
 
         /// <summary>
-        /// ¸üĞÂÊÀ½çÉÏĞÅºÅËşµÄÊıÁ¿(Ö»Í³¼ÆÔÚÄ¿±êµãÎ»ÄÚµÄ)
+        /// æ›´æ–°ä¸–ç•Œä¸Šä¿¡å·å¡”çš„æ•°é‡(åªç»Ÿè®¡åœ¨ç›®æ ‡ç‚¹ä½å†…çš„)
         /// </summary>
         private static void UpdateTowerCount() {
             if (!SignalTowerTargetManager.IsGenerated) {
@@ -50,7 +49,7 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
                 return;
             }
 
-            //Í³¼ÆÒÑÍê³ÉµÄÄ¿±êµãÊıÁ¿
+            //ç»Ÿè®¡å·²å®Œæˆçš„ç›®æ ‡ç‚¹æ•°é‡
             int count = 0;
             foreach (SignalTowerTargetPoint point in SignalTowerTargetManager.TargetPoints) {
                 if (point.IsCompleted) {
@@ -62,30 +61,25 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         }
 
         /// <summary>
-        /// ¼ì²âÊÇ·ñ´¥·¢³õ´Î´î½¨³¡¾°
+        /// æ£€æµ‹æ˜¯å¦è§¦å‘åˆæ¬¡æ­å»ºåœºæ™¯
         /// </summary>
         private void CheckFirstTowerScenario() {
-            if (!Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!Main.LocalPlayer.TryGetADVSave(out var save)) {
                 return;
             }
 
-            ADVSave save = halibutPlayer.ADVSave;
-            if (save == null) {
+            //æ£€æŸ¥æ˜¯å¦å·²æ¥å—ä»»åŠ¡ä½†æœªè§¦å‘é¦–æ¬¡åœºæ™¯
+            if (!save.Get<DraedonADVData>().DeploySignaltowerQuestAccepted || save.Get<DraedonADVData>().DeploySignaltowerFirstTowerBuilt) {
                 return;
             }
 
-            //¼ì²éÊÇ·ñÒÑ½ÓÊÜÈÎÎñµ«Î´´¥·¢Ê×´Î³¡¾°
-            if (!save.DeploySignaltowerQuestAccepted || save.DeploySignaltowerFirstTowerBuilt) {
-                return;
-            }
-
-            //¼ì²âÊÇ·ñÓĞµÚÒ»×ùĞÅºÅËş±»´î½¨
+            //æ£€æµ‹æ˜¯å¦æœ‰ç¬¬ä¸€åº§ä¿¡å·å¡”è¢«æ­å»º
             if (DeployedTowerCount > 0) {
                 scenarioCheckTimer++;
 
-                //ÑÓ³Ù2Ãëºó´¥·¢³¡¾°±ÜÃâÔÚ½¨Ôì¶¯»­Ê±´¥·¢
+                //å»¶è¿Ÿ2ç§’åè§¦å‘åœºæ™¯é¿å…åœ¨å»ºé€ åŠ¨ç”»æ—¶è§¦å‘
                 if (scenarioCheckTimer >= 120) {
-                    save.DeploySignaltowerFirstTowerBuilt = true;
+                    save.Get<DraedonADVData>().DeploySignaltowerFirstTowerBuilt = true;
                     TriggerFirstTowerScenario();
                     scenarioCheckTimer = 0;
                 }
@@ -96,30 +90,25 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         }
 
         /// <summary>
-        /// ¼ì²âÈÎÎñÍê³É
+        /// æ£€æµ‹ä»»åŠ¡å®Œæˆ
         /// </summary>
         private void CheckQuestComplete() {
-            if (!Main.LocalPlayer.TryGetOverride<HalibutPlayer>(out var halibutPlayer)) {
+            if (!Main.LocalPlayer.TryGetADVSave(out var save)) {
                 return;
             }
 
-            ADVSave save = halibutPlayer.ADVSave;
-            if (save == null) {
+            //æ£€æŸ¥æ˜¯å¦å·²æ¥å—ä»»åŠ¡ä½†æœªå®Œæˆ
+            if (!save.Get<DraedonADVData>().DeploySignaltowerQuestAccepted || save.Get<DraedonADVData>().DeploySignaltowerQuestCompleted) {
                 return;
             }
 
-            //¼ì²éÊÇ·ñÒÑ½ÓÊÜÈÎÎñµ«Î´Íê³É
-            if (!save.DeploySignaltowerQuestAccepted || save.DeploySignaltowerQuestCompleted) {
-                return;
-            }
-
-            //¼ì²âÊÇ·ñ´ïµ½Ä¿±êÊıÁ¿
+            //æ£€æµ‹æ˜¯å¦è¾¾åˆ°ç›®æ ‡æ•°é‡
             if (DeployedTowerCount >= TargetTowerCount) {
                 questCompleteCheckTimer++;
 
-                //ÑÓ³Ù2Ãëºó´¥·¢Íê³É³¡¾°
+                //å»¶è¿Ÿ2ç§’åè§¦å‘å®Œæˆåœºæ™¯
                 if (questCompleteCheckTimer >= 120) {
-                    save.DeploySignaltowerQuestCompleted = true;
+                    save.Get<DraedonADVData>().DeploySignaltowerQuestCompleted = true;
                     DSTPlayer.HasDeploySignaltowerQuestByWorld = false;
                     OnQuestComplete();
                     questCompleteCheckTimer = 0;
@@ -131,18 +120,18 @@ namespace CalamityOverhaul.Content.ADV.Scenarios.Draedons.Quest.DeploySignaltowe
         }
 
         /// <summary>
-        /// ´¥·¢µÚÒ»×ùĞÅºÅËş´î½¨ºóµÄ³¡¾°
+        /// è§¦å‘ç¬¬ä¸€åº§ä¿¡å·å¡”æ­å»ºåçš„åœºæ™¯
         /// </summary>
         private static void TriggerFirstTowerScenario() {
-            //´¥·¢¼ÎµÇ³öÏÖ¸øÓèÖ¸Ê¾µÄ³¡¾°
+            //è§¦å‘å˜‰ç™»å‡ºç°ç»™äºˆæŒ‡ç¤ºçš„åœºæ™¯
             ScenarioManager.Start<FirstTowerBuiltScenario>();
         }
 
         /// <summary>
-        /// ÈÎÎñÍê³ÉÊ±µ÷ÓÃ
+        /// ä»»åŠ¡å®Œæˆæ—¶è°ƒç”¨
         /// </summary>
         private static void OnQuestComplete() {
-            //´¥·¢ÈÎÎñÍê³É³¡¾°
+            //è§¦å‘ä»»åŠ¡å®Œæˆåœºæ™¯
             ScenarioManager.Start<QuestCompleteScenario>();
         }
 

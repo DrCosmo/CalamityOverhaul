@@ -1,11 +1,9 @@
-using CalamityOverhaul.Common;
+ï»¿using CalamityOverhaul.Common;
 using CalamityOverhaul.Content.Items.Magic;
-using CalamityOverhaul.Content.Items.Materials;
 using CalamityOverhaul.Content.Items.Melee;
-using CalamityOverhaul.Content.Items.Placeable;
+using CalamityOverhaul.Content.Items.Modifys.ModifyBag;
 using CalamityOverhaul.Content.Items.Ranged;
 using CalamityOverhaul.Content.Items.Rogue;
-using CalamityOverhaul.Content.RemakeItems.ModifyBag;
 using Terraria;
 using Terraria.GameContent;
 using Terraria.GameContent.ItemDropRules;
@@ -15,7 +13,7 @@ using Terraria.ModLoader;
 namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
 {
     /// <summary>
-    /// ¹ÜÀíÍ·²¿AIµÄÊý¾Ý¡¢ÊôÐÔºÍ×ÊÔ´¼ÓÔØ
+    /// ç®¡ç†å¤´éƒ¨AIçš„æ•°æ®ã€å±žæ€§å’Œèµ„æºåŠ è½½
     /// </summary>
     internal partial class HeadPrimeAI : CWRNPCOverride
     {
@@ -26,7 +24,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
         }
 
         void ICWRLoader.LoadAsset() {
-            //ÏÈ»º´æÔ­°æµÄÎÆÀí
+            //å…ˆç¼“å­˜åŽŸç‰ˆçš„çº¹ç†
             Vanilla_TwinsBossBag = TextureAssets.Item[ItemID.TwinsBossBag];
             Vanilla_DestroyerBossBag = TextureAssets.Item[ItemID.DestroyerBossBag];
             Vanilla_SkeletronPrimeBossBag = TextureAssets.Item[ItemID.SkeletronPrimeBossBag];
@@ -35,7 +33,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
                 TextureAssets.Item[ItemID.DestroyerBossBag] = CWRUtils.GetT2DAsset(CWRConstant.Item + "Bag/DestroyerBag");
                 TextureAssets.Item[ItemID.SkeletronPrimeBossBag] = CWRUtils.GetT2DAsset(CWRConstant.Item + "Bag/PrimeBag");
             }
-            else {//ÎÞÂÛÔÚÊ²Ã´Çé¿öÏÂ£¬ÐÞ¸ÄÁËÔ­°æÎÆÀí¶¼ÐèÒª»Ö¸´Ëü£¬ÕâÀï¿¼ÂÇµÄÊÇÖÐÍ¾¹Ø±ÕÁËÉúÎï´óÐÞºóµÄÐèÒªµÄ»Ö¸´²Ù×÷
+            else {//æ— è®ºåœ¨ä»€ä¹ˆæƒ…å†µä¸‹ï¼Œä¿®æ”¹äº†åŽŸç‰ˆçº¹ç†éƒ½éœ€è¦æ¢å¤å®ƒï¼Œè¿™é‡Œè€ƒè™‘çš„æ˜¯ä¸­é€”å…³é—­äº†ç”Ÿç‰©å¤§ä¿®åŽçš„éœ€è¦çš„æ¢å¤æ“ä½œ
                 TextureAssets.Item[ItemID.TwinsBossBag] = Vanilla_TwinsBossBag;
                 TextureAssets.Item[ItemID.DestroyerBossBag] = Vanilla_DestroyerBossBag;
                 TextureAssets.Item[ItemID.SkeletronPrimeBossBag] = Vanilla_SkeletronPrimeBossBag;
@@ -43,11 +41,11 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
         }
 
         void ICWRLoader.UnLoadData() {
-            if (VaultUtils.isServer) {//ÏÂÃæµÄ²Ù×÷²»ÄÜÔÚ·þÎñÆ÷ÉÏÔËÐÐ
+            if (VaultUtils.isServer) {//ä¸‹é¢çš„æ“ä½œä¸èƒ½åœ¨æœåŠ¡å™¨ä¸Šè¿è¡Œ
                 return;
             }
 
-            //ÎÞÂÛÔÚÊ²Ã´Çé¿öÏÂ£¬ÐÞ¸ÄÁËÔ­°æÎÆÀí¶¼ÐèÒª»Ö¸´Ëü
+            //æ— è®ºåœ¨ä»€ä¹ˆæƒ…å†µä¸‹ï¼Œä¿®æ”¹äº†åŽŸç‰ˆçº¹ç†éƒ½éœ€è¦æ¢å¤å®ƒ
             if (Vanilla_TwinsBossBag != null) {
                 TextureAssets.Item[ItemID.TwinsBossBag] = Vanilla_TwinsBossBag;
             }
@@ -67,12 +65,6 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
             rule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<CommandersClaw>(), 4));
             rule.OnSuccess(ItemDropRule.Common(ModContent.ItemType<RaiderGun>(), 4));
             npcLoot.Add(rule);
-            LeadingConditionRule rule2 = new LeadingConditionRule(new DropInMachineRebellion());
-            rule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulofFrightEX>()));
-            rule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulofMightEX>()));
-            rule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<SoulofSightEX>()));
-            rule2.OnSuccess(ItemDropRule.Common(ModContent.ItemType<MetalMusicBox>(), 5));
-            npcLoot.Add(rule2);
         }
 
         public override void BossHeadSlot(ref int index) {
@@ -84,9 +76,6 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalSkeletronPrime
         public override bool CanLoad() => true;
 
         public override bool? CanCWROverride() {
-            if (CWRWorld.MachineRebellion) {
-                return true;
-            }
             return null;
         }
     }

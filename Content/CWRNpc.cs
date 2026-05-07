@@ -7,7 +7,6 @@ using CalamityOverhaul.Content.Items.Painting;
 using CalamityOverhaul.Content.Items.Placeable;
 using CalamityOverhaul.Content.Items.Rogue;
 using CalamityOverhaul.Content.Items.Tools;
-using CalamityOverhaul.Content.Projectiles.Weapons.Ranged;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
@@ -86,8 +85,6 @@ namespace CalamityOverhaul.Content
             cwr.CreateHitPlayer = CreateHitPlayer;
             cwr.ContagionOnHitNum = ContagionOnHitNum;
             cwr.PhosphorescentGauntletHitCount = PhosphorescentGauntletHitCount;
-            cwr.WhipHitNum = WhipHitNum;
-            cwr.WhipHitType = WhipHitType;
             cwr.LonginusSign = LonginusSign;
             cwr.IceParclose = IceParclose;
             return cwr;
@@ -131,10 +128,10 @@ namespace CalamityOverhaul.Content
         }
 
         public static void MultipleSegmentsLimitDamage(NPC target, ref NPC.HitModifiers modifiers) {
-            if (CWRLoad.targetNpcTypes15.Contains(target.type) || CWRLoad.targetNpcTypes10.Contains(target.type)
-                || CWRLoad.targetNpcTypes8.Contains(target.type) || CWRLoad.targetNpcTypes7.Contains(target.type)
-                || CWRLoad.targetNpcTypes6.Contains(target.type) || CWRLoad.targetNpcTypes5.Contains(target.type)
-                || CWRLoad.targetNpcTypes4.Contains(target.type) || CWRLoad.targetNpcTypes2.Contains(target.type)
+            if (CWRLoad.DestroyerSegments.Contains(target.type) || CWRLoad.AstrumDeusSegments.Contains(target.type)
+                || CWRLoad.DevourerofGodsSegments.Contains(target.type) || CWRLoad.ExoMechSegments.Contains(target.type)
+                || CWRLoad.ArmoredDiggerSegments.Contains(target.type) || CWRLoad.PerforatorMediumSegments.Contains(target.type)
+                || CWRLoad.PerforatorLargeSegments.Contains(target.type) || CWRLoad.StormWeaverSegments.Contains(target.type)
                 || CWRLoad.WormBodys.Contains(target.type) || target.type == CWRID.NPC_AquaticScourgeBodyAlt) {
                 modifiers.FinalDamage *= 0.1f;
                 int dmownInt = (int)(target.lifeMax * 0.001f);
@@ -155,7 +152,7 @@ namespace CalamityOverhaul.Content
         }
 
         public override bool PreAI(NPC npc) {
-            if (CWRWorld.CanTimeFrozen() || FrozenActivity) {
+            if (FrozenActivity) {
                 DoTimeFrozen(npc);
                 return false;
             }
@@ -163,14 +160,6 @@ namespace CalamityOverhaul.Content
                 IsWeakTime--;
             }
             return base.PreAI(npc);
-        }
-
-        public override void PostAI(NPC npc) {
-            if (!VaultUtils.isClient) {
-                if (WhipHitNum > 10) {
-                    WhipHitNum = 10;
-                }
-            }
         }
 
         public override bool CanHitPlayer(NPC npc, Player target, ref int cooldownSlot) {
@@ -193,23 +182,12 @@ namespace CalamityOverhaul.Content
             return base.SpecialOnKill(npc);
         }
 
-        public override bool PreKill(NPC npc) {
-            if (ContagionOnHitNum > 0 && CreateHitPlayer != null) {
-                if (Main.myPlayer == CreateHitPlayer.whoAmI && CreateHitPlayer.ownedProjectileCounts[ModContent.ProjectileType<NurgleSoul>()] <= 13) {
-                    Projectile proj = Projectile.NewProjectileDirect(CreateHitPlayer.FromObjectGetParent(), npc.Center, VaultUtils.RandVr(13)
-                        , ModContent.ProjectileType<NurgleSoul>(), npc.damage, 2, CreateHitPlayer.whoAmI);
-                    proj.scale = (npc.width / proj.width) * npc.scale;
-                }
-            }
-            return base.PreKill(npc);
-        }
-
         public override void OnKill(NPC npc) {
             if (VaultUtils.isClient) {
                 return;
             }
 
-            if (npc.boss && CWRLoad.targetNpcTypes7.Contains(npc.type) || npc.type == CWRID.NPC_PlaguebringerGoliath) {
+            if (npc.boss && CWRLoad.ExoMechSegments.Contains(npc.type) || npc.type == CWRID.NPC_PlaguebringerGoliath) {
                 for (int i = 0; i < Main.rand.Next(3, 6); i++) {
                     int type = Item.NewItem(npc.FromObjectGetParent(), npc.Hitbox, CWRID.Item_DubiousPlating, Main.rand.Next(7, 13));
                     if (!VaultUtils.isSinglePlayer) {
@@ -314,7 +292,7 @@ namespace CalamityOverhaul.Content
                 }
                 Item newItem = new Item(item.type);
                 CWRItem cwrItem = newItem.CWR();
-                if (cwrItem.HasCartridgeHolder || cwrItem.heldProjType > 0 || cwrItem.isHeldItem) {
+                if (cwrItem.heldProjType > 0 || cwrItem.isHeldItem) {
                     item.SetDefaults(item.type);
                 }
             }

@@ -51,13 +51,13 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
         private bool hasPlayedModeSound;
 
         //难度调整参数
-        private float DashSpeed => Context.IsMachineRebellion ? 42f : (Context.IsDeathMode ? 38f : 35f);
-        private int MaxDashCount => Context.IsMachineRebellion ? 8 : (Context.IsDeathMode ? 7 : 6);
-        private int DashPrepareTime => Context.IsMachineRebellion ? 15 : (Context.IsDeathMode ? 18 : 22);
+        private float DashSpeed => Context.IsDeathMode ? 36f : 33f;
+        private int MaxDashCount => Context.IsDeathMode ? 5 : 4;
+        private int DashPrepareTime => Context.IsDeathMode ? 22 : 26;
         private int DashDuration => 25;
-        private float VortexSpeed => Context.IsMachineRebellion ? 0.12f : (Context.IsDeathMode ? 0.1f : 0.08f);
-        private int BurstFireRate => Context.IsMachineRebellion ? 4 : (Context.IsDeathMode ? 5 : 6);
-        private int BurstCount => Context.IsMachineRebellion ? 20 : (Context.IsDeathMode ? 16 : 12);
+        private float VortexSpeed => Context.IsDeathMode ? 0.1f : 0.08f;
+        private int BurstFireRate => Context.IsDeathMode ? 7 : 8;
+        private int BurstCount => Context.IsDeathMode ? 12 : 10;
 
         public override void OnEnter(TwinsStateContext context) {
             base.OnEnter(context);
@@ -209,7 +209,8 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
         /// 火焰漩涡模式 - 围绕玩家旋转喷火
         /// </summary>
         private void ExecuteFlameVortex(NPC npc, Player player) {
-            int vortexDuration = Context.IsMachineRebellion ? 180 : (Context.IsDeathMode ? 150 : 120);
+            //缩短漩涡持续时间，避免动作过于凝滞
+            int vortexDuration = Context.IsDeathMode ? 110 : 95;
 
             if (!hasPlayedModeSound) {
                 hasPlayedModeSound = true;
@@ -229,7 +230,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
 
             //持续喷火
             //操你妈躲都躲不开，注释了
-            //int fireRate = Context.IsMachineRebellion ? 4 : (Context.IsDeathMode ? 5 : 6);
+            //int fireRate = Context.IsDeathMode ? 5 : 6;
             //if (modeTimer % fireRate == 0 && !VaultUtils.isClient) {
             //    Vector2 fireDir = (player.Center - npc.Center).SafeNormalize(Vector2.Zero);
             //    Projectile.NewProjectile(
@@ -244,14 +245,14 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
             //}
 
             //间歇性发射火球
-            if (modeTimer % 10 == 0 && !VaultUtils.isClient) {
+            if (modeTimer % 14 == 0 && !VaultUtils.isClient) {
                 Vector2 fireDir = (player.Center - npc.Center).SafeNormalize(Vector2.Zero);
                 Projectile.NewProjectile(
                     npc.GetSource_FromAI(),
                     npc.Center,
                     fireDir * 10f,
                     ModContent.ProjectileType<Fireball>(),
-                    32,
+                    26,
                     0f,
                     Main.myPlayer
                 );
@@ -315,7 +316,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
                             npc.Center,
                             shootDir * 12f,
                             ModContent.ProjectileType<Fireball>(),
-                            30,
+                            24,
                             0f,
                             Main.myPlayer
                         );
@@ -345,7 +346,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
         /// 追踪冲刺模式 - 持续追踪玩家的冲刺
         /// </summary>
         private void ExecuteHomingDash(NPC npc, Player player) {
-            int homingDuration = Context.IsMachineRebellion ? 150 : (Context.IsDeathMode ? 120 : 100);
+            int homingDuration = Context.IsDeathMode ? 120 : 100;
 
             if (!hasPlayedModeSound) {
                 hasPlayedModeSound = true;
@@ -356,21 +357,21 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
 
             //持续追踪玩家，但速度很快
             Vector2 toPlayer = GetDirectionToTarget(Context);
-            float chaseSpeed = Context.IsMachineRebellion ? 8f : (Context.IsDeathMode ? 4f : 2f);
-            float turnSpeed = Context.IsMachineRebellion ? 0.25f : (Context.IsDeathMode ? 0.2f : 0.15f);
+            float chaseSpeed = Context.IsDeathMode ? 4f : 2f;
+            float turnSpeed = Context.IsDeathMode ? 0.2f : 0.15f;
 
             npc.velocity = Vector2.Lerp(npc.velocity, toPlayer * chaseSpeed, turnSpeed);
             FaceVelocity(npc);
 
             //持续喷火
-            int fireRate = Context.IsMachineRebellion ? 5 : (Context.IsDeathMode ? 6 : 8);
+            int fireRate = Context.IsDeathMode ? 9 : 11;
             if (modeTimer > 30 && modeTimer % fireRate == 0 && !VaultUtils.isClient) {
                 Projectile.NewProjectile(
                     npc.GetSource_FromAI(),
                     npc.Center,
                     npc.velocity.SafeNormalize(Vector2.Zero) * 12f,
                     ProjectileID.EyeFire,
-                    32,
+                    26,
                     0f,
                     Main.myPlayer
                 );
@@ -387,7 +388,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
             }
 
             //间歇性发射追踪火球
-            if (modeTimer % 25 == 0 && !VaultUtils.isClient) {
+            if (modeTimer % 30 == 0 && !VaultUtils.isClient) {
                 for (int i = 0; i < 3; i++) {
                     float angle = MathHelper.TwoPi / 3f * i + modeTimer * 0.1f;
                     Vector2 vel = angle.ToRotationVector2() * 6f;
@@ -396,7 +397,7 @@ namespace CalamityOverhaul.Content.NPCs.BrutalNPCs.BrutalMechanicalEye.States.Sp
                         npc.Center,
                         vel,
                         ModContent.ProjectileType<Fireball>(),
-                        28,
+                        22,
                         0f,
                         Main.myPlayer
                     );

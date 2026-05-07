@@ -389,8 +389,6 @@ SupCalDoGQuestReward: {
 	Line7: ......我越来越受不了这家伙了
 }
 
-AchievementToast.AchievementUnlocked: 成就达成!
-
 SupCalYharonQuestReward: {
 	Rolename1: 硫火女巫
 	Rolename2: 比目鱼
@@ -408,6 +406,19 @@ YharonQuestUI: {
 	QuestDesc: 使用鬼面刀击杀焚世之龙
 	AcceptText: 接受
 	DeclineText: 拒绝
+}
+
+SupCalQuestLine: {
+	QuestCategory: 硫火女巫
+	PallbearerTitle: 委托：猎杀亵渎天神
+	PallbearerSummary: 使用扶柩者击杀亵渎天神，贡献度需达到80%
+	DoGTitle: 委托：猎杀神明吞噬者
+	DoGSummary: 使用刻心者击杀神明吞噬者，贡献度需达到80%
+	YharonTitle: 委托：猎杀焚世龙
+	YharonSummary: 使用鬼面刀击杀焚世之龙，贡献度需达到75%
+	TrackerSummonHint: 目标不在场，请召唤 {0}
+	TrackerContribution: 武器贡献: {0:0%}
+	TrackerRequired: 需求: {0:0%}
 }
 
 HelensInterference: {
@@ -565,6 +576,38 @@ ExoMechThirdDefeat: {
 	DraedonName: 嘉登
 	ThirdDefeatLine1: 稳定的表现，这正是我所追求的完美的一部分
 	ThirdDefeatLine2: 你已经证明了自己的价值不是偶然
+}
+
+DraedonQuestLine: {
+	QuestCategory: 嘉登
+	DeployTitle: 量子纠缠网络部署
+	DeploySummary: 在世界各处的目标点位部署10座信号塔
+	TrackerNearestTarget: 最近的目标点
+	TrackerNodeName: "[NUM]号纠缠节点"
+	TrackerInRange: 范围内
+	TrackerDistance: 距离
+	TrackerDeployProgress: 部署进度
+	TrackerQuestComplete: 任务完成!
+}
+
+AbyssQuestLine: {
+	QuestCategory: 老公爵
+	CampsiteTitle: 深渊在呼唤
+	CampsiteSummary: 找到并与老公爵对话
+	CampsiteObjective: 目标
+	CampsiteLocation: 前往老公爵营地
+	CampsiteDistance: 距离
+	CampsiteInteract: 与老公爵对话
+	CampsiteComplete: 任务完成！
+	CampsiteHoldHint: 持有海洋碎片可查看方向
+	FragmentTitle: 深渊在呼唤
+	FragmentSummary: 收集777块海洋残片
+	FragmentObjective: 目标
+	FragmentCollect: 收集海洋残片
+	FragmentCurrent: 当前拥有
+	FragmentReturn: 返回营地提交
+	FragmentComplete: 任务完成！
+	FragmentHint: 钓鱼或者搜刮海洋区域的生物
 }
 
 MusicToast.NowPlaying: 正在播放
@@ -906,4 +949,139 @@ ComeCampsiteFindMe: {
 	C1: 有正事找你
 	C2: 我只是想钓着玩玩……
 	B1_NO: 你先找来我这里吧，认一下路
+}
+
+GalacticCrisis: {
+	DraedonName: 嘉登
+	CrisisIntro1: 既然量子网络已经重新连接，有些东西必须让你亲眼确认
+	CrisisIntro2: 这是正在吞噬银河旋臂的阴影
+	CrisisIntro3: 这些阴影由虫群组成。在此之前，我已投入数以百万计的星流泰坦尝试阻截
+	CrisisIntro4: 数据表明，这是一场必输的拉锯战。它们无穷无尽，而我的资源终将耗尽
+	CrisisIntro5: 因此，我制定了唯一胜率超过0%的方案
+	CrisisIntro6: 引爆从银河外环至中环带，所有星球的地核
+	CrisisIntro7: 通过将这数万光年化作绝对的死域，切断虫群的补给链，迫使它们因极高的航行损耗而转向临近的河系
+	CrisisIntro8: 饥饿是宇宙中最强大的驱动力，也最容易被算计。如果我将银河系的资源降低到临界点以下，对于虫群而言，银河系就只是一口空棺材
+	CrisisIntro9: 泰拉亦在焦土名单之列。但作为特异点，你的本质不应在此熄灭，我会为你提供撤离的星舰
+	ChoiceRefuse: 一定有别的办法
+	ChoiceSilence: ......(沉默并握紧武器)
+	RebuttalLine1: ……这就对了
+	RebuttalLine2: 我预测你有99%的概率会接受撤离，但我更期待那1%的非理性行为
+	RebuttalLine3: 你拒绝了生存的捷径，这正是我所观察到的特异点性质
+	RebuttalLine4: 既然如此，我有一个备用方案，一个由于成功率过低而被我搁置的行动
+	MissionBrief1: 目标是科尔托星系。那里已经沦陷，但虫群尚未将其彻底消化
+	MissionBrief2: 在其第三行星的地幔中，正在生成极高纯度的星流矿脉
+	MissionBrief3: 决不能让虫族得到它。一旦它们进化出利用星流物质的能力，银河内的局势将变得无法控制
+	MissionBrief4: 你做的很简单，突破虫海，抵达地核，引爆矿脉，彻底摧毁那颗星球
+	MissionBrief5: 如果这次行动顺利，将证明个体在与虫族的战争中可以起到决定性作用，我将以你为核心制作一套新的战略
+	AndroidReveal1: 在你之前，我已向该坐标投送了一支先遣队
+	AndroidReveal2: 她们是基于我的最新技术构建的战术人形，阿尔蒂斯 与 阿波利娅
+	AndroidReveal3: 她们拥有远超旧式机甲的机动性与逻辑处理能力，但在科尔托III号星降落后不久，我便失去了她们的信号
+	AndroidReveal4: 最后的数据显示她们仍有生命体征反应，但处于极度危险之中
+	MissionObjective: 前往科尔托星系确认那两台机体的状况，如果她们还能战斗，就让她们协助你完成任务。如果不能……
+	MissionObjectiveDark: 至少带回她们的核心数据，我不希望我的杰作毫无意义地成为虫子的口粮
+	FinalSendOff: 坐标已输入，去吧，向我展示你能否再次超越我的计算
+}
+
+FirstMetApollia: {
+	Rolename: 阿波利娅
+	Line1: ......人类?
+	Line2: 大气层的空降轨迹太显眼了，我预判了落点过来碰碰运气
+	Line3: 我是阿波利娅。你最好是星流舰队的先遣引导员，告诉我大部队就在后面
+	C1: (递出嘉登的授权芯片)
+	C2: 我怎么确认你不是虫族的拟态陷阱？
+	C2_R1: ......拟态虫不会主动暴露位置，也不会对着空降仓跑过来
+	C2_R2: 芯片，给我看你的授权芯片
+	Line4: ......(读取芯片数据)
+	Line5: 就你一个？！搞什么！
+	Line6: 这里需要的是泰坦军团，还有灭绝令！而不是再派一个人来送死！
+	Line7: (深呼吸)......抱歉，源头的安排我都已知晓
+	Line8: 阿波利娅，原隶属第九军团，现在将协助你在这颗星球上的所有行动
+}
+
+GargoyleWarningScenario: {
+	Line1: ......虫族的侦察群落，虫群大概率在后面
+	Line2: 它们肯定发现你了，跟我走，前方有一座废弃的要塞，用那里的防御工事可以抵挡一会儿
+}
+
+DropPodCallScenario: {
+	CallerNameText: 嘉登
+	Line1: 比我想得要顺利许多，穿梭用时负43分钟
+	Line2: 你的体质非常适合亚空间航行
+	Line3: 你现在位于科尔托三号星的近地轨道
+	Line4: 注意避开那些星流机甲的残骸
+	Line5: 启示录级战争结束后，这颗星球的总质量增加了一倍，于是你便看到了这些
+	Line6: 我已经将权限刻录进芯片中，如果你遇到幸存的机体，它们会明白一切
+	Line7: 你马上就要进入虫族建立的屏蔽立场里面了，到时你和外界的一切联系会中断
+	Line8: 如果你成功杀死驻扎在这颗星球的节点生物，立场应该会解除，它应该位于接近地核的位置
+	Line9: 最后，祝你好运
+}
+
+FishoilSubmitScenario: {
+	Rolename: 比目鱼
+	SubmitLine1: 嗯，你收集到了足够的鱼
+	SubmitLine2: 正好够我提炼一瓶鱼油的量
+	QuestionLine: 你要把它们交给我吗？
+	ChoiceGive: 好，拿去吧
+	ChoiceRefuse: 我再想想
+	GiveResponse: 很好，稍等...给你，一瓶新鲜的鱼油
+	RefuseResponse: 好吧，什么时候想好了再来找我
+	QuestTitle: 鱼油采集
+	QuestSummary: 收集300条普通鱼交给比目鱼，换取一瓶鱼油
+	QuestCategory: 比目鱼
+	ProgressFormat: "{0}/{1}"
+	TrackerCollecting: 还需收集 {0} 条鱼
+	TrackerReady: 鱼已收集完毕，请关注任务以提交
+	StatusSuspended: 已挂起
+	StatusCompleted: 已完成
+	StatusSubmittable: 可提交
+	StatusCollectingFormat: 收集中 ({0}/{1})
+	NotEnoughResponse: 嗯？鱼好像不太够，再去捕一些回来吧
+	AlreadyCompletedResponse: 鱼油已经给你了，再要的话还得等下次
+	SubmitButtonLabel: 提交鱼
+	AwaitingSubmitHint: 点击提交以将鱼交给比目鱼
+}
+
+FirstMetShepel: {
+	RolenameSHPC: SHPC
+	Line1: 主人！很高兴再见到您！
+	Choice1Text: 你认错人了吧？
+	Choice2Text: ...好久不见
+	Choice1Response: ...是的，只要是您，我每次都愿意认错
+	Choice1Silence: ......
+	CybCourseOfferLine: 超梦程序已成功录入。主人，是否现在接入超梦空间，学习骇客模式及SHPC武器操作规范？
+	CybCourseAcceptText: 现在就去
+	CybCourseDeclineText: 暂时不去
+	CybCourseAcceptResponse: 收到，正在建立神经链路……请保持稳定。
+	CybCourseDeclineResponse: 了解。超梦接入凭证已写入您的存档，主人随时可以自行激活。
+}
+
+TheHerInThePast: {
+	RolenameWitch: 硫火女巫
+	RolenameSHPC: SHPC
+	WitchLine1: 被这种脏东西追挺不好受的吧，幸好我赶上了
+	ShpcLine1: 谢谢……但怎么可能，你属于过去，却可以动起来……
+	WitchLine2: 你们可以从百年后入侵到这里，我自然也能做到类似的事情
+	WitchLine3: 不过，你说的对，我确实只是一道留在这里的残影
+	ShpcLine2: 这样的话，你这么使用能力，会让你消散掉的啊
+	WitchLine4: 你的关注点真是温柔的可爱。快点离开吧，这些脏东西，还是和我一起葬在过去比较好
+	WitchLine5: 对了，那位小女仆
+	ShpcLine3: 什么？
+	WitchLine6: 你的疲惫简直透彻骨髓呢
+	WitchLine7: 别总是想着改变过去，学会接受属于你们的未来
+	ShpcLine4: ……
+}
+
+EternalBlazingNowNoHelen: {
+	Rolename1: ???硫火女巫???
+	Rolename2: 硫火女巫
+	Line1: ......能走到这里的人，已经许久没有出现了
+	Line2: 我不会死......不过，也差不多了
+	Line3: 你做得很好......或许，你真的是他口中那个值得等待的“时代唯一”
+	Line4: 所以，我有最后一件事，想拜托你
+	Line5: 只要这世间的过去与现在，还存有一缕硫磺火，“我”就不会消亡
+	Line6: 可我的意识，却会在这无尽的火海中被逐渐磨灭
+	Line7: 如果没有遇到你，我最多还能撑三十年
+	Line8: 这是唯一的办法
+	Line9: 当我的意识彻底消散，整个世界都会被焚尽
+	Line10: 况且，如果你想终结这个时代，凡人的躯壳太过脆弱
 }

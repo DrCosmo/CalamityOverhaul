@@ -1,8 +1,8 @@
 ﻿using CalamityOverhaul.Content.ADV.ADVChoices;
 using CalamityOverhaul.Content.ADV.DialogueBoxs;
-using CalamityOverhaul.Content.LegendWeapon.HalibutLegend;
 using System;
 using System.Collections.Generic;
+using Terraria;
 using Terraria.Localization;
 using Terraria.ModLoader;
 using Terraria.ModLoader.IO;
@@ -17,13 +17,10 @@ namespace CalamityOverhaul.Content.ADV.Scenarios
         /// </summary>
         public virtual string Key => Name;
         /// <summary>
-        /// 场景是否可以重复触发
+        /// 声明式触发策略，由<see cref="ADVScenarioScheduler"/>统一评估。
+        /// 返回null表示该场景使用传统的<see cref="Update"/>手写逻辑
         /// </summary>
-        public virtual bool CanRepeat => false;
-        /// <summary>
-        /// 场景是否已完成
-        /// </summary>
-        public bool IsCompleted { get; private set; }
+        public ScenarioPolicy Policy { get; private set; }
         /// <summary>
         /// 对话行列表
         /// </summary>
@@ -66,7 +63,16 @@ namespace CalamityOverhaul.Content.ADV.Scenarios
 
         public override void VaultSetup() {
             SetStaticDefaults();
+            Policy = ConfigurePolicy();
         }
+
+        /// <summary>
+        /// 重写此方法返回<see cref="ScenarioPolicy"/>来声明触发条件，
+        /// 由<see cref="ADVScenarioScheduler"/>统一调度。
+        /// 返回null（默认）表示不参与调度器的触发评估。
+        /// <see cref="Update"/>始终被调用，与Policy独立
+        /// </summary>
+        protected virtual ScenarioPolicy ConfigurePolicy() => null;
 
         public override void Unload() { }
 
@@ -313,7 +319,6 @@ namespace CalamityOverhaul.Content.ADV.Scenarios
         public DialogueLineBuilder Line(string speaker, string content) => new DialogueLineBuilder(this, speaker, content);
 
         public void Start() {
-            if (IsCompleted && !CanRepeat) return;
             lines.Clear();//清空旧对话
             Build();//每次开始都重新构建对话内容，方便自定义内容
             if (lines.Count == 0) { Complete(); return; }
@@ -422,11 +427,9 @@ namespace CalamityOverhaul.Content.ADV.Scenarios
         }
 
         internal void Complete() {
-            if (!IsCompleted) {
-                IsCompleted = true;
-                OnComplete();
-                OnScenarioComplete();
-            }
+            OnScenarioComplete();
+
+            lines.Clear();
 
             var box = DialogueUIRegistry.Current;
             if (box != null && box.PreProcessor == PreProcessSegment) {
@@ -438,9 +441,8 @@ namespace CalamityOverhaul.Content.ADV.Scenarios
 
         public virtual void LoadData(TagCompound tag) { }
 
-        public virtual void Update(ADVSave save, HalibutPlayer halibutPlayer) { }
+        public virtual void Update(ADVSave save, Player player) { }
 
-        protected virtual void OnComplete() { }
-        public void Reset() => IsCompleted = false;
+        public virtual void Reset() { }
     }
 }

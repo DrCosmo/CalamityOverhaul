@@ -1,3 +1,4 @@
+ï»¿using CalamityOverhaul.Common;
 using Microsoft.Xna.Framework.Graphics;
 using ReLogic.Content;
 using System;
@@ -10,8 +11,8 @@ using Terraria.ModLoader;
 namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
 {
     /// <summary>
-    /// R¼¼ÄÜ£ºÍòÄ§ÖÕÑÉ£¬ÖÕ¼«±ØÉ±
-    /// ÔÚÍæ¼ÒÖÜÎ§Éú³É¾ŞĞÍÁò»Ç»ğ·¨Õó£¬ÕÙ»½ÎŞÊıÉÁµçºÍ»ğÇòºäÕ¨È«ÆÁµĞÈË
+    /// RæŠ€èƒ½ï¼šä¸‡é­”ç»ˆç„‰ï¼Œç»ˆæå¿…æ€
+    /// åœ¨ç©å®¶å‘¨å›´ç”Ÿæˆå·¨å‹ç¡«ç£ºç«æ³•é˜µï¼Œå¬å”¤æ— æ•°é—ªç”µå’Œç«çƒè½°ç‚¸å…¨å±æ•Œäºº
     /// </summary>
     internal class PandemoniumRSkill : ModProjectile
     {
@@ -20,20 +21,18 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         private ref float Phase => ref Projectile.ai[0];
         private ref float Timer => ref Projectile.ai[1];
 
-        //¼¼ÄÜ²ÎÊı
-        private const int Duration = 300; //5Ãë³ÖĞøÊ±¼ä
+        //æŠ€èƒ½å‚æ•°
+        private const int Duration = 300; //5ç§’æŒç»­æ—¶é—´
         private const float MaxCircleRadius = 1200f;
         private float currentRadius = 0f;
 
-        //ÊÓ¾õĞ§¹û
+        //è§†è§‰æ•ˆæœ
         private List<RuneLayerData> runeLayers = new();
         private List<LightningStrikeData> lightningStrikes = new();
         private List<FireOrbData> fireOrbs = new();
         private float intensity = 0f;
         private Vector2 centerPos;
 
-        [VaultLoaden(CWRConstant.Masking + "Fire")]
-        private static Asset<Texture2D> RuneAsset = null;
         [VaultLoaden(CWRConstant.Masking + "SoftGlow")]
         private static Asset<Texture2D> GlowAsset = null;
 
@@ -70,7 +69,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         public override void SetDefaults() {
             Projectile.width = 2400;
             Projectile.height = 2400;
-            Projectile.friendly = false; //¿ØÖÆÆ÷±¾Éí²»Ôì³ÉÉËº¦
+            Projectile.friendly = false; //æ§åˆ¶å™¨æœ¬èº«ä¸é€ æˆä¼¤å®³
             Projectile.DamageType = DamageClass.Magic;
             Projectile.penetrate = -1;
             Projectile.timeLeft = Duration;
@@ -81,13 +80,13 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         public override void AI() {
             Timer++;
 
-            //³õÊ¼»¯
+            //åˆå§‹åŒ–
             if (Timer == 1) {
                 centerPos = Owner.Center;
                 Projectile.Center = centerPos;
                 InitializeSkill();
 
-                //ÖÕ¼«±ØÉ±Æô¶¯ÒôĞ§×éºÏ
+                //ç»ˆæå¿…æ€å¯åŠ¨éŸ³æ•ˆç»„åˆ
                 SoundEngine.PlaySound(SoundID.DD2_BetsyScream with {
                     Volume = 2f,
                     Pitch = -0.8f
@@ -104,42 +103,42 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 }, centerPos);
             }
 
-            //¸úËæÍæ¼Ò
+            //è·Ÿéšç©å®¶
             centerPos = Owner.Center;
             Projectile.Center = centerPos;
 
-            //½×¶Î¿ØÖÆ
+            //é˜¶æ®µæ§åˆ¶
             if (Phase == 0) {
-                //Æô¶¯½×¶Î (0-60Ö¡)
+                //å¯åŠ¨é˜¶æ®µ (0-60å¸§)
                 StartupPhase();
                 if (Timer >= 60) Phase = 1;
             }
             else if (Phase == 1) {
-                //Ö÷¹¥»÷½×¶Î (60-240Ö¡)
+                //ä¸»æ”»å‡»é˜¶æ®µ (60-240å¸§)
                 MainAttackPhase();
                 if (Timer >= 240) Phase = 2;
             }
             else {
-                //½áÊø½×¶Î (240-300Ö¡)
+                //ç»“æŸé˜¶æ®µ (240-300å¸§)
                 EndPhase();
             }
 
-            //¸üĞÂËùÓĞĞ§¹û
+            //æ›´æ–°æ‰€æœ‰æ•ˆæœ
             UpdateRuneLayers();
             UpdateLightningStrikes();
             UpdateFireOrbs();
 
-            //Éú³É¹¥»÷
+            //ç”Ÿæˆæ”»å‡»
             if (Phase == 1) {
                 SpawnAttacks();
             }
 
-            //³¬Ç¿ÕÕÃ÷
+            //è¶…å¼ºç…§æ˜
             float lightPulse = (float)Math.Sin(Timer * 0.1f) * 0.3f + 0.7f;
             float lightIntensity = intensity * 5f * lightPulse;
             Lighting.AddLight(centerPos, 3f * lightIntensity, 1f * lightIntensity, 0.5f * lightIntensity);
 
-            //ÆÁÄ»Õğ¶¯
+            //å±å¹•éœ‡åŠ¨
             if (Phase == 1) {
                 Owner.GetModPlayer<CWRPlayer>().ScreenShakeValue = Math.Max(
                     Owner.GetModPlayer<CWRPlayer>().ScreenShakeValue,
@@ -149,7 +148,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         }
 
         private void InitializeSkill() {
-            //³õÊ¼»¯5²ã·ûÎÄ»·
+            //åˆå§‹åŒ–5å±‚ç¬¦æ–‡ç¯
             for (int i = 0; i < 5; i++) {
                 runeLayers.Add(new RuneLayerData {
                     Radius = 300f + i * 200f,
@@ -168,17 +167,17 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             intensity = CWRUtils.EaseOutCubic(progress);
             currentRadius = MaxCircleRadius * intensity;
 
-            //·ûÎÄ»·µ­Èë
+            //ç¬¦æ–‡ç¯æ·¡å…¥
             foreach (var layer in runeLayers) {
                 layer.Alpha = intensity;
             }
 
-            //Æô¶¯Á£×Ó
+            //å¯åŠ¨ç²’å­
             if (Main.rand.NextBool(2)) {
                 SpawnStartupParticles();
             }
 
-            //Æô¶¯ÒôĞ§
+            //å¯åŠ¨éŸ³æ•ˆ
             if (Timer % 15 == 0) {
                 SoundEngine.PlaySound(SoundID.Item74 with {
                     Volume = 0.5f + intensity * 0.5f,
@@ -191,7 +190,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             intensity = 1f;
             currentRadius = MaxCircleRadius;
 
-            //Ö÷½×¶Î³ÖĞøÒôĞ§
+            //ä¸»é˜¶æ®µæŒç»­éŸ³æ•ˆ
             if (Timer % 30 == 0) {
                 SoundEngine.PlaySound(SoundID.DD2_BetsyFireballImpact with {
                     Volume = 0.8f,
@@ -205,7 +204,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             intensity = 1f - CWRUtils.EaseInCubic(progress);
             currentRadius = MaxCircleRadius * intensity;
 
-            //·ûÎÄ»·µ­³ö
+            //ç¬¦æ–‡ç¯æ·¡å‡º
             foreach (var layer in runeLayers) {
                 layer.Alpha = intensity;
             }
@@ -215,7 +214,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             foreach (var layer in runeLayers) {
                 layer.Rotation += layer.RotationSpeed * intensity;
 
-                //»ğÑæÖ¡¸üĞÂ
+                //ç«ç„°å¸§æ›´æ–°
                 layer.FireFrameCounter += 0.5f + intensity * 0.3f;
                 if (layer.FireFrameCounter >= 1f) {
                     layer.FireFrameCounter = 0;
@@ -241,7 +240,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 orb.Life++;
                 orb.Position += orb.Velocity;
 
-                //Ñ°ÕÒµĞÈË
+                //å¯»æ‰¾æ•Œäºº
                 NPC closestNPC = null;
                 float closestDist = 400f;
 
@@ -268,9 +267,9 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         private void SpawnAttacks() {
             if (Main.myPlayer != Projectile.owner) return;
 
-            //Ã¿2Ö¡Éú³ÉÒ»´Î¹¥»÷
+            //æ¯2å¸§ç”Ÿæˆä¸€æ¬¡æ”»å‡»
             if (Timer % 2 == 0) {
-                //Ñ°ÕÒÄ¿±ê
+                //å¯»æ‰¾ç›®æ ‡
                 List<NPC> validTargets = new();
                 foreach (NPC npc in Main.npc) {
                     if (npc.active && npc.CanBeChasedBy() && npc.Distance(centerPos) < MaxCircleRadius) {
@@ -281,17 +280,17 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 if (validTargets.Count > 0) {
                     NPC target = validTargets[Main.rand.Next(validTargets.Count)];
 
-                    //Ëæ»úÑ¡Ôñ¹¥»÷·½Ê½
+                    //éšæœºé€‰æ‹©æ”»å‡»æ–¹å¼
                     int attackType = Main.rand.Next(3);
 
                     switch (attackType) {
-                        case 0: //ÉÁµç´ò»÷
+                        case 0: //é—ªç”µæ‰“å‡»
                             SpawnLightningStrike(target);
                             break;
-                        case 1: //»ğÇòºäÕ¨
+                        case 1: //ç«çƒè½°ç‚¸
                             SpawnFireballBarrage(target);
                             break;
-                        case 2: //×éºÏ¹¥»÷
+                        case 2: //ç»„åˆæ”»å‡»
                             SpawnLightningStrike(target);
                             SpawnFireOrb(target.Center);
                             break;
@@ -299,14 +298,14 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 }
             }
 
-            //»·¾³»ğÇò
+            //ç¯å¢ƒç«çƒ
             if (Timer % 5 == 0) {
                 SpawnAmbientFireOrbs();
             }
         }
 
         private void SpawnLightningStrike(NPC target) {
-            //Éú³ÉÉÁµçµ¯Ä»
+            //ç”Ÿæˆé—ªç”µå¼¹å¹•
             Vector2 strikePos = target.Center + new Vector2(Main.rand.NextFloat(-50f, 50f), -800f);
 
             Projectile.NewProjectile(
@@ -317,11 +316,11 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 (int)(Projectile.damage * 11.5f),
                 Projectile.knockBack,
                 Projectile.owner,
-                1, //±ê¼ÇÎªR¼¼ÄÜÉÁµç
+                1, //æ ‡è®°ä¸ºRæŠ€èƒ½é—ªç”µ
                 target.whoAmI
             );
 
-            //ÊÓ¾õÉÁµç
+            //è§†è§‰é—ªç”µ
             List<Vector2> lightningPath = GenerateLightningPath(strikePos, target.Center, 8);
             lightningStrikes.Add(new LightningStrikeData {
                 TargetPos = target.Center,
@@ -331,7 +330,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 LightningColor = new Color(255, 140, 80)
             });
 
-            //ÉÁµçÒôĞ§
+            //é—ªç”µéŸ³æ•ˆ
             if (Main.rand.NextBool(3)) {
                 SoundEngine.PlaySound(SoundID.Item122 with {
                     Volume = 0.7f,
@@ -341,7 +340,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         }
 
         private void SpawnFireballBarrage(NPC target) {
-            //·¢Éä3¸ö»ğÇò
+            //å‘å°„3ä¸ªç«çƒ
             for (int i = 0; i < 3; i++) {
                 Vector2 spawnOffset = new Vector2(Main.rand.NextFloat(-200f, 200f), -Main.rand.NextFloat(400f, 600f));
                 Vector2 spawnPos = target.Center + spawnOffset;
@@ -356,7 +355,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                     Projectile.knockBack,
                     Projectile.owner,
                     0,
-                    3 //±ê¼ÇÎªR¼¼ÄÜ»ğÇò
+                    3 //æ ‡è®°ä¸ºRæŠ€èƒ½ç«çƒ
                 );
             }
         }
@@ -431,7 +430,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
         }
 
         public override void OnKill(int timeLeft) {
-            //ÖÕ½á´ó±¬·¢
+            //ç»ˆç»“å¤§çˆ†å‘
             for (int i = 0; i < 200; i++) {
                 float angle = MathHelper.TwoPi * i / 200f;
                 Vector2 velocity = angle.ToRotationVector2() * Main.rand.NextFloat(15f, 30f);
@@ -447,7 +446,7 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 brimstone.noGravity = true;
             }
 
-            //ÖÕ½áÒôĞ§
+            //ç»ˆç»“éŸ³æ•ˆ
             SoundEngine.PlaySound(SoundID.DD2_ExplosiveTrapExplode with {
                 Volume = 2f,
                 Pitch = -0.7f
@@ -458,103 +457,59 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
             SpriteBatch sb = Main.spriteBatch;
             Vector2 screenCenter = centerPos - Main.screenPosition;
 
-            //»æÖÆµ×²ã°µÓ°
-            DrawBaseGlow(sb, screenCenter);
+            //ç»˜åˆ¶ç€è‰²å™¨é¢†åŸŸ
+            DrawBrimstoneDomainShader(sb, screenCenter);
 
-            //»æÖÆ·ûÎÄ²ã
-            DrawRuneLayers(sb, screenCenter);
-
-            //»æÖÆ¼¸ºÎÍ¼ĞÎ
-            DrawGeometry(sb, screenCenter);
-
-            //»æÖÆÉÁµç
+            //ç»˜åˆ¶é—ªç”µ
             DrawLightningStrikes(sb);
 
-            //»æÖÆ»ğÇò
+            //ç»˜åˆ¶ç«çƒ
             DrawFireOrbs(sb);
-
-            //»æÖÆ¶¥²ã»Ô¹â
-            DrawTopGlow(sb, screenCenter);
 
             return false;
         }
 
-        private void DrawBaseGlow(SpriteBatch sb, Vector2 screenCenter) {
-            if (!(GlowAsset?.IsLoaded ?? false)) return;
+        private void DrawBrimstoneDomainShader(SpriteBatch sb, Vector2 screenCenter) {
+            Effect shader = EffectLoader.BrimstoneDomain?.Value;
+            if (shader == null) return;
 
-            //¶à²ã°µÓ°¹âÔÎ
-            for (int i = 0; i < 6; i++) {
-                float scale = (currentRadius / GlowAsset.Value.Width) * (3f + i * 0.4f);
-                float alpha = intensity * (0.2f - i * 0.03f);
-                float rotation = Timer * 0.005f * (i % 2 == 0 ? 1 : -1);
+            Texture2D canvas = CWRAsset.Placeholder_White.Value;
+            Texture2D noise = CWRAsset.Extra_193.Value;
+            if (canvas == null || noise == null) return;
 
-                sb.Draw(
-                    GlowAsset.Value,
-                    screenCenter,
-                    null,
-                    new Color(40, 10, 10) with { A = 0 } * alpha,
-                    rotation,
-                    GlowAsset.Value.Size() / 2,
-                    scale,
-                    SpriteEffects.None,
-                    0
-                );
-            }
-        }
+            //RæŠ€èƒ½é¢†åŸŸæ›´å¤§ï¼Œä½¿ç”¨1.2å€æ‰©å±•
+            float drawRadius = currentRadius * 1.2f;
+            float drawDiameter = drawRadius * 2f;
 
-        private void DrawRuneLayers(SpriteBatch sb, Vector2 screenCenter) {
-            if (!(RuneAsset?.IsLoaded ?? false)) return;
+            //è®¾ç½®ç€è‰²å™¨å‚æ•°ï¼ˆRæŠ€èƒ½ä½¿ç”¨æ›´é«˜çš„tierå€¼3æ¥å±•ç¤ºå®Œæ•´æ³•é˜µï¼‰
+            shader.Parameters["uTime"]?.SetValue((float)Main.timeForVisualEffects * 0.016f);
+            shader.Parameters["fadeAlpha"]?.SetValue(intensity);
+            shader.Parameters["tierLevel"]?.SetValue(3f); //RæŠ€èƒ½å§‹ç»ˆæ»¡çº§æ³•é˜µ
+            shader.Parameters["expandProgress"]?.SetValue(MathHelper.Clamp(intensity, 0f, 1f));
+            shader.Parameters["pulseIntensity"]?.SetValue(0.7f + (float)Math.Sin(Timer * 0.1f) * 0.3f);
 
-            int frameWidth = RuneAsset.Value.Width / 4;
-            int frameHeight = RuneAsset.Value.Height / 4;
+            //RæŠ€èƒ½ä½¿ç”¨æ›´å¼ºçƒˆçš„è‰²å½©
+            shader.Parameters["coreColor"]?.SetValue(new Vector3(1f, 0.35f, 0.18f));
+            shader.Parameters["midColor"]?.SetValue(new Vector3(0.85f, 0.22f, 0.13f));
+            shader.Parameters["edgeColor"]?.SetValue(new Vector3(0.55f, 0.14f, 0.09f));
+            shader.Parameters["voidColor"]?.SetValue(new Vector3(0.2f, 0.05f, 0.04f));
+            shader.Parameters["uNoiseTex"]?.SetValue(noise);
 
-            foreach (var layer in runeLayers) {
-                if (layer.Alpha < 0.01f) continue;
+            sb.End();
+            sb.Begin(SpriteSortMode.Immediate, BlendState.Additive,
+                SamplerState.LinearWrap, DepthStencilState.None, RasterizerState.CullNone,
+                null, Main.GameViewMatrix.TransformationMatrix);
 
-                for (int i = 0; i < layer.RuneCount; i++) {
-                    float angle = layer.Rotation + MathHelper.TwoPi * i / layer.RuneCount;
-                    Vector2 pos = screenCenter + angle.ToRotationVector2() * layer.Radius * (currentRadius / MaxCircleRadius);
+            shader.CurrentTechnique.Passes[0].Apply();
 
-                    int frameX = layer.FireFrame % 4;
-                    int frameY = layer.FireFrame / 4;
-                    Rectangle fireFrame = new Rectangle(frameX * frameWidth, frameY * frameHeight, frameWidth, frameHeight);
+            sb.Draw(canvas, screenCenter, null, Color.White,
+                0f, canvas.Size() * 0.5f, new Vector2(drawDiameter, drawDiameter),
+                SpriteEffects.None, 0f);
 
-                    float pulse = (float)Math.Sin(Timer * 0.1f + i) * 0.3f + 0.7f;
-                    Color fireColor = new Color(180, 60, 40) * layer.Alpha * pulse;
-                    fireColor.A = 0;
-
-                    sb.Draw(
-                        RuneAsset.Value,
-                        pos,
-                        fireFrame,
-                        fireColor,
-                        angle + MathHelper.PiOver2,
-                        new Vector2(frameWidth, frameHeight) / 2f,
-                        0.9f,
-                        SpriteEffects.None,
-                        0
-                    );
-                }
-            }
-        }
-
-        private void DrawGeometry(SpriteBatch sb, Vector2 screenCenter) {
-            Texture2D pixel = CWRAsset.Placeholder_White.Value;
-
-            //»æÖÆ¶à¸öĞı×ªµÄ¼¸ºÎÍ¼ĞÎ
-            float rotation1 = Timer * 0.01f;
-            float rotation2 = Timer * -0.015f;
-
-            Color geometryColor = new Color(120, 30, 20) * intensity;
-
-            //Íâ²ã´óÁùÃ¢ĞÇ
-            DrawHexagram(sb, pixel, screenCenter, currentRadius * 0.8f, 4f, geometryColor * 0.6f, rotation1);
-
-            //ÖĞ²ãÎåÃ¢ĞÇ
-            DrawPentagram(sb, pixel, screenCenter, currentRadius * 0.6f, 3.5f, geometryColor * 0.7f, rotation2);
-
-            //ÄÚ²ã°Ë±ßĞÎ
-            DrawOctagon(sb, pixel, screenCenter, currentRadius * 0.4f, 3f, geometryColor * 0.8f, rotation1 * 1.5f);
+            sb.End();
+            sb.Begin(SpriteSortMode.Deferred, BlendState.AlphaBlend,
+                Main.DefaultSamplerState, DepthStencilState.None, RasterizerState.CullNone,
+                null, Main.GameViewMatrix.TransformationMatrix);
         }
 
         private void DrawLightningStrikes(SpriteBatch sb) {
@@ -583,122 +538,22 @@ namespace CalamityOverhaul.Content.Items.Magic.Pandemoniums
                 float lifeRatio = 1f - (orb.Life / orb.MaxLife);
                 float scale = orb.Scale * lifeRatio;
 
-                //Íâ²ã»Ô¹â
-                sb.Draw(
-                    GlowAsset.Value,
-                    drawPos,
-                    null,
-                    orb.OrbColor with { A = 0 } * lifeRatio * 0.6f,
-                    orb.Life * 0.1f,
-                    GlowAsset.Value.Size() / 2,
-                    scale * 0.5f,
-                    SpriteEffects.None,
-                    0
-                );
+                sb.Draw(GlowAsset.Value, drawPos, null,
+                    orb.OrbColor with { A = 0 } * lifeRatio * 0.6f, orb.Life * 0.1f,
+                    GlowAsset.Value.Size() / 2, scale * 0.5f, SpriteEffects.None, 0);
 
-                //ºËĞÄ
-                sb.Draw(
-                    GlowAsset.Value,
-                    drawPos,
-                    null,
-                    Color.White with { A = 0 } * lifeRatio * 0.4f,
-                    orb.Life * 0.15f,
-                    GlowAsset.Value.Size() / 2,
-                    scale * 0.3f,
-                    SpriteEffects.None,
-                    0
-                );
+                sb.Draw(GlowAsset.Value, drawPos, null,
+                    Color.White with { A = 0 } * lifeRatio * 0.4f, orb.Life * 0.15f,
+                    GlowAsset.Value.Size() / 2, scale * 0.3f, SpriteEffects.None, 0);
             }
         }
 
-        private void DrawTopGlow(SpriteBatch sb, Vector2 screenCenter) {
-            if (!(GlowAsset?.IsLoaded ?? false)) return;
-
-            float pulse = (float)Math.Sin(Timer * 0.15f) * 0.4f + 0.6f;
-
-            //ºËĞÄ»Ô¹â
-            for (int i = 0; i < 4; i++) {
-                float scale = (currentRadius / GlowAsset.Value.Width) * (1.5f + i * 0.3f);
-                float alpha = intensity * pulse * (0.4f - i * 0.08f);
-                float rotation = -Timer * 0.02f * (i + 1);
-
-                Color glowColor = i switch {
-                    0 => new Color(255, 80, 40),
-                    1 => new Color(200, 50, 30),
-                    2 => new Color(150, 40, 25),
-                    _ => new Color(100, 25, 15)
-                };
-
-                sb.Draw(
-                    GlowAsset.Value,
-                    screenCenter,
-                    null,
-                    glowColor with { A = 0 } * alpha,
-                    rotation,
-                    GlowAsset.Value.Size() / 2,
-                    scale,
-                    SpriteEffects.None,
-                    0
-                );
-            }
-        }
-
-        private void DrawHexagram(SpriteBatch sb, Texture2D pixel, Vector2 center, float radius, float thickness, Color color, float rotation) {
-            for (int t = 0; t < 2; t++) {
-                Vector2[] vertices = new Vector2[3];
-                for (int i = 0; i < 3; i++) {
-                    float angle = rotation + (t * MathHelper.Pi) + i * MathHelper.TwoPi / 3f;
-                    vertices[i] = center + angle.ToRotationVector2() * radius;
-                }
-
-                for (int i = 0; i < 3; i++) {
-                    DrawLine(sb, pixel, vertices[i], vertices[(i + 1) % 3], thickness, color);
-                }
-            }
-        }
-
-        private void DrawPentagram(SpriteBatch sb, Texture2D pixel, Vector2 center, float radius, float thickness, Color color, float rotation) {
-            int points = 5;
-            Vector2[] vertices = new Vector2[points];
-
-            for (int i = 0; i < points; i++) {
-                float angle = rotation + i * MathHelper.TwoPi / points - MathHelper.PiOver2;
-                vertices[i] = center + angle.ToRotationVector2() * radius;
-            }
-
-            for (int i = 0; i < points; i++) {
-                DrawLine(sb, pixel, vertices[i], vertices[(i + 2) % points], thickness, color);
-            }
-        }
-
-        private void DrawOctagon(SpriteBatch sb, Texture2D pixel, Vector2 center, float radius, float thickness, Color color, float rotation) {
-            int sides = 8;
-            Vector2 prev = center + rotation.ToRotationVector2() * radius;
-
-            for (int i = 1; i <= sides; i++) {
-                float angle = rotation + i * MathHelper.TwoPi / sides;
-                Vector2 curr = center + angle.ToRotationVector2() * radius;
-                DrawLine(sb, pixel, prev, curr, thickness, color);
-                prev = curr;
-            }
-        }
-
-        private void DrawLine(SpriteBatch sb, Texture2D pixel, Vector2 start, Vector2 end, float thickness, Color color) {
+        private static void DrawLine(SpriteBatch sb, Texture2D pixel, Vector2 start, Vector2 end, float thickness, Color color) {
             Vector2 diff = end - start;
             float length = diff.Length();
             if (length < 1f) return;
-
-            sb.Draw(
-                pixel,
-                start,
-                new Rectangle(0, 0, 1, 1),
-                color,
-                diff.ToRotation(),
-                Vector2.Zero,
-                new Vector2(length, thickness),
-                SpriteEffects.None,
-                0f
-            );
+            sb.Draw(pixel, start, new Rectangle(0, 0, 1, 1), color, diff.ToRotation(),
+                Vector2.Zero, new Vector2(length, thickness), SpriteEffects.None, 0f);
         }
     }
 }
