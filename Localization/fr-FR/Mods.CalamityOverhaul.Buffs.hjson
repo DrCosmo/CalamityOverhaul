@@ -14,21 +14,21 @@ VoidErosion: {
 }
 
 DestroyerSummonBuff: {
-	// DisplayName: Destroyer Summon Buff
-	// Description: The Mini Destroyer will follow you into battle
+	DisplayName: Invocation du Destructeur
+	Description: Le Mini Destructeur vous suivra au combat
 }
 
 FrenziedMachineSoul: {
-	// DisplayName: Frenzied Machine Soul
-	// Description: The Machine Spirit is overjoyed!
+	DisplayName: Âme mécanique frénétique
+	Description: L’esprit de la machine est en extase !
 }
 
 FishoilBuff: {
-	// DisplayName: Fishoil
-	// Description: You feel that your skin is becoming oily
+	DisplayName: Huile de poisson
+	Description: Vous sentez que votre peau devient huileuse
 }
 
 HyperDisintegration: {
-	// DisplayName: Hyper Disintegration
-	// Description: Mods.CalamityOverhaul.Buffs.HyperDisintegration.Description
+	DisplayName: Hyperdésintégration
+	Description: Désintégration accélérée au niveau moléculaire
 }

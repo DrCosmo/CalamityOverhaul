@@ -6,7 +6,7 @@ CWRServerConfig: {
 		Tooltip:
 			'''
 			L’activation modifiera la plupart des armes.
-			[c/FF0000:Pour une expérience optimale du contenu de Calamité, veuillez l'activer !]
+			[c/FF0000:Pour une expérience optimale du contenu de Calamity, veuillez l'activer !]
 			'''
 	}
 
@@ -20,76 +20,76 @@ CWRServerConfig: {
 		Tooltip:
 			'''
 			Activé par défaut, Murasama crée un effet de bris d'écran lorsqu'il utilise sa technique finale pour améliorer la sensation de coup
-			Désactiver ceci désactive ces effets spéciaux, selon vos préférences
+			Désactiver cette option supprime ces effets spéciaux selon vos préférences.
 			'''
 	}
 
 	DomainConciseDisplay: {
-		// Label: Domain Minimal Display
-		// Tooltip: Off by default. When enabled, most visual effects within the domain will be hidden.
+		Label: Affichage minimal du domaine
+		Tooltip: Désactivé par défaut. Lorsque cette option est activée, la plupart des effets visuels du domaine sont masqués.
 	}
 
 	Headers: {
-		CWRSystem: Paramètres du système de grande réparation
-		CWRWeapon: Paramètres d'armes de grande réparation
-		CWRUI: Paramètres d'interface utilisateur de grande réparation
-		// CWRWorldGen: World Gen Configs
+		CWRSystem: Paramètres système de Calamity Overhaul
+		CWRWeapon: Paramètres des armes de Calamity Overhaul
+		CWRUI: Paramètres d'interface de Calamity Overhaul
+		CWRWorldGen: Paramètres de génération du monde
 	}
 
 	LensEasing: {
 		Label: Adoucissement de la caméra
-		Tooltip: Lorsqu'activé, les déplacements rapides à longue distance adoucissent la caméra, évitant ainsi toute sensation de malaise due à un déplacement trop rapide
+		Tooltip: Lorsqu'activé, les déplacements rapides sur de longues distances adoucissent les mouvements de caméra afin d'éviter toute sensation d'inconfort.
 	}
 
 	WeaponHandheldDisplay: {
-		Label: Affichage portatif des armes
+		Label: Affichage des armes portatives
 		Tooltip:
 			'''
-			Lorsqu'activé, la plupart des armes auront des animations de tenue et des actions spéciales
-			Cette fonctionnalité a une priorité très élevée et remplacera la plupart des animations portatives des mods tiers
-			Activé par défaut, et pour des raisons d'expérience visuelle, l'auteur ne recommande pas de le désactiver
+			Lorsqu'activé, la plupart des armes disposeront d'animations de tenue et d'actions spéciales.
+			Cette fonctionnalité a une priorité très élevée et remplacera la plupart des animations portatives des mods tiers.
+			Activé par défaut, et pour une meilleure expérience visuelle, l'auteur recommande de ne pas le désactiver.
 			'''
 	}
 
 	BowArrowDraw: {
-		Label: Dessin dynamique des flèches de l'arc
+		Label: Animation dynamique des flèches d'arc
 		Tooltip:
 			'''
-			Lorsque les joueurs attaquent avec un arc, une animation dynamique des flèches correspondantes est affichée en temps réel
-			Activé par défaut, ajustable selon les préférences personnelles
+			Lorsqu'un joueur attaque avec un arc, une animation dynamique des flèches correspondantes est affichée en temps réel.
+			Activé par défaut, peut être ajusté selon les préférences personnelles.
 			'''
 	}
 
 	EnableCasingsEntity: {
-		Label: Activer les entités d'étui de cartouches
-		Tooltip: Si vous trouvez les douilles éparpillées dérangeantes, désactiver cette option serait une bonne idée
+		Label: Activer les douilles physiques
+		Tooltip: Si vous trouvez les douilles éparpillées gênantes, désactiver cette option peut être une bonne idée.
 	}
 
 	WeaponLazyRotationAngle: {
-		// Label: Weapon Inertia Rotation Angle Update
-		/* Tooltip:
+		Label: Mise à jour de l'angle d'inertie des armes
+		Tooltip:
 			'''
-			If enabled, it makes the usage animation of handheld weapons closer to the vanilla game,
-			where the facing direction changes only once when firing.
-			''' */
+			Lorsqu'activé, l'animation d'utilisation des armes portatives se rapproche davantage du jeu vanilla,
+			où la direction du personnage ne change qu'une seule fois lors du tir.
+			'''
 	}
 
 	BiologyOverhaul: {
-		Label: Modification du comportement biologique [c/06e33f:(expérimental)]
+		Label: Refonte du comportement biologique [c/06e33f:(expérimental)]
 		Tooltip:
 			'''
-			[c/c20909:Non achevé]
-			Activé par défaut, modifie le comportement de l'IA de certaines créatures, comme les BossAI dans le module de mort
-			Cela peut considérablement augmenter la difficulté du jeu, et peut être désactivé selon les préférences personnelles
+			[c/c20909:Inachevé]
+			Activé par défaut, modifie le comportement de l'IA de certaines créatures, notamment les BossAI dans le module de difficulté.
+			Cela peut considérablement augmenter la difficulté du jeu et peut être désactivé selon vos préférences.
 			'''
 	}
 
 	EnableSwordLight: {
-		Label: Activer l'éclat de l'épée
+		Label: Activer les effets lumineux des épées
 		Tooltip:
 			'''
-			Activé par défaut, de nombreuses épées auront des effets lumineux éclatants.
-			Dans la plupart des cas, cela rendra le jeu plus cool.
+			Activé par défaut, de nombreuses épées bénéficieront d'effets lumineux éclatants.
+			Dans la plupart des cas, cela rendra le jeu encore plus impressionnant.
 			'''
 	}
 
@@ -101,67 +101,67 @@ CWRServerConfig: {
 			Style 2 : Raffiné - Compact
 			Style 3 : Classique - Flottant au-dessus de la tête
 			Style 4 : Classique - Compact
-			Style 5: Conceal
+			Style 5 : Masqué
 			'''
 	}
 
 	MuraPosStyleType: {
-		Label: Sélection de la position d'interface Mura
+		Label: Sélection de la position de l'interface Mura
 		Tooltip:
 			'''
 			Préréglage 1 : En bas à droite
 			Préréglage 2 : En bas à gauche
-			Préréglage 3 : Au centre en haut
+			Préréglage 3 : En haut au centre
 			'''
 	}
 
 	ShowReloadingProgressUI: {
-		// Label: Show Reloading Progress
-		// Tooltip: When opened, the ammo loading progress will be displayed
+		Label: Afficher la progression du rechargement
+		Tooltip: Lorsque cette option est activée, la progression du chargement des munitions est affichée.
 	}
 
 	QuestLog: {
-		// Label: Quest Log Guidance
-		/* Tooltip:
+		Label: Guide du journal de quêtes
+		Tooltip:
 			'''
-			When enabled, the quest log will guide you through game progression
-			You can access the quest interface via the Quest Book item, inventory UI, or a hotkey to view current quests
-			Enabled by default. Disabling this removes all quest guidance
-			''' */
+			Lorsqu'activé, le journal de quêtes vous guidera dans la progression du jeu.
+			Vous pouvez accéder à l'interface des quêtes via le Livre de quêtes, l'inventaire ou un raccourci clavier afin de consulter vos quêtes actuelles.
+			Activé par défaut. Le désactiver supprime toute assistance liée aux quêtes.
+			'''
 	}
 
 	DialogueBox_Scale_Value: {
-		// Label: Dialogue Box Scale
-		// Tooltip: Adjusts the overall size of the dialogue box
+		Label: Taille de la boîte de dialogue
+		Tooltip: Ajuste la taille globale de la boîte de dialogue.
 	}
 
 	GenWindGrivenGenerator: {
-		// Label: Generate Wind-Driven Generator
-		// Tooltip: Places wind-powered generator structures throughout the world.
+		Label: Générer des générateurs éoliens
+		Tooltip: Place des structures de générateurs alimentés par le vent à travers le monde.
 	}
 
 	GenWGGCollector: {
-		// Label: Generate Scavenger Outposts
-		// Tooltip: Randomly spawns hostile scavenger structures throughout the world. This setting only takes effect in Legendary worlds.
+		Label: Générer des avant-postes de pilleur 
+		Tooltip: Fait apparaître aléatoirement des structures hostiles de pilleur dans le monde. Ce paramètre ne prend effet que dans les mondes Légendaires.
 	}
 
 	GenJunkmanBase: {
-		// Label: Generate Junkman's Base
-		// Tooltip: Spawns a scavenger stronghold base in wastelands or underground.
+		Label: Générer la base du Ferrailleur
+		Tooltip: Fait apparaître une forteresse de pilleur dans les terres désolées ou dans les souterrain.
 	}
 
 	GenRocketHut: {
-		// Label: Generate Rocket Hut
-		// Tooltip: Generates a mysterious shack containing rocket components or technological relics.
+		Label: Générer une cabane-fusée
+		Tooltip: Génère une mystérieuse cabane contenant des composants de fusée ou des reliques technologiques.
 	}
 
 	GenSylvanOutpost: {
-		// Label: Generate Sylvan Outpost
-		// Tooltip: Spawns wooden elven or forest guardian outposts deep within the forest.
+		Label: Générer un avant-poste sylvestre
+		Tooltip: Fait apparaître des avant-postes d'elfes ou de gardiens forestiers au cœur des forêts.
 	}
 
 	SignalTowerDecryptionAutoPlay: {
-		// Label: Signal Tower Decryption Auto Play
-		// Tooltip: ""
+		Label: Décryptage automatique des tours de signal
+		Tooltip: ""
 	}
 }

@@ -1,20 +1,20 @@
-// QuestLog_Key.DisplayName: Quest Log: Toggle Main Interface
-// QuestManager_Key.DisplayName: Quest Manager: Toggle Management Panel
-// Legend_UIControl.DisplayName: Toggle Legendary Weapon HUD
-// Legend_Domain.DisplayName: Domain Expansion
-// Legend_Teleport.DisplayName: Domain Teleport
-// Legend_Restart.DisplayName: Self-Restart
-// HackTime_Toggle.DisplayName: Hack Time
-// CyberBanish_Key.DisplayName: Cyberspace: Banish
-// CyberFreeze_Key.DisplayName: Cyberspace: Freeze
-// CyberwareSkill_Key.DisplayName: Cyberware Skill
-// VoidTimeShift_Key.DisplayName: Void Time Shift
-// Halibut_Clone.DisplayName: Halibut: Past Self Invasion
-// Halibut_Superposition.DisplayName: Halibut: Superposition
-// Halibut_Skill_L.DisplayName: Halibut: Switch Skill Left
-// Halibut_Skill_R.DisplayName: Halibut: Switch Skill Right
+QuestLog_Key.DisplayName: Journal de quêtes : Afficher/Masquer l’interface principale
+QuestManager_Key.DisplayName: Gestionnaire de quêtes : Afficher/Masquer le panneau de gestion
+Legend_UIControl.DisplayName: Afficher/Masquer l’interface des armes légendaires
+Legend_Domain.DisplayName: Expansion du domaine
+Legend_Teleport.DisplayName: Téléportation du domaine
+Legend_Restart.DisplayName: Auto-redémarrage
+HackTime_Toggle.DisplayName: Temps de piratage
+CyberBanish_Key.DisplayName: Cyberespace : Bannissement
+CyberFreeze_Key.DisplayName: Cyberespace : Gel
+CyberwareSkill_Key.DisplayName: Compétence cybernétique
+VoidTimeShift_Key.DisplayName: Distorsion temporelle du vide
+Halibut_Clone.DisplayName: Halibut : Invasion du moi passé
+Halibut_Superposition.DisplayName: Halibut : Superposition
+Halibut_Skill_L.DisplayName: Halibut : Changer de compétence à gauche
+Halibut_Skill_R.DisplayName: Halibut : Changer de compétence à droite
 Murasama_TriggerKey.DisplayName: Murasama : Touche de déclenchement
 Murasama_DownKey.DisplayName: Murasama : Frappe vers le bas
-// WeponSkill_Q.DisplayName: Weapon: Left Skill Key
-// WeponSkill_R.DisplayName: Weapon: Right Skill Key
-// Accessory_Skills.DisplayName: Accessory Skill
+WeponSkill_Q.DisplayName: Arme : Compétence gauche
+WeponSkill_R.DisplayName: Arme : Compétence droite
+Accessory_Skills.DisplayName: Compétence d’accessoire
